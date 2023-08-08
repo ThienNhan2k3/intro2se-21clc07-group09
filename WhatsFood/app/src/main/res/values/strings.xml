@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WhatsFood</string>
+    <string name="error">Something went wrong! Please try again later!</string>
 </resources>
