@@ -9,6 +9,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.example.whatsfood.Buyer.BuyerBottomNavigationActivity;
+import com.example.whatsfood.Seller.SellerBottomNavigationActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(MainActivity.this, BuyerBottomNavigationActivity.class));
+                startActivity(new Intent(MainActivity.this, SellerBottomNavigationActivity.class));
                 finish();
             }
         }, 900);
