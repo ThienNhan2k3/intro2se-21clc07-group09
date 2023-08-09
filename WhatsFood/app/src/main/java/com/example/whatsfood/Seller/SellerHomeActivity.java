@@ -1,4 +1,4 @@
-package com.example.whatsfood;
+package com.example.whatsfood.Seller;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,22 +7,18 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Objects;
+import com.example.whatsfood.R;
 
-public class BuyerHomeActivity extends Fragment {
-
+public class SellerHomeActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_buyer_home, null);
-        requireActivity().setTitle("Home");
+        View view = inflater.inflate(R.layout.activity_seller_home, null);
+        getActivity().setTitle("Home");
         setHasOptionsMenu(true);
-        return v;
+        return view;
     }
 }

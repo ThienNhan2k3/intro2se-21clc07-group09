@@ -1,4 +1,4 @@
-package com.example.whatsfood;
+package com.example.whatsfood.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.whatsfood.R;
 
 public class BuyerOrderListActivity extends Fragment {
 

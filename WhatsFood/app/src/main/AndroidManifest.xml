@@ -13,20 +13,31 @@
         android:theme="@style/Theme.WhatsFood"
         tools:targetApi="31">
         <activity
+            android:name=".Seller.SellerNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Seller.SellerFoodListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Seller.SellerHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Seller.SellerBottomNavigationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProfileActivity"
             android:exported="false" />
-
         <activity
-            android:name=".BuyerShoppingCartActivity"
+            android:name=".Buyer.BuyerShoppingCartActivity"
             android:exported="false" />
         <activity
-            android:name=".BuyerOrderListActivity"
+            android:name=".Buyer.BuyerOrderListActivity"
             android:exported="false" />
         <activity
-            android:name=".BuyerHomeActivity"
+            android:name=".Buyer.BuyerHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".BuyerBottomNavigationActivity"
+            android:name=".Buyer.BuyerBottomNavigationActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
