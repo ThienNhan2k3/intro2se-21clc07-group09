@@ -10,17 +10,17 @@
         android:id="@+id/buyer_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/buyer_bottom_navigation" />
+        android:layout_above="@id/admin_bottom_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/buyer_bottom_navigation"
+        android:id="@+id/admin_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:background="?android:attr/windowBackground"
         android:layout_alignParentBottom="true"
         app:itemTextColor="@menu/menu_item_color"
         app:itemIconTint="@menu/menu_item_color"
-        app:menu="@menu/buyer_bottom_navigation_item"
+        app:menu="@menu/admin_bottom_navigation_item"
         />
 
 </RelativeLayout>

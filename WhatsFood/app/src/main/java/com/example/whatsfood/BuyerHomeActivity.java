@@ -13,13 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Objects;
+
 public class BuyerHomeActivity extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_buyer_home, null);
-        getActivity().setTitle("Home");
+        requireActivity().setTitle("Home");
         setHasOptionsMenu(true);
         return v;
     }
