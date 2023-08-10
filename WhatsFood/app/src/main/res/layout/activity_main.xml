@@ -13,9 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="WhatsFood"
-        android:textSize="52sp"
         android:textColor="@color/red"
-        android:textStyle="bold"
-        />
+        android:textSize="52sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
