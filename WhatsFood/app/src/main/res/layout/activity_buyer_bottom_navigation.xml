@@ -18,8 +18,8 @@
         android:layout_height="61dp"
         android:background="?android:attr/windowBackground"
         android:layout_alignParentBottom="true"
-        app:itemTextColor="@menu/menu_item_color"
-        app:itemIconTint="@menu/menu_item_color"
+        app:itemTextColor="@drawable/menu_item_color"
+        app:itemIconTint="@drawable/menu_item_color"
         app:menu="@menu/buyer_bottom_navigation_item"
         />
 

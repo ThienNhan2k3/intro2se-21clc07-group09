@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BuyerBottomNavigationActivity">
+    tools:context=".Admin.AdminBottomNavigationActivity">
 
     <FrameLayout
-        android:id="@+id/buyer_fragment_container"
+        android:id="@+id/admin_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/admin_bottom_navigation" />
@@ -18,8 +18,8 @@
         android:layout_height="61dp"
         android:background="?android:attr/windowBackground"
         android:layout_alignParentBottom="true"
-        app:itemTextColor="@menu/menu_item_color"
-        app:itemIconTint="@menu/menu_item_color"
+        app:itemTextColor="@drawable/menu_item_color"
+        app:itemIconTint="@drawable/menu_item_color"
         app:menu="@menu/admin_bottom_navigation_item"
         />
 
