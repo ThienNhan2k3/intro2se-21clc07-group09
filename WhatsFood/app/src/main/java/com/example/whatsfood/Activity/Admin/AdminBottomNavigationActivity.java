@@ -1,29 +1,27 @@
-package com.example.whatsfood.Buyer;
+package com.example.whatsfood.Activity.Admin;
+
+import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
-import com.example.whatsfood.ProfileActivity;
 import com.example.whatsfood.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class BuyerBottomNavigationActivity extends AppCompatActivity {
-
+public class AdminBottomNavigationActivity extends AppCompatActivity {
     Fragment fragment;
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buyer_bottom_navigation);
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.buyer_bottom_navigation);
+        setContentView(R.layout.activity_admin_bottom_navigation);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.admin_bottom_navigation);
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.buyer_fragment_container, new BuyerHomeActivity())
+                .replace(R.id.admin_fragment_container, new AdminHomeActivity())
                 .commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -31,19 +29,17 @@ public class BuyerBottomNavigationActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 fragment = null;
-                if (id == R.id.buyer_home) {
-                    fragment = new BuyerHomeActivity();
-                } else if (id == R.id.buyer_order_list) {
-                    fragment = new BuyerOrderListActivity();
-                } else if (id == R.id.buyer_shopping_cart) {
-                    fragment = new BuyerShoppingCartActivity();
-                } else if (id == R.id.buyer_profile) {
-                    fragment = new ProfileActivity();
+                if (id == R.id.admin_navigation_users) {
+                    fragment = new AdminHomeActivity();
+                } else if (id == R.id.admin_navigation_register) {
+                    fragment = new AdminSellerRegisterRequestsActivity();
+                } else if (id == R.id.admin_navigation_report) {
+                    fragment = new AdminReportsListActivity();
                 }
                 if (fragment != null) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.buyer_fragment_container, fragment)
+                            .replace(R.id.admin_fragment_container, fragment)
                             .commit();
                     return true;
                 }

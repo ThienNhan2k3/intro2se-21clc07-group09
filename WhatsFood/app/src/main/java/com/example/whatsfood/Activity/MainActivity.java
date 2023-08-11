@@ -1,4 +1,4 @@
-package com.example.whatsfood;
+package com.example.whatsfood.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,8 +9,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.example.whatsfood.Buyer.BuyerBottomNavigationActivity;
-import com.example.whatsfood.Seller.SellerBottomNavigationActivity;
+import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
+import com.example.whatsfood.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, BuyerBottomNavigationActivity.class));
                 finish();
             }
         }, 900);

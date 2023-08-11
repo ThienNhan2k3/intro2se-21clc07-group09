@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Seller.SellerBottomNavigationActivity">
+    tools:context=".Activity.Seller.SellerBottomNavigationActivity">
 
     <FrameLayout
         android:id="@+id/seller_fragment_container"

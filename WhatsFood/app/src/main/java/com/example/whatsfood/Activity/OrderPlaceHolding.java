@@ -1,4 +1,4 @@
-package com.example.whatsfood;
+package com.example.whatsfood.Activity;
 
 import android.app.Activity;
 
