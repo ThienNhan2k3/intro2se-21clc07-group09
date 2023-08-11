@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WhatsFood</string>
     <string name="error">Something went wrong! Please try again later!</string>
+    <string name="title_activity_select_account_type">SelectAccountTypeActivity</string>
 </resources>
