@@ -13,6 +13,15 @@
         android:theme="@style/Theme.WhatsFood"
         tools:targetApi="31">
         <activity
+            android:name=".Admin.AdminReportsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminSellerRegisterRequestsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
@@ -44,6 +53,9 @@
             android:exported="false" />
         <activity
             android:name=".Buyer.BuyerBottomNavigationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminBottomNavigationActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
