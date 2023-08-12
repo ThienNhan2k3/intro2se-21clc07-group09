@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,52 +15,55 @@
         android:theme="@style/Theme.WhatsFood"
         tools:targetApi="31">
         <activity
-            android:name=".Admin.AdminReportsListActivity"
+            android:name=".Activity.Seller.SellerViewSelectedFoodActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin.AdminSellerRegisterRequestsActivity"
+            android:name=".Activity.Admin.AdminReportsListActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin.AdminHomeActivity"
+            android:name=".Activity.Admin.AdminSellerRegisterRequestsActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.Admin.AdminHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".SelectAccountTypeActivity"
+            android:name=".Activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Seller.SellerNotificationActivity"
+            android:name=".Activity.SelectAccountTypeActivity"
             android:exported="false" />
         <activity
-            android:name=".Seller.SellerFoodListActivity"
+            android:name=".Activity.Seller.SellerNotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".Seller.SellerHomeActivity"
+            android:name=".Activity.Seller.SellerFoodListActivity"
             android:exported="false" />
         <activity
-            android:name=".Seller.SellerBottomNavigationActivity"
+            android:name=".Activity.Seller.SellerHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".Activity.Seller.SellerBottomNavigationActivity"
             android:exported="false" />
         <activity
-            android:name=".Buyer.BuyerShoppingCartActivity"
+            android:name=".Activity.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".Buyer.BuyerOrderListActivity"
+            android:name=".Activity.Buyer.BuyerShoppingCartActivity"
             android:exported="false" />
         <activity
-            android:name=".Buyer.BuyerHomeActivity"
+            android:name=".Activity.Buyer.BuyerOrderListActivity"
             android:exported="false" />
         <activity
-            android:name=".Buyer.BuyerBottomNavigationActivity"
+            android:name=".Activity.Buyer.BuyerHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin.AdminBottomNavigationActivity"
+            android:name=".Activity.Buyer.BuyerBottomNavigationActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.Admin.AdminBottomNavigationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

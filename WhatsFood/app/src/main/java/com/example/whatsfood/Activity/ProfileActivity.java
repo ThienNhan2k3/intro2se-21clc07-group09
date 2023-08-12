@@ -1,4 +1,4 @@
-package com.example.whatsfood.Admin;
+package com.example.whatsfood.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,14 +12,14 @@ import android.view.ViewGroup;
 
 import com.example.whatsfood.R;
 
-public class AdminHomeActivity extends Fragment {
+public class ProfileActivity extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_admin_home, null);
-        getActivity().setTitle("Home");
+        View v = inflater.inflate(R.layout.activity_buyer_shopping_cart, null);
+        getActivity().setTitle("Profile");
         setHasOptionsMenu(true);
-        return view;
+        return v;
     }
 }

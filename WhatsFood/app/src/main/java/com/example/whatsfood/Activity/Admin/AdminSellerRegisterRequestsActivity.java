@@ -1,4 +1,4 @@
-package com.example.whatsfood.Admin;
+package com.example.whatsfood.Activity.Admin;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -1,7 +1,6 @@
-package com.example.whatsfood.Seller;
+package com.example.whatsfood.Activity.Seller;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -9,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.whatsfood.ProfileActivity;
+import com.example.whatsfood.Activity.ProfileActivity;
 import com.example.whatsfood.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

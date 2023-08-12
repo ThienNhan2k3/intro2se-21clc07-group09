@@ -16,6 +16,8 @@
     <color name="theme_gray">#D9D9D9</color>
 
     <color name="background_color">#0F0F1D</color>
+    <color name="order_placeholder_color">#222240</color>
+
 
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.whatsfood.Buyer;
+package com.example.whatsfood.Activity.Seller;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,14 +12,16 @@ import android.view.ViewGroup;
 
 import com.example.whatsfood.R;
 
-public class BuyerOrderListActivity extends Fragment {
-
+public class SellerFoodListActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_buyer_order_list, null);
-        getActivity().setTitle("Order List");
+        View view = inflater.inflate(R.layout.activity_seller_food_list, null);
+        getActivity().setTitle("Food List");
         setHasOptionsMenu(true);
-        return v;
+
+
+
+        return view;
     }
 }
