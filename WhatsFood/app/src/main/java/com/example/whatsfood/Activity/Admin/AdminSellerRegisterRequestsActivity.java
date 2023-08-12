@@ -16,8 +16,8 @@ public class AdminSellerRegisterRequestsActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_admin_seller_register_requests, null);
-        getActivity().setTitle("Seller register requests");
+        View view = inflater.inflate(R.layout.activity_admin_seller_register_requests, container);
+        requireActivity().setTitle("Seller register requests");
         setHasOptionsMenu(true);
         return view;
     }
