@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
+import com.example.whatsfood.Activity.Seller.SellerBottomNavigationActivity;
 import com.example.whatsfood.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                startActivity(new Intent(MainActivity.this, BuyerBottomNavigationActivity.class));
+                startActivity(new Intent(MainActivity.this, SellerBottomNavigationActivity.class));
                 finish();
             }
         }, 900);

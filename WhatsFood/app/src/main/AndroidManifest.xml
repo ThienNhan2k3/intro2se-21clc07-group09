@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsFood"
         tools:targetApi="31">
+        <activity
+            android:name=".Activity.Seller.SellerViewSelectedFoodActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.Admin.AdminReportsListActivity"
             android:exported="false" />
@@ -31,7 +36,7 @@
             android:name=".Activity.Seller.SellerNotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Seller.SellerFoodListActivity"
+            android:name=".Activity.Seller.SellerItemListActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.Seller.SellerHomeActivity"

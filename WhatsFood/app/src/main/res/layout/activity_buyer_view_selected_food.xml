@@ -91,7 +91,7 @@
         app:layout_constraintStart_toEndOf="@+id/main_activity_logo2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.56"
-        app:srcCompat="@drawable/arrow" />
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -118,7 +118,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/main_activity_logo3"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:srcCompat="@drawable/add_to_cart_button" />
+        app:srcCompat="@drawable/plus_button" />
 
     <TextView
         android:id="@+id/textView5"
