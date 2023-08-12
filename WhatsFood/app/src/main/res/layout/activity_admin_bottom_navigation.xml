@@ -15,12 +15,11 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/admin_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:background="?android:attr/windowBackground"
+        android:layout_height="64dp"
         android:layout_alignParentBottom="true"
-        app:itemTextColor="@drawable/menu_item_color"
+        android:background="?android:attr/windowBackground"
         app:itemIconTint="@drawable/menu_item_color"
-        app:menu="@menu/admin_bottom_navigation_item"
-        />
+        app:itemTextColor="@drawable/menu_item_color"
+        app:menu="@menu/admin_bottom_navigation_item" />
 
 </RelativeLayout>

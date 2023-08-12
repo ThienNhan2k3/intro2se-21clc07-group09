@@ -2,4 +2,6 @@
     <string name="app_name">WhatsFood</string>
     <string name="error">Something went wrong! Please try again later!</string>
     <string name="title_activity_select_account_type">SelectAccountTypeActivity</string>
+    <string name="buyer_register">Register successfully</string>
+    <string name="seller_register">Register request has been send. Please wait for the reply email to be sent to your email address.</string>
 </resources>
