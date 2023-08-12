@@ -65,7 +65,7 @@ public class SellerHomeActivity extends Fragment {
                     foodList,
                     0));
         }
-        orderAdapter = new OrderAdapter(getActivity(), R.layout.activity_seller_home, orderList);
+        orderAdapter = new OrderAdapter(getActivity(), R.layout.order_placeholder, orderList);
         gridView.setAdapter(orderAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -49,14 +49,15 @@ public class SellerItemListActivity extends Fragment {
                     "Shoppe",
                     comments));
         }
-        foodAdapter = new FoodAdapter(getActivity(), R.layout.food_holder_buyer, foodList);
+        foodAdapter = new FoodAdapter(getActivity(), R.layout.shop_item_holder, foodList);
         gridView.setAdapter(foodAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity() , SellerOrderDetailsActivity.class);
-                intent.putExtra("Item", (Serializable) foodList.get(i));
+                Intent intent = new Intent(getActivity() , SellerViewSelectedFoodActivity.class);
+                Food food = foodList.get(i);
+                intent.putExtra("Item", (Serializable) food);
                 startActivity(intent);
 
             }
