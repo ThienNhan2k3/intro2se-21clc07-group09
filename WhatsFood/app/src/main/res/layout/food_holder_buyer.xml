@@ -18,12 +18,7 @@
             android:id="@+id/img_view_food_holder_buyer"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
             android:src="@mipmap/ic_launcher"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/color_white_shape"/>
 
     </androidx.cardview.widget.CardView>
