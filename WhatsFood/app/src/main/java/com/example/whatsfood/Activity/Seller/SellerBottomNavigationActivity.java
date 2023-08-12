@@ -35,7 +35,7 @@ public class SellerBottomNavigationActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.seller_home) {
                     fragment = new SellerHomeActivity();
-                } else if (itemId == R.id.seller_food_lít) {
+                } else if (itemId == R.id.seller_food_list) {
                     fragment = new SellerItemListActivity();
                 } else if (itemId == R.id.seller_notification) {
                     fragment = new SellerNotificationActivity();

@@ -15,7 +15,7 @@
 <!--        android:layout_marginEnd="8dp"-->
 <!--        android:background="@drawable/bc_round_16dp"-->
 <!--        android:clickable="true"-->
-<!--        app:layoutDescription="@xml/food_holder_buyer_scene"-->
+<!--&lt;!&ndash;        app:layoutDescription="@xml/food_holder_buyer_scene"&ndash;&gt;-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout3">-->

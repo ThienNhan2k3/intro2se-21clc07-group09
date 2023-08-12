@@ -13,7 +13,7 @@
             android:id="@+id/avatar"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@tools:sample/avatars"
+            android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

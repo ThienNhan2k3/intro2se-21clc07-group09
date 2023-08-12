@@ -36,7 +36,7 @@
             android:name=".Activity.Seller.SellerNotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Seller.SellerFoodListActivity"
+            android:name=".Activity.Seller.SellerItemListActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.Seller.SellerHomeActivity"
