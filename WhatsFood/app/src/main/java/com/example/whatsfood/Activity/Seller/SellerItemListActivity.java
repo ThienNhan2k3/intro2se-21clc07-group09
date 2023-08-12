@@ -1,9 +1,11 @@
 package com.example.whatsfood.Activity.Seller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -15,6 +17,7 @@ import com.example.whatsfood.Adapter.FoodAdapter;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SellerItemListActivity extends Fragment {
@@ -48,6 +51,16 @@ public class SellerItemListActivity extends Fragment {
         }
         foodAdapter = new FoodAdapter(getActivity(), R.layout.food_holder_buyer, foodList);
         gridView.setAdapter(foodAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity() , SellerOrderDetailsActivity.class);
+                intent.putExtra("Item", (Serializable) foodList.get(i));
+                startActivity(intent);
+
+            }
+        });
 
         return view;
     }

@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
 import com.example.whatsfood.Activity.Seller.SellerBottomNavigationActivity;
+import com.example.whatsfood.Activity.Seller.SellerOrderDetailsActivity;
+import com.example.whatsfood.Activity.Seller.SellerViewSelectedFoodActivity;
 import com.example.whatsfood.R;
 
 public class MainActivity extends AppCompatActivity {

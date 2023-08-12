@@ -2,14 +2,16 @@ package com.example.whatsfood.Model;
 
 import com.example.whatsfood.Model.Food;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
     private String orderId, buyerId, buyerName, sellerId, ship_to, price;
-    private List<Food> foodList;
+    private ArrayList<Food> foodList;
     int status;
 
-    public Order(String orderId, String buyerId, String buyerName, String sellerId, String ship_to, String price, List<Food> foodList, int status) {
+    public Order(String orderId, String buyerId, String buyerName, String sellerId, String ship_to, String price, ArrayList<Food> foodList, int status) {
         this.orderId = orderId;
         this.buyerId = buyerId;
         this.buyerName = buyerName;
@@ -44,7 +46,7 @@ public class Order {
         return price;
     }
 
-    public List<Food> getFoodList() {
+    public ArrayList<Food> getFoodList() {
         return foodList;
     }
 

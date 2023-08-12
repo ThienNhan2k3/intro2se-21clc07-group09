@@ -67,7 +67,6 @@ public class FoodAdapter extends BaseAdapter {
                 foodViewHolder.quantity = (TextView) view.findViewById(R.id.quantity_item_suborder);
                 foodViewHolder.price = (TextView) view.findViewById(R.id.suporder_price);
             }
-
             view.setTag(foodViewHolder);
         } else {
             foodViewHolder = (FoodViewHolder) view.getTag();
@@ -80,7 +79,6 @@ public class FoodAdapter extends BaseAdapter {
 
         } else if (layout == R.layout.item_suborder) {
             foodViewHolder.quantity.setText(food.getQuantity());
-
         }
 
         foodViewHolder.foodName.setText(food.getName());

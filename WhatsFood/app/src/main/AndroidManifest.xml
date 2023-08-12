@@ -18,6 +18,9 @@
             android:name=".Activity.Seller.SellerViewSelectedFoodActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.Seller.SellerOrderDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Admin.AdminReportsListActivity"
             android:exported="false" />
         <activity

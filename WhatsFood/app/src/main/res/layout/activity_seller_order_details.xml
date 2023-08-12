@@ -73,10 +73,45 @@
         android:layout_height="match_parent"
         android:layout_below="@id/address_text_view_seller_order_details"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
         android:paddingHorizontal="25dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="20sp"
-        android:scrollbars="none"/>
+        android:scrollbars="none"
+        android:layout_above="@id/button_linear_layout_seller_order_details"
+        />
+
+    <LinearLayout
+        android:id="@+id/button_linear_layout_seller_order_details"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="100dp"
+        android:layout_height="61dp"
+        android:layout_below="@id/food_list_seller_order_details"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Approve"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Deny"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="@color/red"
+            />
+    </LinearLayout>
 
 </RelativeLayout>
