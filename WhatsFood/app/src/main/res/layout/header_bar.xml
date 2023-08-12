@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/back_button"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_weight="1"
@@ -33,7 +33,7 @@
             android:layout_height="64dp"
             android:paddingStart="10dp"
             android:text="Header"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/back_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

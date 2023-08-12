@@ -8,13 +8,17 @@
 
     <ImageView
         android:id="@+id/item_image_view"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="360dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="Item image"
         android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="Item image" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/item_text_view"
@@ -24,58 +28,46 @@
         android:text="An item name"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/item_image_view"
-        app:layout_constraintEnd_toStartOf="@+id/price_text_view"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/item_image_view"
         app:layout_constraintTop_toTopOf="@+id/item_image_view"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/price_text_view"
-        android:layout_width="80sp"
-        android:layout_height="match_parent"
-        android:text="price"
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="30dp"
+        android:text="Description"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_image_view"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Price: "
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="100000VND"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/minus_button"
-        android:backgroundTint="@color/theme_red"
-        android:scaleType="fitCenter"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        app:layout_constraintBottom_toBottomOf="@+id/item_text_view"
-        app:layout_constraintStart_toEndOf="@+id/item_image_view"
-        app:srcCompat="@drawable/minus_button"
-        android:contentDescription="Remove an item" />
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/plus_button"
-        android:backgroundTint="@color/theme_red"
-        android:scaleType="fitCenter"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        app:layout_constraintBottom_toBottomOf="@+id/item_text_view"
-        app:layout_constraintEnd_toEndOf="@+id/item_text_view"
-        app:srcCompat="@drawable/plus_button"
-        android:contentDescription="Add an item" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toTopOf="@+id/imageButton2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
