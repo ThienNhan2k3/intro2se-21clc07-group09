@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="16dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:id="@+id/suporder"
+        android:layout_width="340dp"
+        android:layout_height="112dp"
+        android:background="#D9D9D9">
+
+        <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@id/img_card_view_item_suborder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"
+            >
+
+            <ImageView
+                android:id="@+id/image_view_item_suborder"
+                android:layout_width="112dp"
+                android:layout_height="112dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                app:srcCompat="@drawable/burger"
+                android:background="#fff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/food_name_text_box_item_suborder"
+            android:layout_width="135dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:text="Food's Name"
+            android:textAlignment="gravity"
+            android:textColor="#191818"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:autoSizeTextType="none"
+            app:layout_constraintStart_toEndOf="@+id/img_card_view_item_suborder"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/suporder_price"
+            android:layout_width="134dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:text="Price"
+            android:textColor="#E13737"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@+id/img_card_view_item_suborder"
+            app:layout_constraintTop_toBottomOf="@+id/food_name_text_box_item_suborder" />
+
+        <TextView
+            android:id="@+id/quantity_item_suborder"
+            android:layout_width="74dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="1"
+            android:background="@drawable/border_1dp"
+            android:gravity="center"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

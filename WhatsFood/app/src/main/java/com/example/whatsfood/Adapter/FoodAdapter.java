@@ -44,7 +44,7 @@ public class FoodAdapter extends BaseAdapter {
     }
 
     private class FoodViewHolder {
-        TextView foodName, store, price;
+        TextView foodName, store, price, quantity;
         ImageView foodImageView;
     }
 
@@ -54,19 +54,36 @@ public class FoodAdapter extends BaseAdapter {
         if (view == null) {
             foodViewHolder = new FoodViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.food_holder_buyer, null);
-            foodViewHolder.foodImageView = (ImageView) view.findViewById(R.id.img_view_food_holder_buyer);
-            foodViewHolder.foodName = (TextView) view.findViewById(R.id.food_name_food_holder_buyer);
-            foodViewHolder.store = (TextView) view.findViewById(R.id.store_food_holder_buyer);
-            foodViewHolder.price = (TextView) view.findViewById(R.id.price_food_holder_buyer);
+            if (layout == R.layout.food_holder_buyer) {
+                view = inflater.inflate(layout, null);
+                foodViewHolder.foodImageView = (ImageView) view.findViewById(R.id.img);
+                foodViewHolder.foodName = (TextView) view.findViewById(R.id.food_name);
+                foodViewHolder.store = (TextView) view.findViewById(R.id.store);
+                foodViewHolder.price = (TextView) view.findViewById(R.id.price);
+            } else if (layout == R.layout.item_suborder) {
+                view = inflater.inflate(layout, null);
+                foodViewHolder.foodImageView = (ImageView) view.findViewById(R.id.image_view_item_suborder);
+                foodViewHolder.foodName = (TextView) view.findViewById(R.id.food_name_text_box_item_suborder);
+                foodViewHolder.quantity = (TextView) view.findViewById(R.id.quantity_item_suborder);
+                foodViewHolder.price = (TextView) view.findViewById(R.id.suporder_price);
+            }
+
             view.setTag(foodViewHolder);
         } else {
             foodViewHolder = (FoodViewHolder) view.getTag();
         }
 
         Food food = foodList.get(i);
+
+        if (layout == R.layout.food_holder_buyer) {
+            foodViewHolder.store.setText(food.getSellerName());
+
+        } else if (layout == R.layout.item_suborder) {
+            foodViewHolder.quantity.setText(food.getQuantity());
+
+        }
+
         foodViewHolder.foodName.setText(food.getName());
-        foodViewHolder.store.setText(food.getSellerName());
         foodViewHolder.price.setText(food.getPrice());
         Picasso.get()
                 .load(food.getImageUrl())

@@ -36,7 +36,7 @@ public class SellerBottomNavigationActivity extends AppCompatActivity {
                 if (itemId == R.id.seller_home) {
                     fragment = new SellerHomeActivity();
                 } else if (itemId == R.id.seller_food_lít) {
-                    fragment = new SellerFoodListActivity();
+                    fragment = new SellerItemListActivity();
                 } else if (itemId == R.id.seller_notification) {
                     fragment = new SellerNotificationActivity();
                 } else if (itemId == R.id.seller_profile) {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Seller.SellerFoodListActivity"
+    tools:context=".Activity.Seller.SellerItemListActivity"
     android:background="@color/background_color">
 
     <RelativeLayout
@@ -36,7 +36,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="20dp"
             android:background="@drawable/color_red_shape"
-            android:text="TEXT"
+            android:text="Add"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="24dp"
@@ -48,11 +48,11 @@
 
     <GridView
         android:numColumns="2"
+        android:id="@+id/order_grid_view_seller_item_lít"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header_seller_food_list_activity"
         android:layout_marginTop="20dp"
-        android:id="@+id/order_grid_list"
         android:verticalSpacing="23dp"
         android:horizontalSpacing="19dp"
         android:layout_centerHorizontal="true"

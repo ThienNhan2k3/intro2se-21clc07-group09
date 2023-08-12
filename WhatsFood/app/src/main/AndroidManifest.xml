@@ -15,6 +15,9 @@
         android:theme="@style/Theme.WhatsFood"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.Seller.SellerOrderDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Seller.SellerViewSelectedFoodActivity"
             android:exported="false" />
         <activity
@@ -36,7 +39,7 @@
             android:name=".Activity.Seller.SellerNotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Seller.SellerFoodListActivity"
+            android:name=".Activity.Seller.SellerItemListActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.Seller.SellerHomeActivity"
