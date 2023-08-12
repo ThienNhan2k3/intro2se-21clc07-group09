@@ -17,8 +17,8 @@ public class AdminReportsListActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_admin_reports_list, null);
-        getActivity().setTitle("Reports List");
+        View view = inflater.inflate(R.layout.activity_admin_reports_list, container);
+        requireActivity().setTitle("Reports List");
         setHasOptionsMenu(true);
         return view;
     }
