@@ -49,7 +49,7 @@ public class OrderAdapter extends BaseAdapter {
         if (view == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.order_placeholder, null);
+            view = inflater.inflate(layout, null);
             viewHolder.orderId = (TextView) view.findViewById(R.id.result);
             viewHolder.address = (TextView) view.findViewById(R.id.address);
             viewHolder.buyerName = (TextView) view.findViewById(R.id.buyersName);

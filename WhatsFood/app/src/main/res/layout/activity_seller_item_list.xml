@@ -53,9 +53,9 @@
         android:layout_height="match_parent"
         android:layout_below="@id/header_seller_food_list_activity"
         android:layout_marginTop="20dp"
-        android:verticalSpacing="23dp"
-        android:horizontalSpacing="19dp"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
         android:layout_centerHorizontal="true"
-        android:paddingHorizontal="20dp"/>
+        android:paddingHorizontal="10dp"/>
 
 </RelativeLayout>
