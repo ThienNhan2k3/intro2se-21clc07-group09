@@ -18,7 +18,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/header_bar_seller_view_selected_food">
+                android:id="@+id/header_bar_seller_view_selected_food"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp">
 
                 <ImageButton
                     android:id="@+id/image_button_seller_view_seleted_food"

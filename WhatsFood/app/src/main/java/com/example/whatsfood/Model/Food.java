@@ -1,6 +1,8 @@
 package com.example.whatsfood.Model;
 
-public class Food {
+import java.io.Serializable;
+
+public class Food implements Serializable {
     String foodId, name, description, price, imageUrl, quantity, sellerId, sellerName;
     String[] comments;
 

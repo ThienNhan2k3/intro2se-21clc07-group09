@@ -6,320 +6,325 @@
     android:layout_height="match_parent"
     android:background="#0F0F1D">
 
-<!--    <androidx.constraintlayout.motion.widget.MotionLayout-->
-<!--        android:id="@+id/motionLayout2"-->
-<!--        android:layout_width="380dp"-->
-<!--        android:layout_height="120dp"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginTop="136dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:background="@drawable/bc_round_16dp"-->
-<!--        android:clickable="true"-->
-<!--&lt;!&ndash;        app:layoutDescription="@xml/food_holder_buyer_scene"&ndash;&gt;-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout3">-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"> <!-- Đảm bảo Scrollview điều chỉnh độ cao -->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/img1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:src="@tools:sample/avatars"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#0F0F1D">
 
-<!--        <TextView-->
-<!--            android:id="@+id/food_name1"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            android:text="Food Name"-->
-<!--            android:textAppearance="@style/bold_text"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/img"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/motionLayout2"
+                android:layout_width="380dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="136dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bc_round_16dp"
+                android:clickable="true"
+                app:layoutDescription="@xml/food_holder_buyer_scene"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/motionLayout3">
 
-<!--        <TextView-->
-<!--            android:id="@+id/price1"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:gravity="end"-->
-<!--            android:text="20,000 VND"-->
-<!--            android:textAppearance="@style/text_20_normal"-->
-<!--            android:textColor="@color/black"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.0"-->
-<!--            app:layout_constraintStart_toEndOf="@id/img" />-->
-<!--    </androidx.constraintlayout.motion.widget.MotionLayout>-->
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_launcher_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:id="@+id/text5"-->
-<!--        android:layout_width="144dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginTop="34dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        android:background="@drawable/color_red_shape"-->
-<!--        android:text="REMOVE"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="24dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/imageView3"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout3" />-->
+                <TextView
+                    android:id="@+id/food_name1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Food Name"
+                    android:textAppearance="@style/bold_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:id="@+id/text6"-->
-<!--        android:layout_width="144dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginTop="34dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        android:background="@drawable/color_red_shape"-->
-<!--        android:text="REMOVE"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="24dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/imageView7"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout2" />-->
+                <TextView
+                    android:id="@+id/price1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="end"
+                    android:text="20,000 VND"
+                    android:textAppearance="@style/text_20_normal"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/img" />
+            </androidx.constraintlayout.motion.widget.MotionLayout>
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/buyer_bottom_navigation"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="61dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="?android:attr/windowBackground"-->
-<!--        app:itemIconTint="@drawbale/menu_item_color"-->
-<!--        app:itemTextColor="@drawbale/menu_item_color"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:menu="@menu/buyer_bottom_navigation_item" />-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text5"
+                android:layout_width="144dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/color_red_shape"
+                android:text="REMOVE"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toBottomOf="@+id/motionLayout3" />
 
-<!--    <androidx.constraintlayout.motion.widget.MotionLayout-->
-<!--        android:id="@+id/motionLayout3"-->
-<!--        android:layout_width="380dp"-->
-<!--        android:layout_height="120dp"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:layout_marginBottom="34dp"-->
-<!--        android:background="@drawable/bc_round_16dp"-->
-<!--        android:clickable="true"-->
-<!--        app:layoutDescription="@xml/food_holder_buyer_scene"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/text5"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.56">-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text6"
+                android:layout_width="144dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/color_red_shape"
+                android:text="REMOVE"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/motionLayout2" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/img0"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:src="@tools:sample/avatars"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/motionLayout3"
+                android:layout_width="380dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="34dp"
+                android:background="@drawable/bc_round_16dp"
+                android:clickable="true"
+                app:layoutDescription="@xml/food_holder_buyer_scene"
+                app:layout_constraintBottom_toTopOf="@+id/text5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.56">
 
-<!--        <TextView-->
-<!--            android:id="@+id/food_name0"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            android:text="Food Name"-->
-<!--            android:textAppearance="@style/bold_text"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/img"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+                <ImageView
+                    android:id="@+id/img0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_launcher_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/price0"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:gravity="end"-->
-<!--            android:text="20,000 VND"-->
-<!--            android:textAppearance="@style/text_20_normal"-->
-<!--            android:textColor="@color/black"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.0"-->
-<!--            app:layout_constraintStart_toEndOf="@id/img" />-->
-<!--    </androidx.constraintlayout.motion.widget.MotionLayout>-->
+                <TextView
+                    android:id="@+id/food_name0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Food Name"
+                    android:textAppearance="@style/bold_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView3"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="34dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/motionLayout2"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/text5"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/editText5"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout3"-->
-<!--        app:layout_constraintVertical_bias="0.0"-->
-<!--        app:srcCompat="@drawable/plus_button" />-->
+                <TextView
+                    android:id="@+id/price0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="end"
+                    android:text="20,000 VND"
+                    android:textAppearance="@style/text_20_normal"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/img" />
+            </androidx.constraintlayout.motion.widget.MotionLayout>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView5"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="34dp"-->
-<!--        android:layout_marginEnd="3dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/motionLayout2"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/editText5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout3"-->
-<!--        app:layout_constraintVertical_bias="0.0"-->
-<!--        app:srcCompat="@drawable/minus_button" />-->
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/motionLayout2"
+                app:layout_constraintEnd_toStartOf="@+id/text5"
+                app:layout_constraintStart_toEndOf="@+id/editText5"
+                app:layout_constraintTop_toBottomOf="@+id/motionLayout3"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/plus_button" />
 
-<!--    <com.google.android.material.textfield.TextInputEditText-->
-<!--        android:id="@+id/editText5"-->
-<!--        android:layout_width="51dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        android:layout_marginTop="38dp"-->
-<!--        android:layout_marginEnd="5dp"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="25sp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/motionLayout2"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/imageView3"-->
-<!--        app:layout_constraintHorizontal_bias="0.407"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/imageView5"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout3"-->
-<!--        app:layout_constraintVertical_bias="0.0"-->
-<!--        tools:text="0" />-->
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="3dp"
+                app:layout_constraintBottom_toTopOf="@+id/motionLayout2"
+                app:layout_constraintEnd_toStartOf="@+id/editText5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/motionLayout3"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/minus_button" />
 
-<!--    <com.google.android.material.textfield.TextInputEditText-->
-<!--        android:id="@+id/editText"-->
-<!--        android:layout_width="51dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        android:layout_marginTop="38dp"-->
-<!--        android:layout_marginEnd="5dp"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="25sp"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/imageView7"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/imageView8"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout2"-->
-<!--        tools:text="0" />-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText5"
+                android:layout_width="51dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toTopOf="@+id/motionLayout2"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.407"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/motionLayout3"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="0" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView7"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="34dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/text6"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/editText"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout2"-->
-<!--        app:srcCompat="@drawable/plus_button" />-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText"
+                android:layout_width="51dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView7"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintTop_toBottomOf="@+id/motionLayout2"
+                tools:text="0" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView8"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="34dp"-->
-<!--        android:layout_marginEnd="3dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/editText"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/motionLayout2"-->
-<!--        app:srcCompat="@drawable/minus_button" />-->
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/text6"
+                app:layout_constraintStart_toEndOf="@+id/editText"
+                app:layout_constraintTop_toBottomOf="@+id/motionLayout2"
+                app:srcCompat="@drawable/plus_button" />
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/constraintLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/buyer_bottom_navigation"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="3dp"
+                app:layout_constraintEnd_toStartOf="@+id/editText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/motionLayout2"
+                app:srcCompat="@drawable/minus_button" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/text7"-->
-<!--            android:layout_width="144dp"-->
-<!--            android:layout_height="48dp"-->
-<!--            android:layout_marginStart="88dp"-->
-<!--            android:layout_marginTop="79dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:layout_marginBottom="73dp"-->
-<!--            android:background="@drawable/color_red_shape"-->
-<!--            android:text="ORDER"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="24dp"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.525"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/totalmoney"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.0" />-->
+    </ScrollView>
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="233dp"-->
-<!--            android:layout_height="150dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="50dp"-->
-<!--            android:layout_marginBottom="34dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/text7"-->
-<!--            app:layout_constraintHorizontal_bias="0.125"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.0">-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView7"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_marginBottom="1dp"-->
-<!--                android:text="Total Money:"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="24dp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintBottom_toTopOf="@+id/totalmoney"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/totalmoney"-->
-<!--                app:layout_constraintHorizontal_bias="0.0"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/text7"
+            android:layout_width="144dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="79dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="73dp"
+            android:background="@drawable/color_red_shape"
+            android:text="ORDER"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.525"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-<!--            <EditText-->
-<!--                android:id="@+id/totalmoney"-->
-<!--                android:layout_width="196dp"-->
-<!--                android:layout_height="74dp"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_marginTop="1dp"-->
-<!--                android:layout_marginEnd="17dp"-->
-<!--                android:layout_marginBottom="24dp"-->
-<!--                android:background="@color/theme_white"-->
-<!--                android:ems="10"-->
-<!--                android:hint="Totalmoney"-->
-<!--                android:paddingStart="10dp"-->
-<!--                android:paddingEnd="10dp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView7" />-->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="233dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text7"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="1dp"
+                android:text="Total Money:"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/totalmoney"
+                app:layout_constraintEnd_toStartOf="@+id/totalmoney"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/totalmoney"
+                android:layout_width="196dp"
+                android:layout_height="74dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/theme_white"
+                android:ems="10"
+                android:hint="Totalmoney"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

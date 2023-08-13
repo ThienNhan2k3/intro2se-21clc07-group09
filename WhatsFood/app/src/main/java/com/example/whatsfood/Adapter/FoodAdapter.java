@@ -54,20 +54,22 @@ public class FoodAdapter extends BaseAdapter {
         if (view == null) {
             foodViewHolder = new FoodViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(layout, null);
             if (layout == R.layout.food_holder_buyer) {
-                view = inflater.inflate(layout, null);
                 foodViewHolder.foodImageView = (ImageView) view.findViewById(R.id.img);
                 foodViewHolder.foodName = (TextView) view.findViewById(R.id.food_name);
                 foodViewHolder.store = (TextView) view.findViewById(R.id.store);
                 foodViewHolder.price = (TextView) view.findViewById(R.id.price);
             } else if (layout == R.layout.item_suborder) {
-                view = inflater.inflate(layout, null);
                 foodViewHolder.foodImageView = (ImageView) view.findViewById(R.id.image_view_item_suborder);
                 foodViewHolder.foodName = (TextView) view.findViewById(R.id.food_name_text_box_item_suborder);
                 foodViewHolder.quantity = (TextView) view.findViewById(R.id.quantity_item_suborder);
                 foodViewHolder.price = (TextView) view.findViewById(R.id.suporder_price);
+            } else if (layout == R.layout.shop_item_holder) {
+                foodViewHolder.foodImageView = (ImageView) view.findViewById(R.id.item_image_view_shop_item_holder);
+                foodViewHolder.foodName = (TextView) view.findViewById(R.id.item_name_text_view_shop_item_holder);
+                foodViewHolder.price = (TextView) view.findViewById(R.id.price_text_view_shop_item_holder);
             }
-
             view.setTag(foodViewHolder);
         } else {
             foodViewHolder = (FoodViewHolder) view.getTag();
@@ -79,7 +81,7 @@ public class FoodAdapter extends BaseAdapter {
             foodViewHolder.store.setText(food.getSellerName());
 
         } else if (layout == R.layout.item_suborder) {
-            foodViewHolder.quantity.setText(food.getQuantity());
+            foodViewHolder.quantity.setText("" + food.getQuantity());
 
         }
 
