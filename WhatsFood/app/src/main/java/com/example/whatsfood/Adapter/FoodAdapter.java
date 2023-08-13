@@ -81,7 +81,8 @@ public class FoodAdapter extends BaseAdapter {
             foodViewHolder.store.setText(food.getSellerName());
 
         } else if (layout == R.layout.item_suborder) {
-            foodViewHolder.quantity.setText(food.getQuantity());
+            foodViewHolder.quantity.setText("" + food.getQuantity());
+
         }
 
         foodViewHolder.foodName.setText(food.getName());
