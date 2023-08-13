@@ -9,10 +9,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.whatsfood.Activity.Admin.AdminBottomNavigationActivity;
 import com.example.whatsfood.Activity.Admin.AdminHomeActivity;
+import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerHomeActivity;
+import com.example.whatsfood.Activity.Seller.SellerBottomNavigationActivity;
 import com.example.whatsfood.Activity.Seller.SellerHomeActivity;
 import com.example.whatsfood.R;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,16 +46,16 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void login(String username, String password) {
-        if (username == "seller") {
-            Intent intent = new Intent(LoginActivity.this, SellerHomeActivity.class);
+        if (Objects.equals(username, "seller")) {
+            Intent intent = new Intent(LoginActivity.this, SellerBottomNavigationActivity.class);
             startActivity(intent);
         }
-        else if (username == "buyer") {
-            Intent intent = new Intent(LoginActivity.this, BuyerHomeActivity.class);
+        else if (Objects.equals(username, "buyer")) {
+            Intent intent = new Intent(LoginActivity.this, BuyerBottomNavigationActivity.class);
             startActivity(intent);
         }
-        else if (username == "admin") {
-            Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+        else if (Objects.equals(username, "admin")) {
+            Intent intent = new Intent(LoginActivity.this, AdminBottomNavigationActivity.class);
             startActivity(intent);
         }
     }
