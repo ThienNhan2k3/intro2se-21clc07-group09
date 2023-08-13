@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Activity.Admin.AdminBottomNavigationActivity">
 
-    <FrameLayout
-        android:id="@+id/admin_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/admin_bottom_navigation" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/admin_bottom_navigation"
         android:layout_width="match_parent"
