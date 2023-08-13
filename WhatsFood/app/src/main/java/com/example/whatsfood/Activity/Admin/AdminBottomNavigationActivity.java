@@ -24,7 +24,7 @@ public class AdminBottomNavigationActivity extends AppCompatActivity {
                 .replace(R.id.admin_fragment_container, new AdminHomeActivity())
                 .commit();
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
