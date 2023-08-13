@@ -9,9 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.example.whatsfood.Activity.Admin.AdminBottomNavigationActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
-import com.example.whatsfood.Activity.Buyer.RegisterBuyerActivity;
 import com.example.whatsfood.Activity.Seller.SellerBottomNavigationActivity;
 import com.example.whatsfood.Activity.Seller.SellerOrderDetailsActivity;
 import com.example.whatsfood.Activity.Seller.SellerViewSelectedFoodActivity;
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                startActivity(new Intent(MainActivity.this, AdminBottomNavigationActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             }
         }, 900);
