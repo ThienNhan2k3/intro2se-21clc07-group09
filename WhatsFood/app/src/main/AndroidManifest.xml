@@ -33,7 +33,16 @@
             android:name=".Activity.SelectAccountTypeActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.AfterRegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Seller.SellerNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Seller.RegisterSellerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Buyer.RegisterBuyerActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.Seller.SellerItemListActivity"
@@ -55,6 +64,9 @@
             android:exported="false" />
         <activity
             android:name=".Activity.Buyer.BuyerHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Buyer.BuyerSearchFoodActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.Buyer.BuyerBottomNavigationActivity"

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 //                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                startActivity(new Intent(MainActivity.this, SellerBottomNavigationActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             }
         }, 900);
