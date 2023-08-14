@@ -37,7 +37,7 @@
             android:layout_height="55dp"
             android:background="@color/theme_white"
             android:ems="10"
-            android:hint="Username"
+            android:hint="Username/Email"
             android:paddingStart="10dp"
             android:paddingEnd="10dp" />
 
@@ -57,6 +57,7 @@
             style="@style/button_red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTintMode="add"
             android:text="LOGIN" />
     </LinearLayout>
 

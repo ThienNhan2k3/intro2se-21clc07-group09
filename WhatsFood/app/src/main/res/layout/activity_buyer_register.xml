@@ -48,17 +48,15 @@
                     android:text="Username"
                     android:textColor="@color/theme_white" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/username"
-                        style="@style/text_24_normal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Username" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="55dp"
+                    android:background="@color/theme_white"
+                    android:ems="10"
+                    android:hint="Username"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
 
             </LinearLayout>
 
@@ -78,17 +76,15 @@
                     android:text="Password"
                     android:textColor="@color/theme_white" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/password"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/password"
-                        style="@style/text_24_normal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Password" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="55dp"
+                    android:background="@color/theme_white"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
 
             </LinearLayout>
 
@@ -108,17 +104,15 @@
                     android:text="Confirm Password"
                     android:textColor="@color/theme_white" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/confirm_password"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/confirm_password"
-                        style="@style/text_24_normal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Password" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="55dp"
+                    android:background="@color/theme_white"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
 
             </LinearLayout>
 
@@ -138,17 +132,15 @@
                     android:text="Email"
                     android:textColor="@color/theme_white" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/email"
-                        style="@style/text_24_normal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Email" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="55dp"
+                    android:background="@color/theme_white"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
 
             </LinearLayout>
 
@@ -168,17 +160,15 @@
                     android:text="Full Name"
                     android:textColor="@color/theme_white" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/full_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/full_name"
-                        style="@style/text_24_normal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Full Name" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="55dp"
+                    android:background="@color/theme_white"
+                    android:ems="10"
+                    android:hint="Full name"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
 
             </LinearLayout>
 
@@ -198,17 +188,15 @@
                     android:text="Address"
                     android:textColor="@color/theme_white" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/address"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/address"
-                        style="@style/text_24_normal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Address" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="55dp"
+                    android:background="@color/theme_white"
+                    android:ems="10"
+                    android:hint="Address"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
 
             </LinearLayout>
 
@@ -228,17 +216,15 @@
                     android:text="Phone Number"
                     android:textColor="@color/theme_white" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/phone_number"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/phone_number"
-                        style="@style/text_24_normal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Phone Number" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="55dp"
+                    android:background="@color/theme_white"
+                    android:ems="10"
+                    android:hint="Phone number"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
 
             </LinearLayout>
 
