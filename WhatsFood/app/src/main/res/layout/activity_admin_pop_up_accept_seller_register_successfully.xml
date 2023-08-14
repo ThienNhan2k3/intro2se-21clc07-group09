@@ -2,15 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/popup_order_success"
+    android:id="@+id/pop_up_accept_seller_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/popup_window"
-        android:layout_width="301dp"
-        android:layout_height="140dp"
+        android:layout_width="321dp"
+        android:layout_height="174dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/bc_round_16dp"
@@ -21,16 +21,16 @@
 
         <TextView
             android:id="@+id/popup_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="255dp"
+            android:layout_height="73dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="20dp"
             android:gravity="center_horizontal"
-            android:text="Order Successfully"
+            android:text="THE REQUEST HAS BEEN ACCEPTED"
             android:textAppearance="@style/bold_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +42,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="78dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/color_red_shape"
+            android:background="@drawable/color_green_shape"
             android:text="OKAY"
             android:textColor="@color/white"
             android:textSize="24dp"
@@ -50,7 +50,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_text" />
+            app:layout_constraintTop_toBottomOf="@+id/popup_text"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
