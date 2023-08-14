@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         logo.startAnimation(fadeIn);
 
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
