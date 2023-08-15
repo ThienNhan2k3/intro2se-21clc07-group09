@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/full_name"
+            android:id="@+id/fullname"
             style="@style/text_20_normal"
             android:layout_width="0dp"
             android:layout_height="48dp"

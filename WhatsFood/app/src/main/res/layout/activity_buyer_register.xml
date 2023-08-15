@@ -161,7 +161,7 @@
                     android:textColor="@color/theme_white" />
 
                 <EditText
-                    android:id="@+id/full_name"
+                    android:id="@+id/fullname"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:background="@color/theme_white"
@@ -217,7 +217,7 @@
                     android:textColor="@color/theme_white" />
 
                 <EditText
-                    android:id="@+id/phone_number"
+                    android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:background="@color/theme_white"

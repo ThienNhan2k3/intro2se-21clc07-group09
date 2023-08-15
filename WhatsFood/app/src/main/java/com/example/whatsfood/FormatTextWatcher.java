@@ -66,7 +66,7 @@ public class FormatTextWatcher implements TextWatcher {
             editText.setError("Input must contain only numbers");
             return;
         }
-        if (modes.contains(mode.CHECK_ONLY_ALPHABET) && !str.matches("[a-zA-Z]+")) {
+        if (modes.contains(mode.CHECK_ONLY_ALPHABET) && !str.matches("[a-z A-Z]+")) {
             editText.setError("Input must contain only alphabet letters");
             return;
         }

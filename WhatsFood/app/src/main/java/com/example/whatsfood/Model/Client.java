@@ -13,14 +13,5 @@ public class Client extends User {
         this.address = address;
         this.phone = phone;
     }
-
-    @Override
-    public boolean GetDataFromServer() {
-        return false;
-    }
-    @Override
-    public boolean UpdateDataToServer() {
-        return false;
-    }
 }
 

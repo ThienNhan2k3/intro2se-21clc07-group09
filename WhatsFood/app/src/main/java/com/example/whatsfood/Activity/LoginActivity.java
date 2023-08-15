@@ -20,6 +20,8 @@ import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerHomeActivity;
 import com.example.whatsfood.Activity.Seller.SellerBottomNavigationActivity;
 import com.example.whatsfood.Activity.Seller.SellerHomeActivity;
+import com.example.whatsfood.FormatTextWatcher;
+import com.example.whatsfood.Model.Buyer;
 import com.example.whatsfood.Model.User;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
@@ -32,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.EnumSet;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -64,44 +67,27 @@ public class LoginActivity extends AppCompatActivity {
                 login();
             }
         });
-        username_edittext.setError(getString(R.string.empty_field));
+        //Add TextWatchers
+        FormatTextWatcher username_watcher = new FormatTextWatcher(username_edittext);
+        username_watcher.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
+
+        FormatTextWatcher password_watcher = new FormatTextWatcher(password_edittext);
+        password_watcher.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
+
     }
-    private TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            String username = username_edittext.getText().toString().trim();
-            String password = password_edittext.getText().toString().trim();
-            boolean flag = true;
-            if (username.isEmpty()) {
-                username_edittext.setError(getString(R.string.empty_field));
-                flag = false;
-            }
-            if (password.isEmpty()) {
-                password_edittext.setError(getString(R.string.empty_field));
-                flag = false;
-            }
-            if (flag == true) {
-                UI_Functions.EnableButton(login_button);
-            } else {
-                UI_Functions.DisableButton(login_button);
-            }
-        }
-    };
     private void login() {
+        login_button.setEnabled(false);
         String username_email = username_edittext.getText().toString();
         String password = password_edittext.getText().toString();
         if (username_email.isEmpty() || password.isEmpty()) {
-            UI_Functions.CreatePopup(LoginActivity.this, "Missing Username/Email or Password");
+            UI_Functions.CreatePopup(LoginActivity.this, getString(R.string.missing_information));
+            login_button.setEnabled(true);
+            return;
+        }
+        if (username_edittext.getError() != null || password_edittext.getError() != null) {
+            UI_Functions.CreatePopup(LoginActivity.this, getString(R.string.invalid_field));
+            login_button.setEnabled(true);
+            return;
         }
         //Call sign in method from mAuth
         String email = username_email;
@@ -112,42 +98,43 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser fb_user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (fb_user == null) {
+                                login_button.setEnabled(true);
+                                return;
+                            }
+                            //Navigate to corresponding home activtiy
+                            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                            mDatabase.child("User").child(fb_user.getUid()).child("role").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        login_button.setEnabled(true);
+                                    }
+                                    else {
+                                        String role = String.valueOf(task.getResult().getValue());
+                                        if (Objects.equals(role, "seller")) {
+                                            Intent intent = new Intent(LoginActivity.this, SellerBottomNavigationActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        else if (Objects.equals(role, "buyer")) {
+                                            Intent intent = new Intent(LoginActivity.this, BuyerBottomNavigationActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        else if (Objects.equals(role, "admin")) {
+                                            Intent intent = new Intent(LoginActivity.this, AdminBottomNavigationActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             UI_Functions.CreatePopup(LoginActivity.this, "Incorrect Password");
+                            login_button.setEnabled(true);
                         }
                     }
                 });
-        FirebaseUser fb_user = FirebaseAuth.getInstance().getCurrentUser();
-        if (fb_user == null) {
-            return;
-        }
-        //Navigate to corresponding home activtiy
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        final User user = new User();
-        mDatabase.child("User").child(fb_user.getUid()).child("role").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    return;
-                }
-                else {
-                    String role = String.valueOf(task.getResult().getValue());
-                    if (Objects.equals(role, "seller")) {
-                        Intent intent = new Intent(LoginActivity.this, SellerBottomNavigationActivity.class);
-                        startActivity(intent);
-                    }
-                    else if (Objects.equals(role, "buyer")) {
-                        Intent intent = new Intent(LoginActivity.this, BuyerBottomNavigationActivity.class);
-                        startActivity(intent);
-                    }
-                    else if (Objects.equals(role, "admin")) {
-                        Intent intent = new Intent(LoginActivity.this, AdminBottomNavigationActivity.class);
-                        startActivity(intent);
-                    }
-                }
-            }
-        });
     }
 }
 

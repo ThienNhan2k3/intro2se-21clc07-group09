@@ -23,12 +23,5 @@ public class User {
         this.username = username;
         this.avatarUrl = avatarUrl;
     }
-
-    public boolean GetDataFromServer() {
-        return false;
-    }
-    public boolean UpdateDataToServer() {
-        return false;
-    }
 }
 
