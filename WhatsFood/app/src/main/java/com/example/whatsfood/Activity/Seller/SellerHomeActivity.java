@@ -39,7 +39,10 @@ public class SellerHomeActivity extends Fragment {
         gridView = (GridView) view.findViewById(R.id.order_grid_list);
 
         String imageUrl = "https://spoonsofflavor.com/wp-content/uploads/2020/08/Easy-Chicken-Fry-Recipe.jpg";
-        String[] comments = {"Delicous", "So expensive", "affordable price"};
+        ArrayList<String> comments = new ArrayList<String>();
+        comments.add("Delicous");
+        comments.add("So expensive");
+        comments.add("affordable price");
 
         foodList = new ArrayList<Food>();
         for (int i = 0; i < 10; i++) {
