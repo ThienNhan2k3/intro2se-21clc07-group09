@@ -5,4 +5,7 @@
     <string name="empty_field">Field cannot be empty</string>
     <string name="buyer_register">Register successfully</string>
     <string name="seller_register">Register request has been send. Please wait for the reply email to be sent to your email address.</string>
+    <string name="password_out_of_range">Password length must be in range [6, 20] letters</string>
+    <string name="password_invalid_character">Password cannot contain special characters</string>
+    <string name="password_missing_required_character">Password must contain number, lowercase and uppercase letter</string>
 </resources>
