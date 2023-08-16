@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0F0F1D">
+    android:background="#0F0F1D"
+    tools:context=".Activity.Buyer.BuyerViewSelectedFoodActivity">
 
     <ImageView
         android:id="@+id/image_food"

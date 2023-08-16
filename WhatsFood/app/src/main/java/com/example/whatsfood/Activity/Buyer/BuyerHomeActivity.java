@@ -97,7 +97,7 @@ public class BuyerHomeActivity extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = intent(BuyerHomeActivity.this, BuyerViewSelectedFoodActivity.class);
+                Intent intent = new Intent(this, BuyerViewSelectedFoodActivity.class);
                 intent.putExtra("foodId", foodList.get(i).getFoodId());
                 startActivity(intent);
             }
