@@ -6,31 +6,23 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.whatsfood.Activity.LoginActivity;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -46,7 +38,7 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
     AppCompatButton addBtn;
     ImageView foodImageView;
     TextInputLayout foodNameTextInputLayout, descriptionTextInputLayout, priceTextInputLayout, quantityTextInputLayout;
-    String foodName, description, price, quantity, sellerId, storeName;
+    String foodName, description, price, quantity, sellerId;
     Uri imageUri = null;
 
     // Create a Cloud Storage reference from the app
@@ -92,27 +84,18 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 foodName = foodNameTextInputLayout.getEditText().getText().toString().trim();
                 description = descriptionTextInputLayout.getEditText().getText().toString().trim();
-                price = priceTextInputLayout.getEditText().toString().trim();
-                quantity = quantityTextInputLayout.getEditText().toString().trim();
+                price = priceTextInputLayout.getEditText().getText().toString().trim();
+                quantity = quantityTextInputLayout.getEditText().getText().toString().trim();
 
-                if (imageUri == null) {
-                    // If sign in fails, display a message to the user.
-                    UI_Functions.CreatePopup(SellerAddNewItemActivity.this, "You have to insert food image");
-                    addBtn.setEnabled(true);
-                } else {
-                    if (isValid()) {
+
+                if (isValid()) {
+                    if (imageUri == null) {
+                        // If sign in fails, display a message to the user.
+                        UI_Functions.CreatePopup(SellerAddNewItemActivity.this, "You have to insert food image");
+                        addBtn.setEnabled(true);
+                    } else {
                         sellerId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        databaseRef.child("Seller").child(sellerId).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                storeName = snapshot.child("storeName").getValue().toString();
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
                         String foodId = databaseRef.child("food").push().getKey();
 
                         ProgressDialog progressDialog = new ProgressDialog(SellerAddNewItemActivity.this);
@@ -121,31 +104,48 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
                         progressDialog.setCancelable(false);
                         progressDialog.show();
                         storageRef.child("Food").child(foodId).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                storageRef.child("Food").child(foodId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
-                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        storageRef.child("Food").child(foodId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    public void onSuccess(Uri uri) {
+                                        progressDialog.dismiss();
+                                        ArrayList<String> comments = new ArrayList<String>();
+                                        comments.add("empty");
+                                        Food food = new Food(foodId, foodName, description, Integer.valueOf(price), String.valueOf(uri), Integer.valueOf(quantity), sellerId, comments);
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Food").child(foodId);
+                                        databaseReference.setValue(food).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(Uri uri) {
-                                                progressDialog.dismiss();
-                                                ArrayList<String> comments = new ArrayList<String>();
-                                                Food food = new Food(foodId, foodName, description, price, String.valueOf(imageUri), quantity, sellerId, storeName, comments);
-                                                food.writeToFirebase();
-                                                UI_Functions.CreatePopup(SellerAddNewItemActivity.this, "You have to insert food image");
+                                            public void onSuccess(Void unused) {
+                                                foodNameTextInputLayout.getEditText().setText("");
+                                                descriptionTextInputLayout.getEditText().setText("");
+                                                quantityTextInputLayout.getEditText().setText("");
+                                                priceTextInputLayout.getEditText().setText("");
+                                                foodImageView.setImageResource(R.drawable.plus);
+                                                UI_Functions.CreatePopup(SellerAddNewItemActivity.this, "Food is posted successfully!");
+                                                addBtn.setEnabled(true);
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                UI_Functions.CreatePopup(SellerAddNewItemActivity.this, "Fail to post a food!");
                                                 addBtn.setEnabled(true);
                                             }
                                         });
                                     }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(SellerAddNewItemActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                        progressDialog.setMessage("Please waiting... " + snapshot.getBytesTransferred() * 100.0 / snapshot.getTotalByteCount() + " %");
-                                    }
                                 });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(SellerAddNewItemActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                                progressDialog.setMessage("Please waiting... " + snapshot.getBytesTransferred() * 100.0 / snapshot.getTotalByteCount() + " %");
+                            }
+                        });
                     }
                 }
 
@@ -195,7 +195,7 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
             priceTextInputLayout.setError("Price is required!");
             validPrice = false;
         } else {
-            if (isNumeric(price)) {
+            if (!isNumeric(price)) {
                 priceTextInputLayout.setErrorEnabled(true);
                 priceTextInputLayout.setError("Your price is not valid!");
                 validPrice = false;
@@ -207,7 +207,7 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
            quantityTextInputLayout.setError("Quantity is required!");
            validQuantity = false;
        } else {
-           if (isNumeric(quantity)) {
+           if (!isNumeric(quantity)) {
                quantityTextInputLayout.setErrorEnabled(true);
                quantityTextInputLayout.setError("Your quantity is not valid!");
                validQuantity = false;

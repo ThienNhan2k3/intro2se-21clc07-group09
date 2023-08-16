@@ -13,6 +13,13 @@ import android.widget.ListView;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
 import com.example.whatsfood.Adapter.FoodAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -21,6 +28,9 @@ public class BuyerHomeActivity extends Fragment {
     ListView listView;
     ArrayList<Food> foodList;
     FoodAdapter foodAdapter;
+
+    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,25 +39,56 @@ public class BuyerHomeActivity extends Fragment {
         setHasOptionsMenu(true);
 
         listView = (ListView) view.findViewById(R.id.listView);
-
-        String imageUrl = "https://spoonsofflavor.com/wp-content/uploads/2020/08/Easy-Chicken-Fry-Recipe.jpg";
-        ArrayList<String> comments = new ArrayList<String>();
-        comments.add("Delicous");
-        comments.add("So expensive");
-        comments.add("affordable price");
-
         foodList = new ArrayList<Food>();
-        for (int i = 0; i < 10; i++) {
-            foodList.add(new Food("foodId",
-                    "Chicken Fried",
-                    "description",
-                    "100000 " + "VND",
-                    imageUrl,
-                    "1",
-                    "sellerId",
-                    "Shoppe",
-                    comments));
-        }
+
+        databaseRef.child("Food").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Food food = snapshot.getValue(Food.class);
+                if (food != null) {
+                    foodList.add(food);
+                    foodAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Food food = snapshot.getValue(Food.class);
+                if (food != null && foodList.isEmpty() == false) {
+                    for (int i = 0; i < foodList.size(); i++) {
+                        if (foodList.get(i).getFoodId() == food.getFoodId()) {
+                            foodList.set(i, food);
+                        }
+                    }
+                    foodAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                Food food = snapshot.getValue(Food.class);
+                if (food != null && foodList.isEmpty() == false) {
+                    for (int i = 0; i < foodList.size(); i++) {
+                        if (foodList.get(i).getFoodId() == food.getFoodId()) {
+                            foodList.remove(i);
+                            break;
+                        }
+                    }
+                    foodAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         foodAdapter = new FoodAdapter(getActivity(), R.layout.food_holder_buyer, foodList);
         listView.setAdapter(foodAdapter);
         return view;

@@ -1,21 +1,29 @@
 package com.example.whatsfood.Model;
 
 import android.widget.Adapter;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Food implements Serializable {
-    String foodId, name, description, price, imageUrl, quantity, sellerId, storeName;
+    String foodId, name, description, imageUrl, sellerId;
+
+    int price, quantity;
     ArrayList<String> comments;
 
     public Food() {
     }
 
-    public Food(String foodId, String name, String description, String price, String imageUrl, String quantity, String sellerId, String storeName, ArrayList<String> comments) {
+    public Food(String foodId, String name, String description, int price, String imageUrl, int quantity, String sellerId, ArrayList<String> comments) {
         this.foodId = foodId;
         this.name = name;
         this.description = description;
@@ -24,7 +32,6 @@ public class Food implements Serializable {
         this.quantity = quantity;
         this.comments = comments;
         this.sellerId = sellerId;
-        this.storeName = storeName;
     }
 
     public String getFoodId() {
@@ -39,7 +46,7 @@ public class Food implements Serializable {
         return description;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -47,7 +54,7 @@ public class Food implements Serializable {
         return imageUrl;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
@@ -55,20 +62,8 @@ public class Food implements Serializable {
         return sellerId;
     }
 
-    public String getStoreName() {
-        return storeName;
-    }
-
-
     public ArrayList<String> getComments() {
         return comments;
-    }
-
-
-
-    public void writeToFirebase() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Food").child(this.sellerId).child(this.foodId);
-        databaseReference.setValue(this);
     }
 
 }

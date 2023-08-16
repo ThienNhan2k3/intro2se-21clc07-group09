@@ -8,8 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,6 +25,9 @@ public class FoodAdapter extends BaseAdapter {
     Context context;
     private int layout;
     List<Food> foodList;
+
+    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+
 
     public FoodAdapter(Context context, int layout, List<Food> foodList) {
         this.context = context;
@@ -78,7 +88,19 @@ public class FoodAdapter extends BaseAdapter {
         Food food = foodList.get(i);
 
         if (layout == R.layout.food_holder_buyer) {
-            foodViewHolder.store.setText(food.getStoreName());
+            final String[] storeName = {" "};
+            databaseRef.child("Seller").child(food.getSellerId()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    storeName[0] = snapshot.child("storeName").getKey();
+                }
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError error) {
+                    storeName[0] = " ";
+                 }
+            });
+            foodViewHolder.store.setText(storeName[0]);
 
         } else if (layout == R.layout.item_suborder) {
             foodViewHolder.quantity.setText("" + food.getQuantity());
@@ -86,9 +108,10 @@ public class FoodAdapter extends BaseAdapter {
         }
 
         foodViewHolder.foodName.setText(food.getName());
-        foodViewHolder.price.setText(food.getPrice());
+        foodViewHolder.price.setText(""  + food.getPrice());
         Picasso.get()
                 .load(food.getImageUrl())
+                .fit()
                 .into(foodViewHolder.foodImageView);
         return view;
     }

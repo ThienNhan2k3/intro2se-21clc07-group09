@@ -16,6 +16,13 @@ import androidx.fragment.app.Fragment;
 import com.example.whatsfood.Adapter.FoodAdapter;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +33,9 @@ public class SellerItemListActivity extends Fragment {
     ArrayList<Food> foodList;
     FoodAdapter foodAdapter;
     AppCompatButton addBtn;
+
+    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,24 +46,54 @@ public class SellerItemListActivity extends Fragment {
         addBtn = (AppCompatButton) view.findViewById(R.id.add_food_seller_food_list_activity);
         gridView = (GridView) view.findViewById(R.id.order_grid_view_seller_item_lít);
 
-        String imageUrl = "https://spoonsofflavor.com/wp-content/uploads/2020/08/Easy-Chicken-Fry-Recipe.jpg";
-        ArrayList<String> comments = new ArrayList<String>();
-        comments.add("Delicous");
-        comments.add("So expensive");
-        comments.add("affordable price");
-
         foodList = new ArrayList<Food>();
-        for (int i = 0; i < 10; i++) {
-            foodList.add(new Food("foodId",
-                    "Chicken Fried",
-                    "description",
-                    "100000 " + "VND",
-                    imageUrl,
-                    "1",
-                    "sellerId",
-                    "Shoppe",
-                    comments));
-        }
+        databaseRef.child("Food").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Food food = snapshot.getValue(Food.class);
+                if (food != null) {
+                    foodList.add(food);
+                    foodAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Food food = snapshot.getValue(Food.class);
+                if (food != null && foodList.isEmpty() == false) {
+                    for (int i = 0; i < foodList.size(); i++) {
+                        if (foodList.get(i).getFoodId() == food.getFoodId()) {
+                            foodList.set(i, food);
+                        }
+                    }
+                    foodAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                Food food = snapshot.getValue(Food.class);
+                if (food != null && foodList.isEmpty() == false) {
+                    for (int i = 0; i < foodList.size(); i++) {
+                        if (foodList.get(i).getFoodId() == food.getFoodId()) {
+                            foodList.remove(i);
+                            break;
+                        }
+                    }
+                    foodAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         foodAdapter = new FoodAdapter(getActivity(), R.layout.shop_item_holder, foodList);
         gridView.setAdapter(foodAdapter);
 
