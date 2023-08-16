@@ -3,9 +3,6 @@ package com.example.whatsfood.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,14 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatsfood.Activity.Admin.AdminBottomNavigationActivity;
-import com.example.whatsfood.Activity.Admin.AdminHomeActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
-import com.example.whatsfood.Activity.Buyer.BuyerHomeActivity;
 import com.example.whatsfood.Activity.Seller.SellerBottomNavigationActivity;
-import com.example.whatsfood.Activity.Seller.SellerHomeActivity;
 import com.example.whatsfood.FormatTextWatcher;
-import com.example.whatsfood.Model.Buyer;
-import com.example.whatsfood.Model.User;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         login_button = (Button)findViewById(R.id.login_button);
         register_button = (TextView)findViewById(R.id.register_text);
-        username_edittext = (EditText)findViewById(R.id.username);
+        username_edittext = (EditText)findViewById(R.id.store_name);
         password_edittext = (EditText)findViewById(R.id.password);
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override

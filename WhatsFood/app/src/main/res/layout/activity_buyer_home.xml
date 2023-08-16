@@ -64,7 +64,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/search_bar_buyer_home"
         android:layout_marginTop="20dp"
-        android:id="@+id/food_list_view_buyer_home"
+        android:id="@+id/listView"
         android:layout_centerHorizontal="true"
         android:paddingHorizontal="25dp"
         android:divider="@android:color/transparent"

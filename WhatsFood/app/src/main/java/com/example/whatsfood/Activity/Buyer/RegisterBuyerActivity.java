@@ -15,12 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatsfood.Activity.AfterRegisterActivity;
-import com.example.whatsfood.Activity.LoginActivity;
 import com.example.whatsfood.FormatTextWatcher;
 import com.example.whatsfood.Model.Buyer;
-import com.example.whatsfood.Model.User;
 import com.example.whatsfood.R;
-import com.example.whatsfood.Activity.SelectAccountTypeActivity;
 import com.example.whatsfood.UI_Functions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,11 +43,11 @@ public class RegisterBuyerActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.header)).setText("Buyer Register");
         mAuth = FirebaseAuth.getInstance();
         //EditTexts
-        username = (EditText)findViewById(R.id.username);
+        username = (EditText)findViewById(R.id.store_name);
         password = (EditText)findViewById(R.id.password);
         confirm_password = (EditText)findViewById(R.id.confirm_password);
         email = (EditText)findViewById(R.id.email);
-        fullname = (EditText)findViewById(R.id.fullname);
+        fullname = (EditText)findViewById(R.id.username);
         address = (EditText)findViewById(R.id.address);
         phone = (EditText)findViewById(R.id.phone);
         //Buttons

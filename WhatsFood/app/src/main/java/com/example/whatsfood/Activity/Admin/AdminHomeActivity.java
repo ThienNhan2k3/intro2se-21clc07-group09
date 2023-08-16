@@ -17,7 +17,7 @@ public class AdminHomeActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_admin_home, container);
+        View view = inflater.inflate(R.layout.activity_admin_home, null);
         requireActivity().setTitle("Home");
         setHasOptionsMenu(true);
         return view;

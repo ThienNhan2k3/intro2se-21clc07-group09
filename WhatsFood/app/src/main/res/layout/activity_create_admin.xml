@@ -66,7 +66,7 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/username"
+                        android:id="@+id/store_name"
                         style="@style/text_24_normal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

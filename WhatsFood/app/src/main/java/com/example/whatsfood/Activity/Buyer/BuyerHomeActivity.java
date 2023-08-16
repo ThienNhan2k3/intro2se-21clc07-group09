@@ -28,7 +28,7 @@ public class BuyerHomeActivity extends Fragment {
         getActivity().setTitle("Home");
         setHasOptionsMenu(true);
 
-        listView = (ListView) view.findViewById(R.id.food_list_view_buyer_home);
+        listView = (ListView) view.findViewById(R.id.listView);
 
         String imageUrl = "https://spoonsofflavor.com/wp-content/uploads/2020/08/Easy-Chicken-Fry-Recipe.jpg";
         ArrayList<String> comments = new ArrayList<String>();

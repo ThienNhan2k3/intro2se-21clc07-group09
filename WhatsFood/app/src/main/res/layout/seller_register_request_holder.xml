@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:padding="8dp"
-            android:text="USERNAME"
+            android:text="STORE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:padding="8dp"
-            android:text="FULL NAME"
+            android:text="USERNAME"
             android:textColor="@color/theme_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/avatar"

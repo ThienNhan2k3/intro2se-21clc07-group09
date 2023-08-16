@@ -25,7 +25,7 @@ public class CreateAdminFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextInputEditText username = view.findViewById(R.id.username);
+        TextInputEditText username = view.findViewById(R.id.store_name);
         TextInputEditText new_password = view.findViewById(R.id.new_password);
         TextInputEditText confirm_password = view.findViewById(R.id.confirm_password);
         Button confirm_change_button = view.findViewById(R.id.confirm_create_admin_button);
