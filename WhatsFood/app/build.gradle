@@ -74,5 +74,4 @@ dependencies {
     //Picasso is a powerful image downloading and caching library for Android
     implementation 'com.squareup.picasso:picasso:2.8'
 
-
 }

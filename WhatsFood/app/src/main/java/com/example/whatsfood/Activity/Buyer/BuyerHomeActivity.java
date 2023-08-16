@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.whatsfood.Model.Food;
@@ -91,6 +93,15 @@ public class BuyerHomeActivity extends Fragment {
 
         foodAdapter = new FoodAdapter(getActivity(), R.layout.food_holder_buyer, foodList);
         listView.setAdapter(foodAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = intent(BuyerHomeActivity.this, BuyerViewSelectedFoodActivity.class);
+                intent.putExtra("foodId", foodList.get(i).getFoodId());
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }

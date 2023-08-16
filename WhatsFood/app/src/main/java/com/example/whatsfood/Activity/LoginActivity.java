@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatsfood.Activity.Admin.AdminBottomNavigationActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
+import com.example.whatsfood.Activity.Buyer.BuyerViewSelectedFoodActivity;
 import com.example.whatsfood.Activity.Seller.SellerBottomNavigationActivity;
 import com.example.whatsfood.FormatTextWatcher;
 import com.example.whatsfood.R;
@@ -110,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                                             startActivity(intent);
                                         }
                                         else if (Objects.equals(role, "buyer")) {
-                                            Intent intent = new Intent(LoginActivity.this, BuyerBottomNavigationActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, BuyerViewSelectedFoodActivity.class);
                                             startActivity(intent);
                                         }
                                         else if (Objects.equals(role, "admin")) {
