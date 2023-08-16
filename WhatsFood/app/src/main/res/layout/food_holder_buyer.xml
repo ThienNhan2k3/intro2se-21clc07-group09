@@ -13,7 +13,9 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="24dp"
         android:id="@id/img_card_view_seller_view_selected_food"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
         android:text="Food Name"
         android:textAppearance="@style/bold_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,13 +53,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
         android:text="Store"
         android:textAppearance="@style/text_24_normal"
         android:textColor="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/img_card_view_seller_view_selected_food"
-        app:layout_constraintTop_toBottomOf="@+id/food_name" />
+        app:layout_constraintTop_toBottomOf="@+id/food_name"
+        />
 
     <TextView
         android:id="@+id/price"

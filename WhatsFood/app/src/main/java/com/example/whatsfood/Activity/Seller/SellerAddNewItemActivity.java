@@ -1,6 +1,7 @@
 package com.example.whatsfood.Activity.Seller;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -21,8 +22,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -38,7 +43,7 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
     AppCompatButton addBtn;
     ImageView foodImageView;
     TextInputLayout foodNameTextInputLayout, descriptionTextInputLayout, priceTextInputLayout, quantityTextInputLayout;
-    String foodName, description, price, quantity, sellerId;
+    String foodName, description, price, quantity, sellerId, storeName;
     Uri imageUri = null;
 
     // Create a Cloud Storage reference from the app
@@ -95,14 +100,29 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
                         addBtn.setEnabled(true);
                     } else {
                         sellerId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        databaseRef.child("Seller").child(sellerId).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                storeName = (String) snapshot.child("storeName").getValue();
+                            }
 
-                        String foodId = databaseRef.child("food").push().getKey();
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                storeName = "Store";
+
+                            }
+                        });
+
+
+                        String foodId = databaseRef.child("Food").push().getKey();
 
                         ProgressDialog progressDialog = new ProgressDialog(SellerAddNewItemActivity.this);
                         progressDialog.setTitle("UPLOAD FOOD!");
                         progressDialog.setCanceledOnTouchOutside(false);
                         progressDialog.setCancelable(false);
                         progressDialog.show();
+
+
                         storageRef.child("Food").child(foodId).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -112,7 +132,7 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
                                         progressDialog.dismiss();
                                         ArrayList<String> comments = new ArrayList<String>();
                                         comments.add("empty");
-                                        Food food = new Food(foodId, foodName, description, Integer.valueOf(price), String.valueOf(uri), Integer.valueOf(quantity), sellerId, comments);
+                                        Food food = new Food(foodId, foodName, description, Integer.valueOf(price), String.valueOf(uri), Integer.valueOf(quantity), sellerId, storeName, comments);
                                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Food").child(foodId);
                                         databaseReference.setValue(food).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override

@@ -88,19 +88,7 @@ public class FoodAdapter extends BaseAdapter {
         Food food = foodList.get(i);
 
         if (layout == R.layout.food_holder_buyer) {
-            final String[] storeName = {" "};
-            databaseRef.child("Seller").child(food.getSellerId()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    storeName[0] = snapshot.child("storeName").getKey();
-                }
-
-                 @Override
-                 public void onCancelled(@NonNull DatabaseError error) {
-                    storeName[0] = " ";
-                 }
-            });
-            foodViewHolder.store.setText(storeName[0]);
+            foodViewHolder.store.setText(food.getStoreName());
 
         } else if (layout == R.layout.item_suborder) {
             foodViewHolder.quantity.setText("" + food.getQuantity());

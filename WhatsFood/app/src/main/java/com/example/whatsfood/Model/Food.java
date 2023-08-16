@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Food implements Serializable {
-    String foodId, name, description, imageUrl, sellerId;
+    String foodId, name, description, imageUrl, sellerId, storeName;
 
     int price, quantity;
     ArrayList<String> comments;
@@ -23,7 +23,7 @@ public class Food implements Serializable {
     public Food() {
     }
 
-    public Food(String foodId, String name, String description, int price, String imageUrl, int quantity, String sellerId, ArrayList<String> comments) {
+    public Food(String foodId, String name, String description, int price, String imageUrl, int quantity, String sellerId, String storeName, ArrayList<String> comments) {
         this.foodId = foodId;
         this.name = name;
         this.description = description;
@@ -32,6 +32,15 @@ public class Food implements Serializable {
         this.quantity = quantity;
         this.comments = comments;
         this.sellerId = sellerId;
+        this.storeName = storeName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getFoodId() {
