@@ -14,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,31 +90,57 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showPopupLayout();
-                /*Button addButton = (Button) findViewById(R.id.addcart);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.e("abdef","123456");
-                    }
-                });*/
+
             }
 
             private void showPopupLayout() {
-                Dialog dialog = new Dialog(BuyerViewSelectedFoodActivity.this);
-
                 // Đặt layout cho Dialog bằng cách sử dụng inflate
                 View popupView = LayoutInflater.from(BuyerViewSelectedFoodActivity.this).inflate(R.layout.activity_pop_up_enter_number_food, null);
+
+                // Sử dụng biến dialog đã tạo ở phần khai báo trước đó
                 dialog.setContentView(popupView);
 
                 // Đặt kích thước cho Dialog
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+                Button addCartButton = dialog.findViewById(R.id.addcart);
+                EditText numberOfFoodEditText = dialog.findViewById(R.id.number_of_food); // Assume the ID is "number_of_food"
+
+                addCartButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // Lấy giá trị từ EditText number_of_food
+                        String numberOfFoodStr = numberOfFoodEditText.getText().toString();
+
+                        // Kiểm tra xem numberOfFoodStr có phải là số tự nhiên hay không
+                        try {
+                            int numberOfFood = Integer.parseInt(numberOfFoodStr);
+                            if (numberOfFood > 0) {
+                                // Số lượng hợp lệ, thực hiện các hành động tương ứng (Thêm vào giỏ hàng, v.v.)
+                                Toast.makeText(BuyerViewSelectedFoodActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                                // Đóng Popup Dialog sau khi xử lý
+                                dialog.dismiss();
+                            } else {
+                                // Số lượng không hợp lệ (phải là số tự nhiên dương)
+                                // Hiển thị thông báo hoặc cảnh báo cho người dùng
+                                // Ví dụ:
+                                Toast.makeText(BuyerViewSelectedFoodActivity.this, "Số lượng không hợp lệ", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (NumberFormatException e) {
+                            // Không thể chuyển đổi thành số, số lượng không hợp lệ
+                            // Hiển thị thông báo hoặc cảnh báo cho người dùng
+                            // Ví dụ:
+                            Toast.makeText(BuyerViewSelectedFoodActivity.this, "Số lượng không hợp lệ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
                 // Hiển thị Dialog
                 dialog.show();
-
             }
         });
-        String key = String.valueOf(extras);
+
+        String key = "-NbyvAzQZTAqG1ZPvM12";
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Food").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
