@@ -24,6 +24,7 @@
             android:layout_height="48dp"
             android:padding="8dp"
             android:text="STORE"
+            android:textColor="@color/theme_red"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +36,7 @@
             android:layout_height="48dp"
             android:padding="8dp"
             android:text="USERNAME"
-            android:textColor="@color/theme_black"
+            android:textColor="@color/theme_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toBottomOf="@+id/store_name" />

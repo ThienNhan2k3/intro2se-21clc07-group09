@@ -45,7 +45,7 @@ public class SellerRegisterRequestAdapter extends BaseAdapter {
         Seller seller = sellers.get(i).second;
 
         ((TextView)view.findViewById(R.id.store_name)).setText(seller.storeName);
-        ((TextView)view.findViewById(R.id.username)).setText(sellers.get(i).first);
+        ((TextView)view.findViewById(R.id.username)).setText(seller.username);
 
         return view;
     }

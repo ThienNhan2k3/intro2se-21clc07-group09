@@ -162,7 +162,7 @@ public class RegisterSellerActivity extends AppCompatActivity {
                                 // User is signed in
                                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                                 Seller seller = new Seller(str_username, "", str_address, str_phone, str_store_name, str_store_description, 0);
-                                mDatabase.child("User").child(user.getUid()).child("role").setValue("seller");
+                                mDatabase.child("User").child(user.getUid()).child("role").setValue("seller_register");
                                 seller.SendRegisterRequest();
                                 Intent intent = new Intent(RegisterSellerActivity.this, AfterRegisterActivity.class);
                                 intent.putExtra("popup_text", getString(R.string.seller_register));

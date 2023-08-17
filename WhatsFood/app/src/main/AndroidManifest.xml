@@ -87,6 +87,9 @@
             android:name=".Activity.Buyer.BuyerViewSelectedFoodActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.Admin.RegisterDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
