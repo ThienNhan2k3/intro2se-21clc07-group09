@@ -118,6 +118,11 @@ public class LoginActivity extends AppCompatActivity {
                                             Intent intent = new Intent(LoginActivity.this, AdminBottomNavigationActivity.class);
                                             startActivity(intent);
                                         }
+                                        else if (Objects.equals(role, "seller_register")) {
+                                            UI_Functions.CreatePopup(LoginActivity.this, "Your account is currently awaiting confirmation");
+                                            login_button.setEnabled(true);
+                                            FirebaseAuth.getInstance().signOut();
+                                        }
                                     }
                                 }
                             });

@@ -1,10 +1,13 @@
 package com.example.whatsfood.Activity.Admin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -12,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.whatsfood.Activity.LoginActivity;
 import com.example.whatsfood.Adapter.SellerRegisterRequestAdapter;
 import com.example.whatsfood.Model.Seller;
 import com.example.whatsfood.R;
@@ -33,7 +37,7 @@ public class AdminSellerRegisterRequestsActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_admin_seller_register_requests, null);
-        ((TextView)view.findViewById(R.id.header)).setText("Register Requests");
+        ((TextView)view.findViewById(R.id.header)).setText("Registrations");
         listView = (ListView)view.findViewById(R.id.listView);
         setHasOptionsMenu(true);
         sellers = new ArrayList<>();
@@ -46,14 +50,21 @@ public class AdminSellerRegisterRequestsActivity extends Fragment {
                 }
                 else {
                     for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                        //
                         sellers.add(new Pair<>(dataSnapshot.getKey(), dataSnapshot.getValue(Seller.class)));
                         UpdateAdapter();
                     }
                 }
+            } 
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(requireActivity(), RegisterDetailActivity.class);
+                intent.putExtra("seller_id", sellers.get(i).first);
+                intent.putExtra("seller", sellers.get(i).second);
+                startActivity(intent);
             }
         });
-
         return view;
     }
 

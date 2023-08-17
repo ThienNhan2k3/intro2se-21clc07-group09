@@ -5,7 +5,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Seller extends Client {
+import java.io.Serializable;
+
+public class Seller extends Client implements Serializable {
     public String storeName;
     public String storeDescription;
     public int warningLevel;
