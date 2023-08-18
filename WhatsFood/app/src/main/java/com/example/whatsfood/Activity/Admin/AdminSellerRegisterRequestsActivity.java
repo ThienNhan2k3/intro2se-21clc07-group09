@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public class AdminSellerRegisterRequestsActivity extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(requireActivity(), RegisterDetailActivity.class);
                 intent.putExtra("seller_id", sellers.get(i).first);
-                intent.putExtra("seller", sellers.get(i).second);
+                intent.putExtra("seller", (Serializable) sellers.get(i).second);
                 startActivity(intent);
             }
         });

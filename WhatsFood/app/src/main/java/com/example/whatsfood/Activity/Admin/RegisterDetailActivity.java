@@ -67,6 +67,7 @@ public class RegisterDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         extras = getIntent().getExtras();
         seller_id = extras.getString("seller_id");
         seller = (Seller)extras.getSerializable("seller");
