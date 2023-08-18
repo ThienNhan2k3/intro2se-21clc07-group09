@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
@@ -40,7 +41,7 @@ public class BuyerHomeActivity extends Fragment {
         getActivity().setTitle("Home");
         setHasOptionsMenu(true);
 
-        listView = (ListView) view.findViewById(R.id.listView);
+        listView = (ListView) view.findViewById(R.id.list_view_buyer_home);
         foodList = new ArrayList<Food>();
 
         databaseRef.child("Food").addChildEventListener(new ChildEventListener() {
@@ -93,7 +94,6 @@ public class BuyerHomeActivity extends Fragment {
 
         foodAdapter = new FoodAdapter(getActivity(), R.layout.food_holder_buyer, foodList);
         listView.setAdapter(foodAdapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -102,6 +102,8 @@ public class BuyerHomeActivity extends Fragment {
                 startActivity(intent);
             }
         });
+
+
         return view;
     }
 }

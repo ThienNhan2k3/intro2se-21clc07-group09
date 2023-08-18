@@ -60,16 +60,21 @@
 
 
     <ListView
+        android:id="@+id/list_view_buyer_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/search_bar_buyer_home"
         android:layout_marginTop="20dp"
-        android:id="@+id/listView"
-        android:layout_centerHorizontal="true"
-        android:paddingHorizontal="25dp"
+        android:clickable="true"
+        android:cacheColorHint="#00000000"
         android:divider="@android:color/transparent"
-        android:dividerHeight="20sp"
-        android:scrollbars="none"/>
-
+        android:dividerHeight="1dp"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:scrollbars="none"
+        android:paddingHorizontal="20dp"
+        />
 
 </RelativeLayout>

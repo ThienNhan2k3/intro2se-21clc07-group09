@@ -58,11 +58,6 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
 
     ImageView imageFood;
 
-
-
-
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +136,7 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
             }
         });
 
-        String key = "-NbyvAzQZTAqG1ZPvM12";
+        String key = getIntent().getStringExtra("foodId");
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Food").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

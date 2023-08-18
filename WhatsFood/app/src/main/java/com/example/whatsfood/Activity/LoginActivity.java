@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                                             startActivity(intent);
                                         }
                                         else if (Objects.equals(role, "buyer")) {
-                                            Intent intent = new Intent(LoginActivity.this, BuyerViewSelectedFoodActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, BuyerBottomNavigationActivity.class);
                                             startActivity(intent);
                                         }
                                         else if (Objects.equals(role, "admin")) {

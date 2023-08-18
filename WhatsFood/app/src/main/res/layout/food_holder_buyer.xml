@@ -5,7 +5,8 @@
     android:layout_width="380dp"
     android:layout_height="120dp"
     android:background="@drawable/bc_round_16dp"
-    android:clickable="true">
+    android:focusable="false"
+    android:focusableInTouchMode="false">
 
 
     <androidx.cardview.widget.CardView
