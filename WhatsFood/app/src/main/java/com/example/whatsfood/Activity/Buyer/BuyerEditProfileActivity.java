@@ -137,7 +137,7 @@ public class BuyerEditProfileActivity extends AppCompatActivity {
             return;
         }
 
-        buyer = new Buyer(buyer.username, buyer.avatarUrl, str_address, str_phone, str_fullname);
+        buyer = new Buyer(buyer.username, buyer.avatarUrl, str_address, str_phone, str_fullname, buyer.cartDetailList);
         buyer.UpdateDataToServer();
         if (imgChange) {
             StorageReference storageRef = FirebaseStorage.getInstance().getReference();
