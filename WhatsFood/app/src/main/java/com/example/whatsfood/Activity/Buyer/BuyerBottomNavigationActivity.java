@@ -38,7 +38,7 @@ public class BuyerBottomNavigationActivity extends AppCompatActivity {
                 } else if (id == R.id.buyer_shopping_cart) {
                     fragment = new BuyerShoppingCartActivity();
                 } else if (id == R.id.buyer_profile) {
-                    fragment = new ProfileActivity();
+                    fragment = new BuyerViewProfileActivity();
                 }
                 if (fragment != null) {
                     getSupportFragmentManager()

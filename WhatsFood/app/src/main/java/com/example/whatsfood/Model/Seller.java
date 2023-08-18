@@ -1,5 +1,7 @@
 package com.example.whatsfood.Model;
 
+import android.media.Image;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

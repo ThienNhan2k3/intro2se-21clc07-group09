@@ -53,8 +53,8 @@
     </style>
 
     <style name="add_image_button" parent="Widget.AppCompat.ImageButton">
-        <item name="android:layout_width">128dp</item>
-        <item name="android:layout_height">128dp</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:background">@color/theme_gray</item>
         <item name="android:tint">@color/theme_black</item>
         <item name="android:src">@drawable/baseline_control_point_24</item>

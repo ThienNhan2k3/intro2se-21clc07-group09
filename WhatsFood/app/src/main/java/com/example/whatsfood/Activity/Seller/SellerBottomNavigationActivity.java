@@ -40,7 +40,7 @@ public class SellerBottomNavigationActivity extends AppCompatActivity {
                 } else if (itemId == R.id.seller_notification) {
                     fragment = new SellerNotificationActivity();
                 } else if (itemId == R.id.seller_profile) {
-                    fragment = new ProfileActivity();
+                    fragment = new SellerViewProfileActivity();
                 }
 
                 if (fragment != null) {

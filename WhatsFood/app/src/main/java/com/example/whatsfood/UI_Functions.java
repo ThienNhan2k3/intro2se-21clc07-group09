@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -17,10 +22,19 @@ import android.view.WindowId;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatsfood.Activity.LoginActivity;
 import com.example.whatsfood.Activity.SelectAccountTypeActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 public class UI_Functions {
     public UI_Functions() {
@@ -55,13 +69,14 @@ public class UI_Functions {
         dialog.show();
     }
 
-    public static void DisableButton(Button button) {
-        button.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-        button.setEnabled(false);
-    }
-
-    public static void EnableButton(Button button) {
-        button.getBackground().setColorFilter(null);
-        button.setEnabled(true);
+    public static void LoadImageToImageView(ImageView imageView, String imgUrl) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imgRef = storageRef.child(imgUrl);
+        imgRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri.toString()).fit().into(imageView);
+            }
+        });
     }
 }

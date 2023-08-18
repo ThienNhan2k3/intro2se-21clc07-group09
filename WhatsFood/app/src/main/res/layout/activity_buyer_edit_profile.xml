@@ -45,118 +45,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="6dp"
-                    android:text="Username"
-                    android:textColor="@color/theme_white" />
-
-                <EditText
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@color/theme_white"
-                    android:ems="10"
-                    android:hint="Username"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-
-                <TextView
-                    style="@style/text_24_normal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="6dp"
-                    android:text="Password"
-                    android:textColor="@color/theme_white" />
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@color/theme_white"
-                    android:ems="10"
-                    android:hint="Password"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-
-                <TextView
-                    style="@style/text_24_normal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="6dp"
-                    android:text="Confirm Password"
-                    android:textColor="@color/theme_white" />
-
-                <EditText
-                    android:id="@+id/confirm_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@color/theme_white"
-                    android:ems="10"
-                    android:hint="Password"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-
-                <TextView
-                    style="@style/text_24_normal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="6dp"
-                    android:text="Email"
-                    android:textColor="@color/theme_white" />
-
-                <EditText
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@color/theme_white"
-                    android:ems="10"
-                    android:hint="Email"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-
-                <TextView
-                    style="@style/text_24_normal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="6dp"
                     android:text="Full Name"
                     android:textColor="@color/theme_white" />
 
@@ -269,11 +157,11 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/submit_button"
-                style="@style/button_red"
+                android:id="@+id/apply_button"
+                style="@style/button_green"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit" />
+                android:text="Apply Changes" />
 
         </LinearLayout>
     </ScrollView>

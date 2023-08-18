@@ -1,21 +1,28 @@
 package com.example.whatsfood.Activity.Seller;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatsfood.Activity.AfterRegisterActivity;
+import com.example.whatsfood.Activity.Buyer.RegisterBuyerActivity;
 import com.example.whatsfood.FormatTextWatcher;
 import com.example.whatsfood.Model.Seller;
+import com.example.whatsfood.Model.User;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,10 +36,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.EnumSet;
 
 public class RegisterSellerActivity extends AppCompatActivity {
-    ImageButton back_button;
+    final int GALLERY_REQ_CODE = 1000;
+    ImageButton back_button, avatar_button;
     Button submit_button;
     private FirebaseAuth mAuth;
     EditText username, password, confirm_password, email, store_name, store_description, address, phone;
+    ImageView avatar;
+    Uri imgUri;
     boolean valid_input;
 
     @Override
@@ -43,6 +53,7 @@ public class RegisterSellerActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         //EditTexts
         username = (EditText)findViewById(R.id.store_name);
+        avatar_button = (ImageButton)findViewById(R.id.avatar_button);
         password = (EditText)findViewById(R.id.password);
         confirm_password = (EditText)findViewById(R.id.confirm_password);
         email = (EditText)findViewById(R.id.email);
@@ -65,6 +76,15 @@ public class RegisterSellerActivity extends AppCompatActivity {
                 verify_information();
             }
         });
+        avatar_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, GALLERY_REQ_CODE);
+            }
+        });
+        avatar = (ImageView)findViewById(R.id.avatar);
         //Add TextWatchers
         FormatTextWatcher watcher1 = new FormatTextWatcher(username);
         watcher1.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
@@ -136,6 +156,11 @@ public class RegisterSellerActivity extends AppCompatActivity {
             submit_button.setEnabled(true);
             return;
         }
+        if (!str_password.equals(str_confirm_password)) {
+            UI_Functions.CreatePopup(RegisterSellerActivity.this, getString(R.string.password_not_match));
+            submit_button.setEnabled(true);
+            return;
+        }
 
         //Check invalid fields
         if (username.getError() != null ||
@@ -161,7 +186,8 @@ public class RegisterSellerActivity extends AppCompatActivity {
                             if (user != null) {
                                 // User is signed in
                                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                                Seller seller = new Seller(str_username, "", str_address, str_phone, str_store_name, str_store_description, 0);
+                                String avatarPath = User.UploadImage(imgUri, "Avatar");
+                                Seller seller = new Seller(str_username, avatarPath, str_address, str_phone, str_store_name, str_store_description, 0);
                                 mDatabase.child("User").child(user.getUid()).child("role").setValue("seller_register");
                                 seller.SendRegisterRequest();
                                 Intent intent = new Intent(RegisterSellerActivity.this, AfterRegisterActivity.class);
@@ -177,5 +203,16 @@ public class RegisterSellerActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQ_CODE) {
+            imgUri = data.getData();
+            avatar.setImageURI(imgUri);
+            ViewGroup.LayoutParams layoutParams = avatar.getLayoutParams();
+            layoutParams.height = 0;
+            avatar.setLayoutParams(layoutParams);
+        }
     }
 }

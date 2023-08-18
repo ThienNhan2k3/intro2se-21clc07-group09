@@ -90,6 +90,15 @@
             android:name=".Activity.Admin.RegisterDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.Buyer.BuyerEditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Seller.SellerEditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>

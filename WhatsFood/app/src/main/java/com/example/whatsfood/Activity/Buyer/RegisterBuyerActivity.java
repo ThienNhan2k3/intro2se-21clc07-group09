@@ -1,22 +1,31 @@
 package com.example.whatsfood.Activity.Buyer;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatsfood.Activity.AfterRegisterActivity;
+import com.example.whatsfood.Activity.ChangePasswordActivity;
 import com.example.whatsfood.FormatTextWatcher;
 import com.example.whatsfood.Model.Buyer;
+import com.example.whatsfood.Model.User;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,11 +39,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.EnumSet;
 
 public class RegisterBuyerActivity extends AppCompatActivity {
-    ImageButton back_button;
+    final int GALLERY_REQ_CODE = 1000;
+    ImageButton back_button, avatar_button;
+
     Button submit_button;
     private FirebaseAuth mAuth;
     EditText username, password, confirm_password, email, fullname, address, phone;
-    boolean valid_input;
+    ImageView avatar;
+    Uri imgUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +55,18 @@ public class RegisterBuyerActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.header)).setText("Buyer Register");
         mAuth = FirebaseAuth.getInstance();
         //EditTexts
-        username = (EditText)findViewById(R.id.store_name);
+        username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         confirm_password = (EditText)findViewById(R.id.confirm_password);
         email = (EditText)findViewById(R.id.email);
-        fullname = (EditText)findViewById(R.id.username);
+        fullname = (EditText)findViewById(R.id.fullname);
         address = (EditText)findViewById(R.id.address);
         phone = (EditText)findViewById(R.id.phone);
         //Buttons
         back_button = (ImageButton)findViewById(R.id.back_button);
         submit_button = (Button)findViewById(R.id.submit_button);
+        avatar_button = (ImageButton)findViewById(R.id.avatar_button);
+        avatar = (ImageView)findViewById(R.id.avatar);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +77,14 @@ public class RegisterBuyerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 verify_information();
+            }
+        });
+        avatar_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, GALLERY_REQ_CODE);
             }
         });
         //Add TextWatchers
@@ -125,13 +147,18 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                 str_confirm_password.isEmpty() ||
                 str_email.isEmpty() ||
                 str_fullname.isEmpty() ||
-                str_address.isEmpty()
+                str_address.isEmpty() ||
+                avatar.getDrawable() == null
         ) {
             UI_Functions.CreatePopup(RegisterBuyerActivity.this, getString(R.string.missing_information));
             submit_button.setEnabled(true);
             return;
         }
-
+        if (!str_password.equals(str_confirm_password)) {
+            UI_Functions.CreatePopup(RegisterBuyerActivity.this, getString(R.string.password_not_match));
+            submit_button.setEnabled(true);
+            return;
+        }
         //Check invalid fields
         if (username.getError() != null ||
                 password.getError() != null ||
@@ -156,7 +183,10 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                                 // User is signed in
                                 Log.w("Firebase signup", "UID:" + String.valueOf(user.getUid()));
                                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                                Buyer buyer = new Buyer(str_username, "", str_address, str_phone, str_fullname);
+                                //Upload image to storage
+                                String avatarPath = User.UploadImage(imgUri, "Avatar");
+                                //Create object
+                                Buyer buyer = new Buyer(str_username, avatarPath, str_address, str_phone, str_fullname);
                                 mDatabase.child("User").child(user.getUid()).child("role").setValue("buyer");
                                 buyer.UpdateDataToServer();
                                 FirebaseAuth.getInstance().signOut();
@@ -165,13 +195,28 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                                 startActivity(intent);
                             } else {
                                 // No user is signed in
+                                Log.w("firebase", "No user is signed in");
                                 submit_button.setEnabled(true);
                             }
                         } else {
                             // If sign in fails, display a message to the user.
+                            Log.w("firebase", "Sign in fails");
                             submit_button.setEnabled(true);
+                            UI_Functions.CreatePopup(RegisterBuyerActivity.this, getString(R.string.register_fail));
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQ_CODE) {
+            imgUri = data.getData();
+            avatar.setImageURI(imgUri);
+            ViewGroup.LayoutParams layoutParams = avatar.getLayoutParams();
+            layoutParams.height = 0;
+            avatar.setLayoutParams(layoutParams);
+        }
     }
 }
