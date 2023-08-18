@@ -117,6 +117,7 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                             int numberOfFood = Integer.parseInt(numberOfFoodStr);
                             if (numberOfFood > 0) {
                                 // Số lượng hợp lệ, thực hiện các hành động tương ứng (Thêm vào giỏ hàng, v.v.)
+
                                 Toast.makeText(BuyerViewSelectedFoodActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                                 // Đóng Popup Dialog sau khi xử lý
                                 dialog.dismiss();
