@@ -25,6 +25,7 @@ import com.example.whatsfood.Activity.AfterRegisterActivity;
 import com.example.whatsfood.Activity.ChangePasswordActivity;
 import com.example.whatsfood.FormatTextWatcher;
 import com.example.whatsfood.Model.Buyer;
+import com.example.whatsfood.Model.CartDetail;
 import com.example.whatsfood.Model.User;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
@@ -36,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 
 public class RegisterBuyerActivity extends AppCompatActivity {
@@ -186,7 +188,9 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                                 //Upload image to storage
                                 String avatarPath = User.UploadImage(imgUri, "Avatar");
                                 //Create object
-                                Buyer buyer = new Buyer(str_username, avatarPath, str_address, str_phone, str_fullname);
+                                ArrayList<CartDetail> cartDetailList = new ArrayList<CartDetail>();
+                                cartDetailList.add(new CartDetail("temp", "temp", "temp", 0, 0));
+                                Buyer buyer = new Buyer(str_username, avatarPath, str_address, str_phone, str_fullname, cartDetailList);
                                 mDatabase.child("User").child(user.getUid()).child("role").setValue("buyer");
                                 buyer.UpdateDataToServer();
                                 FirebaseAuth.getInstance().signOut();

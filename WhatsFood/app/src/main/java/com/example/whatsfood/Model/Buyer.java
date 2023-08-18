@@ -13,14 +13,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class Buyer extends Client {
     public String fullname;
+    public ArrayList<CartDetail> cartDetailList;
     public Buyer() {
         super();
     }
-    public Buyer(String username, String avatarUrl, String address, String phone, String fullname) {
+    public Buyer(String username, String avatarUrl, String address, String phone, String fullname, ArrayList<CartDetail> cartDetailList) {
         super(username, avatarUrl, address, phone);
         this.fullname = fullname;
+        this.cartDetailList = cartDetailList;
     }
 
     public boolean UpdateDataToServer() {

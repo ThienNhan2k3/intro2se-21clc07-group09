@@ -1,25 +1,38 @@
 package com.example.whatsfood.Model;
 
 public class CartDetail {
-    private int image;
+    private String foodId;
+
+    private String imageUrl;
     private String name;
+
     private int price;
     private int number;
 
-    public CartDetail(int image, String name, int price, int number) {
-        this.image = image;
+    public CartDetail(String foodId, String imageUrl, String name, int price, int number) {
+        this.foodId = foodId;
+        this.imageUrl = imageUrl;
         this.name = name;
         this.price = price;
         this.number = number;
     }
 
-    public int getImage() {
-        return image;
+    public String getFoodId() {
+        return foodId;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setFoodId(String foodId) {
+        this.foodId = foodId;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 
     public String getName() {
         return name;
