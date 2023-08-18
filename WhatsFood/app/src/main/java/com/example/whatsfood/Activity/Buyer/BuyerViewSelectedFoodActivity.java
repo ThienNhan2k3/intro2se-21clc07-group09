@@ -28,14 +28,19 @@ import androidx.fragment.app.Fragment;
 import com.example.whatsfood.Activity.AfterRegisterActivity;
 import com.example.whatsfood.Activity.LoginActivity;
 import com.example.whatsfood.Adapter.CommentAdapter;
+import com.example.whatsfood.Model.Buyer;
+import com.example.whatsfood.Model.CartDetail;
 import com.example.whatsfood.Model.Comment;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -45,7 +50,9 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
     ListView listView;
     ArrayList <Comment> comments;
     CommentAdapter adapterComment;
+    ArrayList<CartDetail> cartDetailList;
 
+    Buyer buyer;
     Dialog dialog;
     ImageView add_to_cart;
     Button comment;
@@ -138,6 +145,19 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
 
         String key = getIntent().getStringExtra("foodId");
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String buyerId  = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mDatabase.child("Buyer").child(buyerId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cartDetailList = (ArrayList<CartDetail>) snapshot.child("cartDetailList").getValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         mDatabase.child("Food").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
