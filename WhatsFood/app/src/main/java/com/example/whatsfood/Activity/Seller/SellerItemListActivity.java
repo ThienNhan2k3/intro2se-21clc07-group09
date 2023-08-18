@@ -1,12 +1,19 @@
 package com.example.whatsfood.Activity.Seller;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +21,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.whatsfood.Adapter.FoodAdapter;
+import com.example.whatsfood.CustomAlertDialog;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
 import com.google.firebase.database.ChildEventListener;
@@ -108,6 +116,30 @@ public class SellerItemListActivity extends Fragment {
             }
         });
 
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                CustomAlertDialog customAlertDialog = new CustomAlertDialog(getActivity());
+                customAlertDialog.setTitle("Warning!");
+                customAlertDialog.setMessage("Do you want to delete this item ?");
+                customAlertDialog.setAcceptEvent(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Food food = foodList.get(i);
+                        databaseRef.child("Food").child(food.getFoodId()).removeValue();
+                        FirebaseStorage.getInstance().getReferenceFromUrl(food.getImageUrl()).delete();
+                        foodList.remove(i);
+                        foodAdapter.notifyDataSetChanged();
+                        Toast.makeText(getActivity(), "Delete successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+                return false;
+            }
+        });
+
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,5 +149,7 @@ public class SellerItemListActivity extends Fragment {
 
         return view;
     }
+
+
 }
 
