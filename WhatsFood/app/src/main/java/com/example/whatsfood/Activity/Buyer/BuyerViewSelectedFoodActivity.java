@@ -48,9 +48,10 @@ import java.util.Map;
 
 public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
     ListView listView;
-    ArrayList <Comment> comments;
+    ArrayList <Comment> comments=new ArrayList<>();
     CommentAdapter adapterComment;
-    ArrayList<CartDetail> cartDetailList;
+    ArrayList<CartDetail> cartDetailList=new ArrayList<>();
+    Food food;
 
     Buyer buyer;
     Dialog dialog;
@@ -81,6 +82,51 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
         imageFood=(ImageView) findViewById(R.id.image_food);
         back= (ImageView) findViewById(R.id.back);
 
+        String key = getIntent().getStringExtra("foodId");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String buyerId  = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mDatabase.child("Food").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    DataSnapshot dataSnapshot = task.getResult(); // Lấy dữ liệu từ Firebase
+
+                    // Sử dụng biến tạm để lưu trữ dữ liệu từ Firebase
+                    food = dataSnapshot.getValue(Food.class);
+                    Log.w("Food", food.getName());
+                    foodName.setText((food.getName()));
+                    price.setText(String.valueOf(food.getPrice()));
+                    description.setText((food.getDescription()));
+                    Picasso.get().load(food.getImageUrl()).into(imageFood);
+                    ArrayList <String> commentArray= food.getComments();
+                    /*for (String commentContent : commentArray) {
+                        Comment comment = new Comment(commentContent);
+                        comments.add(comment);
+                    }
+                    adapterComment=new CommentAdapter(BuyerViewSelectedFoodActivity.this,R.layout.comment_line,comments);
+
+                    listView.setAdapter(adapterComment);*/
+                }
+
+            }
+        });
+
+        mDatabase.child("Buyer").child(buyerId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cartDetailList = (ArrayList<CartDetail>) snapshot.child("cartDetailList").getValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +138,6 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showPopupLayout();
-
             }
 
             private void showPopupLayout() {
@@ -114,11 +159,32 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                         // Lấy giá trị từ EditText number_of_food
                         String numberOfFoodStr = numberOfFoodEditText.getText().toString();
 
+                        boolean foodExists = false;
+
                         // Kiểm tra xem numberOfFoodStr có phải là số tự nhiên hay không
                         try {
                             int numberOfFood = Integer.parseInt(numberOfFoodStr);
                             if (numberOfFood > 0) {
-                                // Số lượng hợp lệ, thực hiện các hành động tương ứng (Thêm vào giỏ hàng, v.v.)
+                                if(cartDetailList!=null) {
+                                    // Kiểm tra xem foodId đã tồn tại trong giỏ hàng hay chưa
+                                    for (CartDetail cartItem : cartDetailList) {
+                                        if (cartItem.getFoodId().equals(key)) {
+                                            // Cập nhật số lượng nếu foodId đã tồn tại
+                                            cartItem.setNumber(cartItem.getNumber() + numberOfFood);
+                                            foodExists = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (!foodExists) {
+                                    // Thêm món mới vào giỏ hàng
+                                    CartDetail newCartItem = new CartDetail(key, food.getImageUrl(), food.getName(), food.getPrice(), numberOfFood);
+                                    cartDetailList.add(newCartItem);
+                                }
+
+                                // Cập nhật lại giỏ hàng trên Firebase
+
 
                                 Toast.makeText(BuyerViewSelectedFoodActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                                 // Đóng Popup Dialog sau khi xử lý
@@ -140,51 +206,6 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
 
                 // Hiển thị Dialog
                 dialog.show();
-            }
-        });
-
-        String key = getIntent().getStringExtra("foodId");
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        String buyerId  = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mDatabase.child("Buyer").child(buyerId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                cartDetailList = (ArrayList<CartDetail>) snapshot.child("cartDetailList").getValue();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        mDatabase.child("Food").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    DataSnapshot dataSnapshot = task.getResult(); // Lấy dữ liệu từ Firebase
-
-                    // Sử dụng biến tạm để lưu trữ dữ liệu từ Firebase
-                    Food food = dataSnapshot.getValue(Food.class);
-                    Log.w("Food", food.getName());
-                    foodName.setText((food.getName()));
-                    price.setText(String.valueOf(food.getPrice()));
-                    description.setText((food.getDescription()));
-                    Picasso.get().load(food.getImageUrl()).into(imageFood);
-                    ArrayList <String> commentArray= food.getComments();
-                    /*for (String commentContent : commentArray) {
-                        Comment comment = new Comment(commentContent);
-                        comments.add(comment);
-                    }
-                    adapterComment=new CommentAdapter(BuyerViewSelectedFoodActivity.this,R.layout.comment_line,comments);
-
-                    listView.setAdapter(adapterComment);*/
-                }
-
             }
         });
 
