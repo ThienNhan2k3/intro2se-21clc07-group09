@@ -57,8 +57,8 @@ public class CartAdapter extends BaseAdapter {
             CartDetail list = food_cartlist.get(position);
 
             ten.setText(list.getName());
-            gia.setText(list.getPrice());
-            number.setText(list.getNumber());
+            gia.setText(String.valueOf(list.getPrice()));
+            number.setText(String.valueOf(list.getNumber()));
 
             Picasso.get().load(list.getImageUrl()).into(img);
             // Thiết lập sự kiện cho nút "minus"
