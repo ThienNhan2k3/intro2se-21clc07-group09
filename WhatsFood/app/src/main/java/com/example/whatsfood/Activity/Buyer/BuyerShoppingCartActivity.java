@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.whatsfood.Adapter.CartAdapter;
 //import com.example.whatsfood.Model.CartDetail;
@@ -29,6 +30,7 @@ public class BuyerShoppingCartActivity extends Fragment {
     ListView listView;
     ArrayList<CartDetail> cartDetailList=new ArrayList<>();
     CartAdapter cartAdapter;
+    private int totalMoney = 0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class BuyerShoppingCartActivity extends Fragment {
         setHasOptionsMenu(true);
 
         listView= (ListView) v.findViewById(R.id.view_cart_food);
+        TextView totalMoneyTextView = (TextView) v.findViewById(R.id.totalmoney);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         String buyerId  = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -61,12 +64,18 @@ public class BuyerShoppingCartActivity extends Fragment {
                         CartDetail cartItem = new CartDetail(foodId, imageUrl, name, price, number);
                         cartDetailList.add(cartItem);
                     }
+                    totalMoney = 0; // Đặt tổng tiền về 0 trước khi tính lại
+                    for (CartDetail cartItem : cartDetailList) {
+                        totalMoney += cartItem.getNumber() * cartItem.getPrice();
+                    }
 
                     // Tiếp tục xử lý dữ liệu sau khi đã tạo danh sách cartDetailList
                 }
                 cartAdapter=new CartAdapter(getActivity(),R.layout.food_in_cart_detail,cartDetailList);
                 listView.setAdapter(cartAdapter);
+                totalMoneyTextView.setText(String.valueOf((totalMoney)));
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

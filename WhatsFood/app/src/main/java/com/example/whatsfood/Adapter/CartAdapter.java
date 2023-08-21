@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,11 +52,11 @@ public class CartAdapter extends BaseAdapter {
             TextView ten = (TextView) view.findViewById(R.id.food_name);
             TextView gia = (TextView) view.findViewById(R.id.price);
             TextView number = (TextView) view.findViewById(R.id.number);
-            ImageView img = (ImageView) view.findViewById(R.id.img);
+            ImageView img = (ImageView) view.findViewById(R.id.food_image);
             ImageView minus=(ImageView) view.findViewById(R.id.minus);
             ImageView plus=(ImageView) view.findViewById(R.id.plus);
             CartDetail list = food_cartlist.get(position);
-
+            Button remove = (Button) view.findViewById(R.id.remove);
             ten.setText(list.getName());
             gia.setText(String.valueOf(list.getPrice()));
             number.setText(String.valueOf(list.getNumber()));
@@ -66,7 +67,7 @@ public class CartAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     int currentNumber = list.getNumber();
-                    if (currentNumber > 0) {
+                    if (currentNumber > 1) {
                         currentNumber--;
                         list.setNumber(currentNumber);
                         notifyDataSetChanged(); // Cập nhật giao diện sau khi thay đổi số lượng
@@ -82,8 +83,19 @@ public class CartAdapter extends BaseAdapter {
                     currentNumber++;
                     list.setNumber(currentNumber);
                     notifyDataSetChanged(); // Cập nhật giao diện sau khi thay đổi số lượng
+
                 }
             });
+            remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (position >= 0 && position < food_cartlist.size()) {
+                        food_cartlist.remove(position);
+                        notifyDataSetChanged();
+                    }
+                }
+            });
+
         }
 
         return view;
