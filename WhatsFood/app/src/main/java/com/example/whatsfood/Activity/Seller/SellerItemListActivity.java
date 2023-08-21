@@ -29,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -72,6 +73,7 @@ public class SellerItemListActivity extends Fragment {
                     for (int i = 0; i < foodList.size(); i++) {
                         if (foodList.get(i).getFoodId() == food.getFoodId()) {
                             foodList.set(i, food);
+                            break;
                         }
                     }
                     foodAdapter.notifyDataSetChanged();
@@ -116,29 +118,6 @@ public class SellerItemListActivity extends Fragment {
             }
         });
 
-        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                CustomAlertDialog customAlertDialog = new CustomAlertDialog(getActivity());
-                customAlertDialog.setTitle("Warning!");
-                customAlertDialog.setMessage("Do you want to delete this item ?");
-                customAlertDialog.setAcceptEvent(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Food food = foodList.get(i);
-                        databaseRef.child("Food").child(food.getFoodId()).removeValue();
-                        FirebaseStorage.getInstance().getReferenceFromUrl(food.getImageUrl()).delete();
-                        foodList.remove(i);
-                        foodAdapter.notifyDataSetChanged();
-                        Toast.makeText(getActivity(), "Delete successfully", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-                return false;
-            }
-        });
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
