@@ -1,18 +1,13 @@
 package com.example.whatsfood.Activity.Buyer;
 
 
-import static android.content.Intent.getIntent;
-
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,12 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import com.example.whatsfood.Activity.AfterRegisterActivity;
-import com.example.whatsfood.Activity.LoginActivity;
 import com.example.whatsfood.Adapter.CommentAdapter;
 import com.example.whatsfood.Model.Buyer;
 import com.example.whatsfood.Model.CartDetail;
@@ -72,7 +63,7 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_buyer_view_selected_food);
         dialog = new Dialog(this);
         Bundle extras = getIntent().getExtras();
-        listView=(ListView) findViewById(R.id.view_comment);
+        listView=(ListView) findViewById(R.id.view_cart_food);
         add_to_cart= (ImageView) findViewById(R.id.add_to_cart);
         foodName=(TextView) findViewById(R.id.food_name);
         description=(TextView) findViewById(R.id.description);
@@ -103,13 +94,13 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                     description.setText((food.getDescription()));
                     Picasso.get().load(food.getImageUrl()).into(imageFood);
                     ArrayList <String> commentArray= food.getComments();
-                    /*for (String commentContent : commentArray) {
+                    for (String commentContent : commentArray) {
                         Comment comment = new Comment(commentContent);
                         comments.add(comment);
                     }
                     adapterComment=new CommentAdapter(BuyerViewSelectedFoodActivity.this,R.layout.comment_line,comments);
 
-                    listView.setAdapter(adapterComment);*/
+                    listView.setAdapter(adapterComment);
                 }
 
             }
@@ -118,7 +109,24 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
         mDatabase.child("Buyer").child(buyerId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                cartDetailList = (ArrayList<CartDetail>) snapshot.child("cartDetailList").getValue();
+                ArrayList<Map<String, Object>> rawCartDetailList = (ArrayList<Map<String, Object>>) snapshot.child("cartDetailList").getValue();
+
+                if (rawCartDetailList != null) {
+                    cartDetailList.clear(); // Xóa danh sách cũ trước khi thêm dữ liệu mới
+
+                    for (Map<String, Object> rawCartItem : rawCartDetailList) {
+                        String foodId = (String) rawCartItem.get("foodId");
+                        String imageUrl = (String) rawCartItem.get("imageUrl");
+                        String name = (String) rawCartItem.get("name");
+                        int price = ((Long) rawCartItem.get("price")).intValue();
+                        int number = ((Long) rawCartItem.get("number")).intValue();
+
+                        CartDetail cartItem = new CartDetail(foodId, imageUrl, name, price, number);
+                        cartDetailList.add(cartItem);
+                    }
+
+                    // Tiếp tục xử lý dữ liệu sau khi đã tạo danh sách cartDetailList
+                }
             }
 
             @Override
@@ -184,9 +192,12 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                                 }
 
                                 // Cập nhật lại giỏ hàng trên Firebase
+                                DatabaseReference buyerRef = mDatabase.child("Buyer").child(buyerId);
+                                buyerRef.child("cartDetailList").setValue(cartDetailList);
 
 
                                 Toast.makeText(BuyerViewSelectedFoodActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+
                                 // Đóng Popup Dialog sau khi xử lý
                                 dialog.dismiss();
                             } else {

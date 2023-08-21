@@ -186,7 +186,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
-        android:id="@+id/view_comment"
+        android:id="@+id/view_cart_food"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
