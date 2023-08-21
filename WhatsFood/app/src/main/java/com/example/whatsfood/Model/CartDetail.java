@@ -9,6 +9,10 @@ public class CartDetail {
     private int price;
     private int number;
 
+    public CartDetail() {
+
+    }
+
     public CartDetail(String foodId, String imageUrl, String name, int price, int number) {
         this.foodId = foodId;
         this.imageUrl = imageUrl;

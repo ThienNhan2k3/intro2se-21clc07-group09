@@ -15,8 +15,10 @@ import android.widget.TextView;
 import com.example.whatsfood.Adapter.CartAdapter;
 //import com.example.whatsfood.Model.CartDetail;
 import com.example.whatsfood.Model.CartDetail;
+import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,48 +42,76 @@ public class BuyerShoppingCartActivity extends Fragment {
 
         listView= (ListView) v.findViewById(R.id.view_cart_food);
         TextView totalMoneyTextView = (TextView) v.findViewById(R.id.totalmoney);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        cartAdapter=new CartAdapter(getActivity(),R.layout.food_in_cart_detail,cartDetailList);
+        listView.setAdapter(cartAdapter);
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String buyerId  = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        mDatabase.child("Buyer").child(buyerId).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("Buyer").child(buyerId).child("cartDetailList").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Map<String, Object>> rawCartDetailList = (ArrayList<Map<String, Object>>) snapshot.child("cartDetailList").getValue();
-
-                if (rawCartDetailList != null) {
-                    cartDetailList.clear(); // Xóa danh sách cũ trước khi thêm dữ liệu mới
-
-                    for (int i = 1; i < rawCartDetailList.size(); i++) {
-                        Map<String, Object> rawCartItem = rawCartDetailList.get(i);
-
-                        String foodId = (String) rawCartItem.get("foodId");
-                        String imageUrl = (String) rawCartItem.get("imageUrl");
-                        String name = (String) rawCartItem.get("name");
-                        int price = ((Long) rawCartItem.get("price")).intValue();
-                        int number = ((Long) rawCartItem.get("number")).intValue();
-
-                        CartDetail cartItem = new CartDetail(foodId, imageUrl, name, price, number);
-                        cartDetailList.add(cartItem);
-                    }
-                    totalMoney = 0; // Đặt tổng tiền về 0 trước khi tính lại
-                    for (CartDetail cartItem : cartDetailList) {
-                        totalMoney += cartItem.getNumber() * cartItem.getPrice();
-                    }
-
-                    // Tiếp tục xử lý dữ liệu sau khi đã tạo danh sách cartDetailList
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String key = snapshot.getKey();
+                if (key.equals("0")) {
+                    return;
                 }
-                cartAdapter=new CartAdapter(getActivity(),R.layout.food_in_cart_detail,cartDetailList);
-                listView.setAdapter(cartAdapter);
-                totalMoneyTextView.setText(String.valueOf((totalMoney)));
+                CartDetail cartItem = snapshot.getValue(CartDetail.class);
+
+                if (cartItem != null) {
+                    cartDetailList.add(cartItem);
+                    totalMoney += cartItem.getNumber() * cartItem.getPrice();
+                    totalMoneyTextView.setText(String.valueOf((totalMoney)));
+                }
+                cartAdapter.notifyDataSetChanged();
             }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                snapshot = snapshot.child(snapshot.getKey());
+                CartDetail cartItem = snapshot.getValue(CartDetail.class);
+                if (cartItem != null && cartDetailList.isEmpty() == false) {
+                    for (int i = 0; i < cartDetailList.size(); i++) {
+                        if (cartDetailList.get(i).getFoodId() == cartItem.getFoodId()) {
+                            totalMoney += (cartItem.getNumber() - cartDetailList.get(i).getNumber()) * cartDetailList.get(i).getPrice();
+                            cartDetailList.set(i, cartItem);
+                            break;
+                        }
+                    }
+                    totalMoneyTextView.setText(String.valueOf((totalMoney)));
+                }
+                cartAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                snapshot = snapshot.child(snapshot.getKey());
+                CartDetail cartItem = snapshot.getValue(CartDetail.class);
+                if (cartItem != null && cartDetailList.isEmpty() == false) {
+                    for (int i = 0; i < cartDetailList.size(); i++) {
+                        if (cartDetailList.get(i).getFoodId() == cartItem.getFoodId()) {
+                            totalMoney -= cartDetailList.get(i).getNumber() * cartDetailList.get(i).getPrice();
+                            cartDetailList.remove(i);
+                            break;
+                        }
+                    }
+                    totalMoneyTextView.setText(String.valueOf((totalMoney)));
+                }
+                cartAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
+
         return v;
     }
 
