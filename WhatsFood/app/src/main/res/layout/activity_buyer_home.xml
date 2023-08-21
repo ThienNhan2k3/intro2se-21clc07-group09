@@ -68,7 +68,7 @@
         android:clickable="true"
         android:cacheColorHint="#00000000"
         android:divider="@android:color/transparent"
-        android:dividerHeight="1dp"
+        android:dividerHeight="8dp"
         android:scrollingCache="false"
         android:smoothScrollbar="true"
         android:focusable="false"
