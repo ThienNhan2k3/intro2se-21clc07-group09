@@ -1,6 +1,8 @@
 package com.example.whatsfood.Model;
 
-public class CartDetail {
+import java.io.Serializable;
+
+public class CartDetail implements Serializable {
     private String foodId;
 
     private String imageUrl;
@@ -9,6 +11,13 @@ public class CartDetail {
     private int price;
     private int number;
 
+    public CartDetail() {
+        this.foodId = null;
+        this.imageUrl = null;
+        this.name = "";
+        this.price = 0;
+        this.number = 0;
+    }
     public CartDetail(String foodId, String imageUrl, String name, int price, int number) {
         this.foodId = foodId;
         this.imageUrl = imageUrl;

@@ -83,8 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         //Call sign in method from mAuth
-        String email = username_email;
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(username_email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -96,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                                 login_button.setEnabled(true);
                                 return;
                             }
-                            //Navigate to corresponding home activtiy
+                            //Navigate to corresponding home activity
                             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                             mDatabase.child("User").child(fb_user.getUid()).child("role").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                 @Override
@@ -106,22 +105,27 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                     else {
                                         String role = String.valueOf(task.getResult().getValue());
-                                        if (Objects.equals(role, "seller")) {
-                                            Intent intent = new Intent(LoginActivity.this, SellerBottomNavigationActivity.class);
-                                            startActivity(intent);
-                                        }
-                                        else if (Objects.equals(role, "buyer")) {
-                                            Intent intent = new Intent(LoginActivity.this, BuyerBottomNavigationActivity.class);
-                                            startActivity(intent);
-                                        }
-                                        else if (Objects.equals(role, "admin")) {
-                                            Intent intent = new Intent(LoginActivity.this, AdminBottomNavigationActivity.class);
-                                            startActivity(intent);
-                                        }
-                                        else if (Objects.equals(role, "seller_register")) {
-                                            UI_Functions.CreatePopup(LoginActivity.this, "Your account is currently awaiting confirmation");
-                                            login_button.setEnabled(true);
-                                            FirebaseAuth.getInstance().signOut();
+                                        switch (role) {
+                                            case "seller": {
+                                                Intent intent = new Intent(LoginActivity.this, SellerBottomNavigationActivity.class);
+                                                startActivity(intent);
+                                                break;
+                                            }
+                                            case "buyer": {
+                                                Intent intent = new Intent(LoginActivity.this, BuyerBottomNavigationActivity.class);
+                                                startActivity(intent);
+                                                break;
+                                            }
+                                            case "admin": {
+                                                Intent intent = new Intent(LoginActivity.this, AdminBottomNavigationActivity.class);
+                                                startActivity(intent);
+                                                break;
+                                            }
+                                            case "seller_register":
+                                                UI_Functions.CreatePopup(LoginActivity.this, "Your account is currently awaiting confirmation");
+                                                login_button.setEnabled(true);
+                                                FirebaseAuth.getInstance().signOut();
+                                                break;
                                         }
                                     }
                                 }

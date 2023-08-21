@@ -17,8 +17,8 @@ public class ProfileActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_buyer_shopping_cart, null);
-        getActivity().setTitle("Profile");
+        View v = inflater.inflate(R.layout.activity_profile, container);
+        requireActivity().setTitle("Profile");
         setHasOptionsMenu(true);
         return v;
     }

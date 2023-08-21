@@ -35,7 +35,7 @@ public class BuyerShoppingCartActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_buyer_view_cart, null);
-        getActivity().setTitle("Shopping Cart");
+        requireActivity().setTitle("Shopping Cart");
         setHasOptionsMenu(true);
 
         listView= (ListView) v.findViewById(R.id.view_cart_food);
@@ -73,7 +73,7 @@ public class BuyerShoppingCartActivity extends Fragment {
                 }
                 cartAdapter=new CartAdapter(getActivity(),R.layout.food_in_cart_detail,cartDetailList);
                 listView.setAdapter(cartAdapter);
-                totalMoneyTextView.setText(String.valueOf((totalMoney)));
+                totalMoneyTextView.setText(String.valueOf(totalMoney));
             }
 
 

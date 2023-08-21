@@ -91,6 +91,15 @@ public class BuyerEditProfileActivity extends AppCompatActivity {
                 startActivityForResult(gallery, GALLERY_REQ_CODE);
             }
         });
+
+        avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, GALLERY_REQ_CODE);
+            }
+        });
         //Add TextWatchers
 
         FormatTextWatcher watcher4 = new FormatTextWatcher(fullname);

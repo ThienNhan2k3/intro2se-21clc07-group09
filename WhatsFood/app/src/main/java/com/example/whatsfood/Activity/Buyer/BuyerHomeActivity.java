@@ -25,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class BuyerHomeActivity extends Fragment {
 
@@ -38,7 +39,7 @@ public class BuyerHomeActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_buyer_home, null);
-        getActivity().setTitle("Home");
+        requireActivity().setTitle("Home");
         setHasOptionsMenu(true);
 
         listView = (ListView) view.findViewById(R.id.list_view_buyer_home);
@@ -57,9 +58,9 @@ public class BuyerHomeActivity extends Fragment {
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Food food = snapshot.getValue(Food.class);
-                if (food != null && foodList.isEmpty() == false) {
+                if (food != null && !foodList.isEmpty()) {
                     for (int i = 0; i < foodList.size(); i++) {
-                        if (foodList.get(i).getFoodId() == food.getFoodId()) {
+                        if (Objects.equals(foodList.get(i).getFoodId(), food.getFoodId())) {
                             foodList.set(i, food);
                         }
                     }
@@ -70,9 +71,9 @@ public class BuyerHomeActivity extends Fragment {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 Food food = snapshot.getValue(Food.class);
-                if (food != null && foodList.isEmpty() == false) {
+                if (food != null && !foodList.isEmpty()) {
                     for (int i = 0; i < foodList.size(); i++) {
-                        if (foodList.get(i).getFoodId() == food.getFoodId()) {
+                        if (Objects.equals(foodList.get(i).getFoodId(), food.getFoodId())) {
                             foodList.remove(i);
                             break;
                         }
@@ -92,7 +93,7 @@ public class BuyerHomeActivity extends Fragment {
             }
         });
 
-        foodAdapter = new FoodAdapter(getActivity(), R.layout.food_holder_buyer, foodList);
+        foodAdapter = new FoodAdapter(getContext(), R.layout.food_holder_buyer, foodList);
         listView.setAdapter(foodAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

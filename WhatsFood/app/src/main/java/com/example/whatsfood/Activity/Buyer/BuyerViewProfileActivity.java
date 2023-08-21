@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,16 +83,26 @@ public class BuyerViewProfileActivity extends Fragment {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
-
+                    if (task.getException() != null) {
+                        Log.w("firebase", "Buyer Profile View - "
+                                + task.getException().toString());
+                    }
                 }
                 else {
                     buyer = task.getResult().getValue(Buyer.class);
-                    ((TextView)view.findViewById(R.id.username)).setText("Username: " + buyer.username);
-                    ((TextView)view.findViewById(R.id.fullname)).setText(buyer.fullname);
-                    ((TextView)view.findViewById(R.id.address)).setText("Address: " + buyer.address);
-                    ((TextView)view.findViewById(R.id.phone)).setText("Phone: " + buyer.phone);
-                    ((TextView)view.findViewById(R.id.email)).setText("Email: " + fb_user.getEmail());
-                    UI_Functions.LoadImageToImageView((ImageView)view.findViewById(R.id.avatar), buyer.avatarUrl);
+                    if (buyer != null) {
+                        String username_string = "Username: " + buyer.username;
+                        String address_string = "Address: " + buyer.address;
+                        String phone_string = "Phone: " + buyer.phone;
+                        String email_string = "Email: " + fb_user.getEmail();
+
+                        ((TextView) view.findViewById(R.id.username)).setText(username_string);
+                        ((TextView) view.findViewById(R.id.fullname)).setText(buyer.fullname);
+                        ((TextView) view.findViewById(R.id.address)).setText(address_string);
+                        ((TextView) view.findViewById(R.id.phone)).setText(phone_string);
+                        ((TextView) view.findViewById(R.id.email)).setText(email_string);
+                        UI_Functions.LoadImageToImageView((ImageView) view.findViewById(R.id.avatar), buyer.avatarUrl);
+                    }
                 }
             }
         });

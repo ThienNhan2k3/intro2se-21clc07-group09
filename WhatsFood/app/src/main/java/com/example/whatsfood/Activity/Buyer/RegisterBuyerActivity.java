@@ -1,7 +1,6 @@
 package com.example.whatsfood.Activity.Buyer;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -10,7 +9,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,7 +20,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatsfood.Activity.AfterRegisterActivity;
-import com.example.whatsfood.Activity.ChangePasswordActivity;
 import com.example.whatsfood.FormatTextWatcher;
 import com.example.whatsfood.Model.Buyer;
 import com.example.whatsfood.Model.CartDetail;
@@ -39,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.Objects;
 
 public class RegisterBuyerActivity extends AppCompatActivity {
     final int GALLERY_REQ_CODE = 1000;
@@ -46,7 +44,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
 
     Button submit_button;
     private FirebaseAuth mAuth;
-    EditText username, password, confirm_password, email, fullname, address, phone;
+    EditText username, password, confirm_password, email, full_name, address, phone;
     ImageView avatar;
     Uri imgUri;
 
@@ -61,7 +59,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
         password = (EditText)findViewById(R.id.password);
         confirm_password = (EditText)findViewById(R.id.confirm_password);
         email = (EditText)findViewById(R.id.email);
-        fullname = (EditText)findViewById(R.id.fullname);
+        full_name = (EditText)findViewById(R.id.fullname);
         address = (EditText)findViewById(R.id.address);
         phone = (EditText)findViewById(R.id.phone);
         //Buttons
@@ -122,7 +120,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
         FormatTextWatcher watcher3 = new FormatTextWatcher(email);
         watcher3.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
 
-        FormatTextWatcher watcher4 = new FormatTextWatcher(fullname);
+        FormatTextWatcher watcher4 = new FormatTextWatcher(full_name);
         watcher4.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_ONLY_ALPHABET);
 
         FormatTextWatcher watcher5 = new FormatTextWatcher(address);
@@ -139,7 +137,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
         String str_password = password.getText().toString();
         String str_confirm_password = confirm_password.getText().toString();
         String str_email = email.getText().toString();
-        String str_fullname = fullname.getText().toString();
+        String str_fullname = full_name.getText().toString();
         String str_address = address.getText().toString();
         String str_phone = phone.getText().toString();
 
@@ -166,7 +164,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                 password.getError() != null ||
                 confirm_password.getError() != null ||
                 email.getError() != null ||
-                fullname.getError() != null ||
+                full_name.getError() != null ||
                 address.getError() != null ||
                 phone.getError() != null) {
             UI_Functions.CreatePopup(RegisterBuyerActivity.this, getString(R.string.invalid_field));
@@ -204,7 +202,10 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                             }
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("firebase", "Sign in fails");
+                            Exception exception = task.getException();
+                            if (exception != null) {
+                                Log.w("firebase", exception);
+                            }
                             submit_button.setEnabled(true);
                             UI_Functions.CreatePopup(RegisterBuyerActivity.this, getString(R.string.register_fail));
                         }
@@ -215,7 +216,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == GALLERY_REQ_CODE) {
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQ_CODE && data != null) {
             imgUri = data.getData();
             avatar.setImageURI(imgUri);
             ViewGroup.LayoutParams layoutParams = avatar.getLayoutParams();

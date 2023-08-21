@@ -17,7 +17,7 @@ public class BuyerOrderListActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_buyer_order_list, container);
+        View v = inflater.inflate(R.layout.activity_buyer_order_list, null);
         requireActivity().setTitle("Order List");
         setHasOptionsMenu(true);
         return v;

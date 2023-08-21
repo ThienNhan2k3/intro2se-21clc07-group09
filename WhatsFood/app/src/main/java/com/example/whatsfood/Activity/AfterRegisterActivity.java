@@ -18,7 +18,7 @@ public class AfterRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_register);
         Bundle extras = getIntent().getExtras();
-        String text = extras.getString("popup_text", "No text");
+        String text = extras.getString("popup_text", " ");
         popup_text = (TextView)findViewById(R.id.popup_text);
         popup_text.setText(text);
         ok_button = (Button)findViewById(R.id.ok_button);
