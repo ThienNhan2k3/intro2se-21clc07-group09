@@ -65,7 +65,14 @@ public class CustomAlertDialog {
         if (dialog != null) {
             //Set button
             AppCompatButton cancelBtn = (AppCompatButton) dialog.findViewById(R.id.cancel_button_custom_alert_dialog);
-            cancelBtn.setOnClickListener(cancel);
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cancel.onClick(view);
+                    dialog.dismiss();
+                }
+            });
+
         }
     }
 
