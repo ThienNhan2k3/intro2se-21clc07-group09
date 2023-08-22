@@ -102,7 +102,11 @@ public class CartAdapter extends BaseAdapter {
                             CartDetail cartDetail = ss.getValue(CartDetail.class);
                             if (cartDetail.getFoodId() == list.getFoodId()) {
                                 HashMap<String, Object> hashMap = new HashMap<String, Object>();
-                                hashMap.put("/number/" , cartDetail.getNumber() - 1);
+                                if (cartDetail.getNumber() == 1) {
+                                    hashMap.put("/number/" , 1);
+                                } else {
+                                    hashMap.put("/number/" , cartDetail.getNumber() - 1);
+                                }
                                 databaseReference.child(key).updateChildren(hashMap);
                                 break;
 
@@ -161,7 +165,6 @@ public class CartAdapter extends BaseAdapter {
         viewHolder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

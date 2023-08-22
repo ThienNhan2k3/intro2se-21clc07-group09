@@ -43,8 +43,7 @@ public class BuyerShoppingCartActivity extends Fragment {
         listView= (ListView) v.findViewById(R.id.view_cart_food);
         TextView totalMoneyTextView = (TextView) v.findViewById(R.id.totalmoney);
 
-        cartAdapter=new CartAdapter(getActivity(),R.layout.food_in_cart_detail,cartDetailList);
-        listView.setAdapter(cartAdapter);
+
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String buyerId  = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -68,7 +67,6 @@ public class BuyerShoppingCartActivity extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                snapshot = snapshot.child(snapshot.getKey());
                 CartDetail cartItem = snapshot.getValue(CartDetail.class);
                 if (cartItem != null && cartDetailList.isEmpty() == false) {
                     for (int i = 0; i < cartDetailList.size(); i++) {
@@ -78,14 +76,13 @@ public class BuyerShoppingCartActivity extends Fragment {
                             break;
                         }
                     }
-                    totalMoneyTextView.setText(String.valueOf((totalMoney)));
+                    totalMoneyTextView.setText(String.valueOf(totalMoney));
+                    cartAdapter.notifyDataSetChanged();
                 }
-                cartAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                snapshot = snapshot.child(snapshot.getKey());
                 CartDetail cartItem = snapshot.getValue(CartDetail.class);
                 if (cartItem != null && cartDetailList.isEmpty() == false) {
                     for (int i = 0; i < cartDetailList.size(); i++) {
@@ -95,9 +92,9 @@ public class BuyerShoppingCartActivity extends Fragment {
                             break;
                         }
                     }
-                    totalMoneyTextView.setText(String.valueOf((totalMoney)));
+                    totalMoneyTextView.setText(String.valueOf(totalMoney));
+                    cartAdapter.notifyDataSetChanged();
                 }
-                cartAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -110,7 +107,8 @@ public class BuyerShoppingCartActivity extends Fragment {
 
             }
         });
-
+        cartAdapter=new CartAdapter(getActivity(),R.layout.food_in_cart_detail,cartDetailList);
+        listView.setAdapter(cartAdapter);
 
         return v;
     }
