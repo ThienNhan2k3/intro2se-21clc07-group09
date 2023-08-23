@@ -14,10 +14,21 @@ import java.util.List;
 public class Order implements Serializable {
 
 
-    private String orderId, buyerId, buyerName, sellerId, ship_to, status, denialReason;
-    private int totalMoney;
-    private ArrayList<CartDetail> foodList;
+    private final String orderId, buyerId, buyerName, sellerId, ship_to, status, denialReason;
+    private final int totalMoney;
+    private final ArrayList<CartDetail> foodList;
 
+    public Order() {
+        this.orderId = null;
+        this.buyerId = null;
+        this.buyerName = null;
+        this.sellerId = null;
+        this.ship_to = null;
+        this.status = null;
+        this.denialReason = null;
+        this.totalMoney = 0;
+        this.foodList = new ArrayList<CartDetail>();
+    }
     public Order(String orderId, String buyerId, String buyerName, String sellerId, String ship_to, String status, String denialReason, int totalMoney, ArrayList<CartDetail> foodList) {
         this.orderId = orderId;
         this.buyerId = buyerId;

@@ -172,7 +172,7 @@ public class BuyerEditProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == GALLERY_REQ_CODE) {
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQ_CODE && data != null) {
             imgUri = data.getData();
             avatar.setImageURI(imgUri);
             imgChange = true;

@@ -22,16 +22,16 @@
         android:id="@+id/order_list_logo"/>
 
     <GridView
-        android:numColumns="2"
+        android:id="@+id/order_grid_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/order_list_logo"
-        android:layout_marginTop="20dp"
-        android:id="@+id/order_grid_list"
-        android:verticalSpacing="23dp"
-        android:horizontalSpacing="19dp"
         android:layout_centerHorizontal="true"
-        android:paddingHorizontal="20dp"/>
+        android:layout_marginTop="20dp"
+        android:horizontalSpacing="19dp"
+        android:numColumns="2"
+        android:paddingHorizontal="20dp"
+        android:verticalSpacing="23dp" />
 
 
 </RelativeLayout>

@@ -26,9 +26,9 @@ import java.util.List;
 
 public class OrderAdapter extends BaseAdapter {
 
-    private Context context;
-    private int layout;
-    private List<Order> orderList;
+    private final Context context;
+    private final int layout;
+    private final List<Order> orderList;
 
     public OrderAdapter(Context context, int layout, List<Order> orderList) {
         this.context = context;
@@ -43,7 +43,7 @@ public class OrderAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return orderList.get(i);
     }
 
     @Override

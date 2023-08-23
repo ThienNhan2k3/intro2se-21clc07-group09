@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
-    ListView listView;
+    // ListView listView;
     ArrayList <Comment> comments=new ArrayList<>();
     CommentAdapter adapterComment;
     ArrayList<CartDetail> cartDetailList=new ArrayList<>();
@@ -63,7 +63,7 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_buyer_view_selected_food);
         dialog = new Dialog(this);
         Bundle extras = getIntent().getExtras();
-        listView=(ListView) findViewById(R.id.view_cart_food);
+        // listView=(ListView) findViewById(R.id.view_cart_food);
         add_to_cart= (ImageView) findViewById(R.id.add_to_cart);
         foodName=(TextView) findViewById(R.id.food_name);
         description=(TextView) findViewById(R.id.description);
@@ -100,7 +100,7 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                     }
                     adapterComment=new CommentAdapter(BuyerViewSelectedFoodActivity.this,R.layout.comment_line,comments);
 
-                    listView.setAdapter(adapterComment);
+                    // listView.setAdapter(adapterComment);
                 }
 
             }

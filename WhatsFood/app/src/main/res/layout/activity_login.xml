@@ -38,6 +38,7 @@
             android:background="@color/theme_white"
             android:ems="10"
             android:hint="Username/Email"
+            android:inputType="text"
             android:paddingStart="10dp"
             android:paddingEnd="10dp" />
 

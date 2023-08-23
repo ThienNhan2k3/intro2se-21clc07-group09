@@ -1,7 +1,6 @@
 package com.example.whatsfood.Activity.Seller;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -11,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -23,7 +21,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,10 +61,12 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
         priceTextInputLayout = (TextInputLayout) findViewById(R.id.price_text_input_layout_seller_add_new_item);
         quantityTextInputLayout = (TextInputLayout)  findViewById(R.id.quantity_text_input_layout_seller_add_new_item);
 
-        refeshTextInputLayout(foodNameTextInputLayout);
-        refeshTextInputLayout(descriptionTextInputLayout);
-        refeshTextInputLayout(priceTextInputLayout);
-        refeshTextInputLayout(quantityTextInputLayout);
+        priceTextInputLayout.forceLayout();
+
+        refreshTextInputLayout(foodNameTextInputLayout);
+        refreshTextInputLayout(descriptionTextInputLayout);
+        refreshTextInputLayout(priceTextInputLayout);
+        refreshTextInputLayout(quantityTextInputLayout);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,7 +246,7 @@ public class SellerAddNewItemActivity extends AppCompatActivity {
        return true;
    }
 
-   private void refeshTextInputLayout(TextInputLayout input) {
+   private void refreshTextInputLayout(TextInputLayout input) {
        input.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
            @Override
            public void onFocusChange(View view, boolean b) {

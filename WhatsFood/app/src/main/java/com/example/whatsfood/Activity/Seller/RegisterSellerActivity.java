@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -199,6 +200,9 @@ public class RegisterSellerActivity extends AppCompatActivity {
                             }
                         } else {
                             // If sign in fails, display a message to the user.
+                            UI_Functions.CreatePopup(RegisterSellerActivity.this, "Something went wrong, please try later.");
+                            if (task.getException() != null)
+                                Log.w("firebase", task.getException().toString());
                             submit_button.setEnabled(true);
                         }
                     }

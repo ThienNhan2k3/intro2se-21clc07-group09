@@ -24,6 +24,7 @@ import com.example.whatsfood.Adapter.FoodAdapter;
 import com.example.whatsfood.CustomAlertDialog;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +36,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SellerItemListActivity extends Fragment {
 
@@ -45,6 +47,7 @@ public class SellerItemListActivity extends Fragment {
 
     StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class SellerItemListActivity extends Fragment {
         setHasOptionsMenu(true);
 
         addBtn = (AppCompatButton) view.findViewById(R.id.add_food_seller_food_list_activity);
-        gridView = (GridView) view.findViewById(R.id.order_grid_view_seller_item_lít);
+        gridView = (GridView) view.findViewById(R.id.order_grid_view_seller_item_list);
 
         foodList = new ArrayList<Food>();
         databaseRef.child("Food").addChildEventListener(new ChildEventListener() {
@@ -61,36 +64,42 @@ public class SellerItemListActivity extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Food food = snapshot.getValue(Food.class);
                 if (food != null) {
-                    foodList.add(food);
-                    foodAdapter.notifyDataSetChanged();
+                    if (Objects.equals(food.getSellerId(), mAuth.getUid())) {
+                        foodList.add(food);
+                        foodAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Food food = snapshot.getValue(Food.class);
-                if (food != null && foodList.isEmpty() == false) {
-                    for (int i = 0; i < foodList.size(); i++) {
-                        if (foodList.get(i).getFoodId() == food.getFoodId()) {
-                            foodList.set(i, food);
-                            break;
+                if (food != null && !foodList.isEmpty()) {
+                    if (Objects.equals(food.getSellerId(), mAuth.getUid())) {
+                        for (int i = 0; i < foodList.size(); i++) {
+                            if (Objects.equals(foodList.get(i).getFoodId(), food.getFoodId())) {
+                                foodList.set(i, food);
+                                break;
+                            }
                         }
+                        foodAdapter.notifyDataSetChanged();
                     }
-                    foodAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 Food food = snapshot.getValue(Food.class);
-                if (food != null && foodList.isEmpty() == false) {
-                    for (int i = 0; i < foodList.size(); i++) {
-                        if (foodList.get(i).getFoodId() == food.getFoodId()) {
-                            foodList.remove(i);
-                            break;
+                if (food != null && !foodList.isEmpty()) {
+                    if (Objects.equals(food.getSellerId(), mAuth.getUid())) {
+                        for (int i = 0; i < foodList.size(); i++) {
+                            if (Objects.equals(foodList.get(i).getFoodId(), food.getFoodId())) {
+                                foodList.remove(i);
+                                break;
+                            }
                         }
+                        foodAdapter.notifyDataSetChanged();
                     }
-                    foodAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -128,7 +137,5 @@ public class SellerItemListActivity extends Fragment {
 
         return view;
     }
-
-
 }
 

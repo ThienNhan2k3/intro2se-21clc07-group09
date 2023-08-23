@@ -11,12 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
 
 import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
+import com.example.whatsfood.Activity.Buyer.BuyerViewSelectedFoodActivity;
+import com.example.whatsfood.Adapter.FoodAdapter;
 import com.example.whatsfood.Adapter.OrderAdapter;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.Model.Order;
 import com.example.whatsfood.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -24,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SellerHomeActivity extends Fragment {
 
@@ -45,47 +53,76 @@ public class SellerHomeActivity extends Fragment {
 
         gridView = (GridView) view.findViewById(R.id.order_grid_list);
 
-//        String imageUrl = "https://spoonsofflavor.com/wp-content/uploads/2020/08/Easy-Chicken-Fry-Recipe.jpg";
-//        ArrayList<String> comments = new ArrayList<String>();
-//        comments.add("Delicous");
-//        comments.add("So expensive");
-//        comments.add("affordable price");
-//
-//        foodList = new ArrayList<Food>();
-//        for (int i = 0; i < 10; i++) {
-//            foodList.add(new Food("foodId",
-//                    "name",
-//                    "description",
-//                    "100000",
-//                    imageUrl,
-//                    "1",
-//                    "sellerId",
-//                    "Shoppe",
-//                    comments));
-//        }
-//
-//        orderList = new ArrayList<Order>();
-//        for (int i = 0; i < 10; i++) {
-//            orderList.add(new Order("#1234",
-//                    "Buyer ID",
-//                    "Dai",
-//                    "Seller Id",
-//                    " 227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh",
-//                    "100000",
-//                    foodList,
-//                    0));
-//        }
-//        orderAdapter = new OrderAdapter(getActivity(), R.layout.order_placeholder, orderList);
-//        gridView.setAdapter(orderAdapter);
-//
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(getActivity(), SellerOrderDetailsActivity.class);
-//                intent.putExtra("Order", (Serializable) orderList.get(i));
-//                startActivity(intent);
-//            }
-//        });
+        // TODO: Food
+
+        orderList = new ArrayList<Order>();
+        orderAdapter = new OrderAdapter(getActivity(), R.layout.order_placeholder_seller, orderList);
+        gridView.setAdapter(orderAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), SellerOrderDetailsActivity.class);
+                intent.putExtra("Order", (Serializable) orderList.get(i));
+                startActivity(intent);
+            }
+        });
+
+        databaseRef.child("Order").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Order order = snapshot.getValue(Order.class);
+                if (order != null) {
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    if (Objects.equals(order.getSellerId(), mAuth.getUid())) {
+                        orderList.add(order);
+                        orderAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Order order = snapshot.getValue(Order.class);
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                if (order != null) {
+                    if (Objects.equals(mAuth.getUid(), order.getSellerId())) {
+                        for (int i = 0; i < orderList.size(); i++) {
+                            if (Objects.equals(orderList.get(i).getOrderId(), order.getOrderId())) {
+                                orderList.set(i, order);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                Order order = snapshot.getValue(Order.class);
+                if (order != null) {
+                    orderList.remove(order);
+                    orderAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), BuyerViewSelectedFoodActivity.class);
+                intent.putExtra("OrderID", foodList.get(i).getFoodId());
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

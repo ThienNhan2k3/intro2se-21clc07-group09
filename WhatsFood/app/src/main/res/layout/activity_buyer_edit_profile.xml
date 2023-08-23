@@ -55,6 +55,7 @@
                     android:background="@color/theme_white"
                     android:ems="10"
                     android:hint="Full name"
+                    android:inputType="text"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp" />
 
@@ -83,6 +84,7 @@
                     android:background="@color/theme_white"
                     android:ems="10"
                     android:hint="Address"
+                    android:inputType="text"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp" />
 
@@ -111,6 +113,7 @@
                     android:background="@color/theme_white"
                     android:ems="10"
                     android:hint="Phone number"
+                    android:inputType="phone"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp" />
 
