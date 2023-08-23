@@ -7,21 +7,26 @@ public class CartDetail implements Serializable {
 
     private String imageUrl;
     private String name;
+    private String sellerId;
 
     private int price;
     private int number;
 
     public CartDetail() {
-        this.foodId = null;
-        this.imageUrl = null;
-        this.name = "";
+        this.foodId = "temp";
+        this.imageUrl = "temp";
+        this.name = "temp";
+        this.sellerId = "temp";
         this.price = 0;
         this.number = 0;
     }
-    public CartDetail(String foodId, String imageUrl, String name, int price, int number) {
+
+
+    public CartDetail(String foodId, String imageUrl, String name, String sellerId, int price, int number) {
         this.foodId = foodId;
         this.imageUrl = imageUrl;
         this.name = name;
+        this.sellerId = sellerId;
         this.price = price;
         this.number = number;
     }
@@ -42,6 +47,13 @@ public class CartDetail implements Serializable {
         this.imageUrl = imageUrl;
     }
 
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
 
     public String getName() {
         return name;

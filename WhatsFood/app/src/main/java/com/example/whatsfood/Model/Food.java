@@ -21,6 +21,16 @@ public class Food implements Serializable {
     ArrayList<String> comments;
 
     public Food() {
+        this.foodId = "foodId";
+        this.name = "name";
+        this.description = "description";
+        this.price = 0;
+        this.imageUrl = "imageUrl";
+        this.quantity = 0;
+        this.comments = new ArrayList<String>();
+        this.comments.add("empty");
+        this.sellerId = "sellerId";
+        this.storeName = "storeName";
     }
 
     public Food(String foodId, String name, String description, int price, String imageUrl, int quantity, String sellerId, String storeName, ArrayList<String> comments) {
