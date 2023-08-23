@@ -73,11 +73,13 @@ public class BuyerShoppingCartActivity extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String key = snapshot.getKey();
-                if (key.equals("0")) {
-                    return;
-                }
-                CartDetail cartItem = snapshot.getValue(CartDetail.class);
 
+                CartDetail cartItem = snapshot.getValue(CartDetail.class);
+                if (key.equals("0")) {
+                    if (cartItem.getFoodId().equals("temp@#$%!")) {
+                        return;
+                    }
+                }
                 if (cartItem != null) {
                     cartDetailList.add(cartItem);
                     totalMoney += cartItem.getNumber() * cartItem.getPrice();

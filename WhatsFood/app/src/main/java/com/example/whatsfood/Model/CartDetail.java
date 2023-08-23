@@ -13,7 +13,7 @@ public class CartDetail implements Serializable {
     private int number;
 
     public CartDetail() {
-        this.foodId = "temp";
+        this.foodId = "temp@#$%!";
         this.imageUrl = "temp";
         this.name = "temp";
         this.sellerId = "temp";

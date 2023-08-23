@@ -50,7 +50,7 @@ public class SellerUpdateItemActivity extends AppCompatActivity {
     AppCompatButton updateBtn;
     ImageView foodImageView;
     TextInputLayout foodNameTextInputLayout, descriptionTextInputLayout, priceTextInputLayout, quantityTextInputLayout;
-    String foodName, description, price, quantity, sellerId, storeName;
+    String foodId, foodName, description, price, quantity, sellerId, storeName;
     Uri imageUri = null;
 
     StorageReference storageRef = FirebaseStorage.getInstance().getReference();
@@ -61,6 +61,7 @@ public class SellerUpdateItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_seller_update_item);
 
         Food food = (Food) getIntent().getSerializableExtra("Food");
+        foodId = food.getFoodId();
 
         backBtn = (ImageButton) findViewById(R.id.back_button_seller_update_item);
         updateBtn = (AppCompatButton) findViewById(R.id.update_button_seller_update_item);
@@ -202,8 +203,8 @@ public class SellerUpdateItemActivity extends AppCompatActivity {
         childUpdates.put("/name/", foodName);
         childUpdates.put("/description/", description);
         childUpdates.put("/imageUrl/", imageUrl);
-
         databaseReference.updateChildren(childUpdates);
+
     }
 
     private boolean isValid() {
