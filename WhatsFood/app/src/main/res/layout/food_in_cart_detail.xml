@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="380dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background_color"
-    >
+    android:background="@color/background_color">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/number"
@@ -52,10 +51,10 @@
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motionLayout3"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/bc_round_16dp"
         android:clickable="true"
@@ -65,30 +64,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/food_image"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_seller_view_selected_food"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:cardCornerRadius="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/food_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/food_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="0dp"
+            android:layout_marginEnd="10dp"
             android:text="Food Name"
             android:textAppearance="@style/bold_text"
             app:layout_constraintEnd_toEndOf="parent"
-            android:ellipsize="end"
-            app:layout_constraintStart_toEndOf="@+id/img"
+            app:layout_constraintStart_toEndOf="@+id/img_card_view_seller_view_selected_food"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/store"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:textAppearance="@style/text_24_normal"
+            android:textColor="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/img_card_view_seller_view_selected_food"
+            app:layout_constraintTop_toBottomOf="@+id/food_name" />
 
         <TextView
             android:id="@+id/price"
@@ -98,12 +123,12 @@
             android:layout_marginBottom="10dp"
             android:gravity="end"
             android:text="20,000 VND"
-            android:textAppearance="@style/text_20_normal"
+            android:textAppearance="@style/text_24_normal"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@id/img" />
+            app:layout_constraintStart_toEndOf="@id/img_card_view_seller_view_selected_food" />
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
     <ImageView
