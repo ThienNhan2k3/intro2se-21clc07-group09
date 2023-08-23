@@ -118,10 +118,11 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                         String foodId = (String) rawCartItem.get("foodId");
                         String imageUrl = (String) rawCartItem.get("imageUrl");
                         String name = (String) rawCartItem.get("name");
+                        String sellerId = (String) rawCartItem.get("sellerId");
                         int price = ((Long) rawCartItem.get("price")).intValue();
                         int number = ((Long) rawCartItem.get("number")).intValue();
 
-                        CartDetail cartItem = new CartDetail(foodId, imageUrl, name, price, number);
+                        CartDetail cartItem = new CartDetail(foodId, imageUrl, name, sellerId, price, number);
                         cartDetailList.add(cartItem);
                     }
 
@@ -187,7 +188,7 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
 
                                 if (!foodExists) {
                                     // Thêm món mới vào giỏ hàng
-                                    CartDetail newCartItem = new CartDetail(key, food.getImageUrl(), food.getName(), food.getPrice(), numberOfFood);
+                                    CartDetail newCartItem = new CartDetail(key, food.getImageUrl(), food.getName(), food.getSellerId(), food.getPrice(), numberOfFood);
                                     cartDetailList.add(newCartItem);
                                 }
 

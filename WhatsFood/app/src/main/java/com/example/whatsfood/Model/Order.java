@@ -1,25 +1,58 @@
 package com.example.whatsfood.Model;
 
 import com.example.whatsfood.Model.Food;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Order implements Serializable {
-    private String orderId, buyerId, buyerName, sellerId, ship_to, price;
-    private ArrayList<Food> foodList;
-    int status;
 
-    public Order(String orderId, String buyerId, String buyerName, String sellerId, String ship_to, String price, ArrayList<Food> foodList, int status) {
+
+    private String orderId, buyerId, buyerName, sellerId, ship_to, status, denialReason;
+    private int totalMoney;
+    private ArrayList<CartDetail> foodList;
+
+    public Order(String orderId, String buyerId, String buyerName, String sellerId, String ship_to, String status, String denialReason, int totalMoney, ArrayList<CartDetail> foodList) {
         this.orderId = orderId;
         this.buyerId = buyerId;
         this.buyerName = buyerName;
         this.sellerId = sellerId;
         this.ship_to = ship_to;
-        this.price = price;
-        this.foodList = foodList;
         this.status = status;
+        this.denialReason = denialReason;
+        this.totalMoney = totalMoney;
+        this.foodList = foodList;
+    }
+
+    public Order(String orderId, String buyerId, String buyerName, String sellerId, String ship_to, int totalMoney) {
+        this.orderId = orderId;
+        this.buyerId = buyerId;
+        this.buyerName = buyerName;
+        this.sellerId = sellerId;
+        this.ship_to = ship_to;
+        this.totalMoney = totalMoney;
+        this.status = "Waiting";
+        this.denialReason = "212313";
+        this.foodList = new ArrayList<CartDetail>();
+        this.foodList.add(new CartDetail());
+    }
+
+    public Order(String orderId, String buyerId, String buyerName, String sellerId, String ship_to, int totalMoney, ArrayList<CartDetail> foodList) {
+        this.orderId = orderId;
+        this.buyerId = buyerId;
+        this.buyerName = buyerName;
+        this.sellerId = sellerId;
+        this.ship_to = ship_to;
+        this.totalMoney = totalMoney;
+        this.foodList = foodList;
+        this.status = "Waiting";
+        this.denialReason = "212313";
     }
 
     public String getOrderId() {
@@ -42,15 +75,22 @@ public class Order implements Serializable {
         return ship_to;
     }
 
-    public String getPrice() {
-        return price;
+    public int getTotalMoney() {
+        return totalMoney;
     }
 
-    public ArrayList<Food> getFoodList() {
+    public ArrayList<CartDetail> getFoodList() {
         return foodList;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
+    }
+
+    public boolean UpdateDataToServer() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Order").child(this.orderId).setValue(this);
+        return true;
     }
 }

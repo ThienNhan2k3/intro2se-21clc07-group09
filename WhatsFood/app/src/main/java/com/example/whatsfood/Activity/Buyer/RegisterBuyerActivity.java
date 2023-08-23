@@ -187,7 +187,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                                 String avatarPath = User.UploadImage(imgUri, "Avatar");
                                 //Create object
                                 ArrayList<CartDetail> cartDetailList = new ArrayList<CartDetail>();
-                                cartDetailList.add(new CartDetail("temp", "temp", "temp", 0, 0));
+                                cartDetailList.add(new CartDetail());
                                 Buyer buyer = new Buyer(str_username, avatarPath, str_address, str_phone, str_fullname, cartDetailList);
                                 mDatabase.child("User").child(user.getUid()).child("role").setValue("buyer");
                                 buyer.UpdateDataToServer();
