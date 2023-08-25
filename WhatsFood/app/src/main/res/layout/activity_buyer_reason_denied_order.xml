@@ -31,7 +31,6 @@
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,12 +46,12 @@
             android:layout_marginBottom="22dp"
             android:text="Cancel"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/send"
+            app:layout_constraintEnd_toStartOf="@+id/remove"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <Button
-            android:id="@+id/send"
+            android:id="@+id/remove"
             style="@style/button_red"
             android:layout_width="145dp"
             android:layout_height="58dp"
@@ -67,25 +66,22 @@
             app:layout_constraintStart_toEndOf="@+id/cancel"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            android:layout_width="275dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
+        <TextView
+            android:id="@+id/reason"
+            android:layout_width="300dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="18dp"
+            android:background="@color/white"
+            android:textSize="20dp"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/reason_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Reason" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
