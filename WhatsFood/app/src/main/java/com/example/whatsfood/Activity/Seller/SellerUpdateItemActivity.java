@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.whatsfood.CustomAlertDialog;
+import com.example.whatsfood.Model.Buyer;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
@@ -196,14 +197,37 @@ public class SellerUpdateItemActivity extends AppCompatActivity {
     }
 
     private void updateData(String foodId, String foodName, String description, int price, int quantity, String imageUrl) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Food").child(foodId);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         HashMap<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/quantity/", quantity);
         childUpdates.put("/price/", price);
         childUpdates.put("/name/", foodName);
         childUpdates.put("/description/", description);
         childUpdates.put("/imageUrl/", imageUrl);
-        databaseReference.updateChildren(childUpdates);
+        databaseReference.child("Food").child(foodId).updateChildren(childUpdates);
+
+        childUpdates.remove("/quantity/");
+        childUpdates.remove("/description/");
+        databaseReference.child("Buyer").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ss : snapshot.getChildren()) {
+                    Buyer buyer = ss.getValue(Buyer.class);
+                    for (int j = 0; j < buyer.cartDetailList.size(); j++) {
+                        if (buyer.cartDetailList.get(j).getFoodId().equals(foodId)) {
+                            databaseReference.child("Buyer").child(ss.getKey()).child("cartDetailList").child("" + j).updateChildren(childUpdates);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
     }
 
