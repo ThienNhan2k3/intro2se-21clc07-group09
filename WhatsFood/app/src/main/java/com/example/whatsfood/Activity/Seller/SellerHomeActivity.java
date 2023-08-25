@@ -115,14 +115,7 @@ public class SellerHomeActivity extends Fragment {
 
             }
         });
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), BuyerViewSelectedFoodActivity.class);
-                intent.putExtra("OrderID", foodList.get(i).getFoodId());
-                startActivity(intent);
-            }
-        });
+
 
         return view;
     }

@@ -14,9 +14,9 @@ import java.util.List;
 public class Order implements Serializable {
 
 
-    private final String orderId, buyerId, buyerName, sellerId, ship_to, status, denialReason;
-    private final int totalMoney;
-    private final ArrayList<CartDetail> foodList;
+    public String orderId, buyerId, buyerName, sellerId, ship_to, status, denialReason;
+    public int totalMoney;
+    public ArrayList<CartDetail> foodList;
 
     public Order() {
         this.orderId = null;

@@ -86,33 +86,30 @@
 
     <LinearLayout
         android:id="@+id/button_linear_layout_seller_order_details"
-        android:weightSum="2"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp">
+        android:layout_marginBottom="0dp"
+        android:divider="@drawable/horizontal_divider"
+        android:orientation="horizontal"
+        android:showDividers="middle|beginning|end"
+        android:weightSum="2">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
+            android:id="@+id/approve_button"
+            style="@style/button_green"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Approve"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:background="@color/white"
-            />
-        <androidx.appcompat.widget.AppCompatButton
+            android:text="Approve" />
+
+        <Button
+            android:id="@+id/deny_button"
+            style="@style/button_red"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Deny"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:background="@color/red"
-            />
+            android:text="Deny" />
     </LinearLayout>
 
 </RelativeLayout>
