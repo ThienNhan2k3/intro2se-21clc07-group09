@@ -11,12 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 
-import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerViewSelectedFoodActivity;
-import com.example.whatsfood.Adapter.FoodAdapter;
-import com.example.whatsfood.Adapter.OrderAdapter;
+import com.example.whatsfood.Adapter.OrderAdapterForBuyer;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.Model.Order;
 import com.example.whatsfood.R;
@@ -37,7 +34,7 @@ public class SellerHomeActivity extends Fragment {
 
     GridView gridView;
     ArrayList<Order> orderList;
-    OrderAdapter orderAdapter;
+    OrderAdapterForBuyer orderAdapter;
     ArrayList<Food> foodList;
 
     StorageReference storageRef = FirebaseStorage.getInstance().getReference();
@@ -56,7 +53,7 @@ public class SellerHomeActivity extends Fragment {
         // TODO: Food
 
         orderList = new ArrayList<Order>();
-        orderAdapter = new OrderAdapter(getActivity(), R.layout.order_placeholder_seller, orderList);
+        orderAdapter = new OrderAdapterForBuyer(getActivity(), R.layout.order_placeholder_seller, orderList);
         gridView.setAdapter(orderAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

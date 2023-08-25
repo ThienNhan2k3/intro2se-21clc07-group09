@@ -2,7 +2,6 @@ package com.example.whatsfood.Activity.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
@@ -17,10 +16,8 @@ import com.example.whatsfood.Adapter.CartAdapter;
 //import com.example.whatsfood.Model.CartDetail;
 import com.example.whatsfood.Model.Buyer;
 import com.example.whatsfood.Model.CartDetail;
-import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.Model.Order;
 import com.example.whatsfood.R;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class BuyerShoppingCartActivity extends Fragment {
     ListView listView;
@@ -49,7 +45,7 @@ public class BuyerShoppingCartActivity extends Fragment {
         getActivity().setTitle("Shopping Cart");
         setHasOptionsMenu(true);
 
-        listView= (ListView) v.findViewById(R.id.food_in_cart_detail);
+        listView= (ListView) v.findViewById(R.id.comment_list);
         orderBtn = (AppCompatButton) v.findViewById(R.id.order_button_buyer_shopping_cart);
         totalMoneyTextView = (TextView) v.findViewById(R.id.totalmoney);
 

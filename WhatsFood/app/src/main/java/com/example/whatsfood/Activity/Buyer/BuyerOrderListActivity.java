@@ -2,7 +2,6 @@ package com.example.whatsfood.Activity.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
@@ -11,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.whatsfood.Adapter.OrderAdapter;
+import com.example.whatsfood.Adapter.OrderAdapterForBuyer;
 import com.example.whatsfood.Model.Order;
 import com.example.whatsfood.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +26,7 @@ public class BuyerOrderListActivity extends Fragment {
 
     ListView listView;
     ArrayList<Order> ordersList=new ArrayList<>();
-    OrderAdapter orderAdapter;
+    OrderAdapterForBuyer orderAdapterForBuyer;
     private String buyerId;
     @Nullable
     @Override
@@ -47,8 +46,8 @@ public class BuyerOrderListActivity extends Fragment {
                     Order order=orderSnapshot.getValue(Order.class);
                     ordersList.add(order);
                 }
-                orderAdapter=new OrderAdapter(getActivity(),R.layout.order_placeholder_buyer,ordersList);
-                listView.setAdapter(orderAdapter);
+                orderAdapterForBuyer =new OrderAdapterForBuyer(getActivity(),R.layout.order_placeholder_buyer,ordersList);
+                listView.setAdapter(orderAdapterForBuyer);
             }
 
             @Override

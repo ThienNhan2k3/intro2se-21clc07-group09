@@ -1,9 +1,7 @@
 package com.example.whatsfood.Adapter;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,33 +12,24 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.whatsfood.Activity.Buyer.BuyerOrderListActivity;
-import com.example.whatsfood.Activity.Buyer.BuyerViewSelectedFoodActivity;
 import com.example.whatsfood.Model.CartDetail;
-import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.Model.Order;
 import com.example.whatsfood.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class OrderAdapter extends BaseAdapter {
+public class OrderAdapterForBuyer extends BaseAdapter {
 
     private final Context context;
     private final int layout;
     private final List<Order> orderList;
 
-    public OrderAdapter(Context context, int layout, List<Order> orderList) {
+    public OrderAdapterForBuyer(Context context, int layout, List<Order> orderList) {
         this.context = context;
         this.layout = layout;
         this.orderList = orderList;
@@ -117,10 +106,57 @@ public class OrderAdapter extends BaseAdapter {
 
             public void onClick(View v) {
                 if(order.getStatus().equals("Denied")) {
-                    showPopupLayout();
+                    showPopupDenied();
+                }
+                if(order.getStatus().equals("Waiting")){
+                    showPopupWaiting();
                 }
             }
-            private void showPopupLayout() {
+            private void showPopupWaiting() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                View popupView = LayoutInflater.from(context).inflate(R.layout.popup_cancel_order, null);
+                builder.setView(popupView);
+                AlertDialog alertDialog = builder.create();
+
+                Button yes= (Button) popupView.findViewById(R.id.yes);
+                Button no = (Button) popupView.findViewById(R.id.no);
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Order");
+                        mDatabase.child(order.getOrderId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        // Xóa thành công
+                                        Toast.makeText(context, "Đơn hàng đã được xóa thành công", Toast.LENGTH_SHORT).show();
+                                        List<Order> updatedOrderList = new ArrayList<>(orderList);
+                                        updatedOrderList.remove(order);
+                                        updateOrderList(updatedOrderList);
+                                        alertDialog.dismiss();
+                                        // Cập nhật giao diện hoặc thông báo tùy theo yêu cầu của bạn
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Xóa thất bại
+                                        // Cập nhật giao diện hoặc thông báo tùy theo yêu cầu của bạn
+                                    }
+                                });
+                    }
+                });
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Đóng popup khi nút "Cancel" được nhấn
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+
+            }
+            private void showPopupDenied() {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 View popupView = LayoutInflater.from(context).inflate(R.layout.activity_buyer_reason_denied_order, null);
                 builder.setView(popupView);
@@ -130,6 +166,13 @@ public class OrderAdapter extends BaseAdapter {
 
                 TextView reasonDenied=(TextView) popupView.findViewById(R.id.reason);
                 reasonDenied.setText(order.getDenialReason());
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Đóng popup khi nút "Cancel" được nhấn
+                        alertDialog.dismiss();
+                    }
+                });
 
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
