@@ -24,7 +24,7 @@ import java.util.List;
 public class FoodAdapter extends BaseAdapter {
     Context context;
     private int layout;
-    List<Food> foodList;
+    public List<Food> foodList;
 
     DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
 

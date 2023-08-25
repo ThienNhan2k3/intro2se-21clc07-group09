@@ -101,6 +101,9 @@ public class OrderAdapterForBuyer extends BaseAdapter {
             foodNameList += foodList.get(foodList.size() - 1).getName() + ". ";
             viewHolder.foodNameList.setText(foodNameList);
         }
+        if (layout == R.layout.order_placeholder_seller) {
+            return view;
+        }
         viewHolder.status.setOnClickListener(new View.OnClickListener() {
             @Override
 
