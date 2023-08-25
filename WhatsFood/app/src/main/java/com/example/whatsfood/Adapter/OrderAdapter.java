@@ -1,5 +1,6 @@
 package com.example.whatsfood.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.example.whatsfood.Activity.Buyer.BuyerOrderListActivity;
+import com.example.whatsfood.Activity.Buyer.BuyerViewSelectedFoodActivity;
 import com.example.whatsfood.Model.CartDetail;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.Model.Order;
@@ -94,9 +97,26 @@ public class OrderAdapter extends BaseAdapter {
             for (int j = 0; j < foodList.size() - 1; j++) {
                 foodNameList += foodList.get(j).getName() + ", ";
             }
-            foodNameList += foodList.get(foodList.size() - 1).getName();
+            foodNameList += foodList.get(foodList.size() - 1).getName() + ". ";
             viewHolder.foodNameList.setText(foodNameList);
         }
+        viewHolder.status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(order.getStatus()=="Denied") {
+                    showPopupLayout();
+                }
+            }
+            private void showPopupLayout() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                View popupView = LayoutInflater.from(context).inflate(R.layout.activity_buyer_reason_denied_order, null);
+                builder.setView(popupView);
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+
+        });
 
         return view;
     }

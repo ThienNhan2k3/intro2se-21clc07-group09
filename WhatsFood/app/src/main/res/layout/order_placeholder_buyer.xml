@@ -7,14 +7,14 @@
     tools:context=".Activity.OrderPlaceHolding"
     app:cardCornerRadius="16dp"
     >
+
     <RelativeLayout
-        android:layout_width="340dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="0dp"
         android:background="@color/white"
-        >
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="0dp">
 
         <TextView
             android:id="@+id/order_id_text_view_order_placeholder_buyer"
@@ -22,21 +22,20 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
             android:text="#Order ID"
             android:textColor="@color/red"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/food_name_list_order_placeholder_buyer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/order_id_text_view_order_placeholder_buyer"
-            android:layout_marginTop="12dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
+            android:layout_marginTop="12dp"
             android:text="List item: Lorem Ipsum is simply dummy text of the printing and typesetting industry,..."
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -78,16 +77,16 @@
             android:id="@+id/status_text_view_order_placeholder_buyer"
             android:layout_width="wrap_content"
             android:layout_height="26dp"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="25dp"
             android:background="@drawable/color_red_shape"
             android:gravity="center"
             android:paddingHorizontal="12dp"
             android:text="Waiting"
-            android:textSize="18sp"
             android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
 

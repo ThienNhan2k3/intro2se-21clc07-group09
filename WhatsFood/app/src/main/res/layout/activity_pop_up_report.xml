@@ -67,7 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/feedback_text"
+                android:id="@+id/reason_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Feedback" />

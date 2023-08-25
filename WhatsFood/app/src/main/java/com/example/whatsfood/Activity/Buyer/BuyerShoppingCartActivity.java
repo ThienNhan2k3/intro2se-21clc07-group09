@@ -32,7 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class BuyerShoppingCartActivity extends Fragment {
     ListView listView;
@@ -74,13 +73,11 @@ public class BuyerShoppingCartActivity extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String key = snapshot.getKey();
-
-                CartDetail cartItem = snapshot.getValue(CartDetail.class);
                 if (key.equals("0")) {
-                    if (cartItem.getFoodId().equals("temp@#$%!")) {
-                        return;
-                    }
+                    return;
                 }
+                CartDetail cartItem = snapshot.getValue(CartDetail.class);
+
                 if (cartItem != null) {
                     cartDetailList.add(cartItem);
                     totalMoney += cartItem.getNumber() * cartItem.getPrice();
@@ -93,7 +90,7 @@ public class BuyerShoppingCartActivity extends Fragment {
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 CartDetail cartItem = snapshot.getValue(CartDetail.class);
-                if (cartItem != null && !cartDetailList.isEmpty()) {
+                if (cartItem != null && cartDetailList.isEmpty() == false) {
                     for (int i = 0; i < cartDetailList.size(); i++) {
                         if (cartDetailList.get(i).getFoodId() == cartItem.getFoodId()) {
                             totalMoney += (cartItem.getNumber() - cartDetailList.get(i).getNumber()) * cartDetailList.get(i).getPrice();
@@ -110,9 +107,9 @@ public class BuyerShoppingCartActivity extends Fragment {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 CartDetail cartItem = snapshot.getValue(CartDetail.class);
-                if (cartItem != null && !cartDetailList.isEmpty()) {
+                if (cartItem != null && cartDetailList.isEmpty() == false) {
                     for (int i = 0; i < cartDetailList.size(); i++) {
-                        if (Objects.equals(cartDetailList.get(i).getFoodId(), cartItem.getFoodId())) {
+                        if (cartDetailList.get(i).getFoodId() == cartItem.getFoodId()) {
                             totalMoney -= cartDetailList.get(i).getNumber() * cartDetailList.get(i).getPrice();
                             cartDetailList.remove(i);
                             break;
@@ -147,8 +144,6 @@ public class BuyerShoppingCartActivity extends Fragment {
                     }
                     sellerOrder.get(sellerId).add(cartDetailList.get(j));
                 }
-
-
 
                 for (String keySellerId: sellerOrder.keySet()) {
                     Order newOrder = new Order(orderId, buyerId, buyerName, keySellerId, ship_to, totalMoney, sellerOrder.get(keySellerId));
