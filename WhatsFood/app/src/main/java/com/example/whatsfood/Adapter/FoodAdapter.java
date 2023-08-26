@@ -96,7 +96,7 @@ public class FoodAdapter extends BaseAdapter {
         }
 
         foodViewHolder.foodName.setText(food.getName());
-        foodViewHolder.price.setText(""  + food.getPrice());
+        foodViewHolder.price.setText(food.getPrice() + " VND");
         Picasso.get()
                 .load(food.getImageUrl())
                 .fit()

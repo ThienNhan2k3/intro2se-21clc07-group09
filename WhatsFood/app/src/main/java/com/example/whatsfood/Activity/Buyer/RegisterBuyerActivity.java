@@ -30,7 +30,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -89,10 +91,14 @@ public class RegisterBuyerActivity extends AppCompatActivity {
         });
         //Add TextWatchers
         FormatTextWatcher watcher1 = new FormatTextWatcher(username);
-        watcher1.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
+        watcher1.minLength = 6;
+        watcher1.maxLength = 20;
+        watcher1.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_LENGTH);
 
         FormatTextWatcher watcher2 = new FormatTextWatcher(password);
-        watcher2.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_HAS_LOWERCASE, FormatTextWatcher.mode.CHECK_HAS_UPPERCASE, FormatTextWatcher.mode.CHECK_HAS_NUMBER, FormatTextWatcher.mode.CHECK_NO_SPECIAL_CHARACTER);
+        watcher2.minLength = 6;
+        watcher2.maxLength = 20;
+        watcher2.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_LENGTH, FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_HAS_LOWERCASE, FormatTextWatcher.mode.CHECK_HAS_UPPERCASE, FormatTextWatcher.mode.CHECK_HAS_NUMBER, FormatTextWatcher.mode.CHECK_NO_SPECIAL_CHARACTER);
 
         TextWatcher confirm_password_watcher = new TextWatcher() {
             @Override
@@ -118,16 +124,22 @@ public class RegisterBuyerActivity extends AppCompatActivity {
         confirm_password.addTextChangedListener(confirm_password_watcher);
 
         FormatTextWatcher watcher3 = new FormatTextWatcher(email);
-        watcher3.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
+        watcher3.minLength = 6;
+        watcher3.maxLength = 254;
+        watcher3.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_LENGTH, FormatTextWatcher.mode.CHECK_EMPTY);
 
         FormatTextWatcher watcher4 = new FormatTextWatcher(full_name);
-        watcher4.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_ONLY_ALPHABET);
+        watcher4.minLength = 2;
+        watcher4.maxLength = 40;
+        watcher4.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_LENGTH, FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_ONLY_ALPHABET);
 
         FormatTextWatcher watcher5 = new FormatTextWatcher(address);
         watcher5.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
 
         FormatTextWatcher watcher6 = new FormatTextWatcher(phone);
-        watcher6.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_ONLY_NUMBER);
+        watcher6.minLength = 10;
+        watcher6.maxLength = 11;
+        watcher6.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_LENGTH, FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_ONLY_NUMBER);
     }
 
     private void verify_information() {
@@ -171,46 +183,76 @@ public class RegisterBuyerActivity extends AppCompatActivity {
             submit_button.setEnabled(true);
             return;
         }
-        //Try to create account
-        mAuth.createUserWithEmailAndPassword(str_email, str_password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            if (user != null) {
-                                // User is signed in
-                                Log.w("Firebase signup", "UID:" + String.valueOf(user.getUid()));
-                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                                //Upload image to storage
-                                String avatarPath = User.UploadImage(imgUri, "Avatar");
-                                //Create object
-                                ArrayList<CartDetail> cartDetailList = new ArrayList<CartDetail>();
-                                cartDetailList.add(new CartDetail());
-                                Buyer buyer = new Buyer(str_username, avatarPath, str_address, str_phone, str_fullname, cartDetailList);
-                                mDatabase.child("User").child(user.getUid()).child("role").setValue("buyer");
-                                buyer.UpdateDataToServer();
-                                FirebaseAuth.getInstance().signOut();
-                                Intent intent = new Intent(RegisterBuyerActivity.this, AfterRegisterActivity.class);
-                                intent.putExtra("popup_text", getString(R.string.buyer_register));
-                                startActivity(intent);
-                            } else {
-                                // No user is signed in
-                                Log.w("firebase", "No user is signed in");
-                                submit_button.setEnabled(true);
-                            }
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Exception exception = task.getException();
-                            if (exception != null) {
-                                Log.w("firebase", exception);
-                            }
-                            submit_button.setEnabled(true);
-                            UI_Functions.CreatePopup(RegisterBuyerActivity.this, getString(R.string.register_fail));
+        //Check duplicated data
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("User");
+        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                }
+                else {
+                    boolean hasUser = false;
+                    for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                        String username = String.valueOf(dataSnapshot.child("username").getValue());
+                        if (username.equals(str_username)) {
+                            UI_Functions.CreatePopup(RegisterBuyerActivity.this, "Username already exists");
+                            hasUser = true;
+                            break;
                         }
                     }
-                });
+                    if (!hasUser) {
+                        //Try to create account
+                        mAuth.createUserWithEmailAndPassword(str_email, str_password)
+                                .addOnCompleteListener(RegisterBuyerActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            if (user != null) {
+                                                // User is signed in
+                                                Log.w("Firebase signup", "UID:" + String.valueOf(user.getUid()));
+                                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                                                //Upload image to storage
+                                                String avatarPath = User.UploadImage(imgUri, "Avatar");
+                                                //Create object
+                                                ArrayList<CartDetail> cartDetailList = new ArrayList<CartDetail>();
+                                                cartDetailList.add(new CartDetail());
+                                                Buyer buyer = new Buyer(str_username, avatarPath, str_address, str_phone, str_fullname, cartDetailList);
+                                                mDatabase.child("User").child(user.getUid()).child("role").setValue("buyer");
+                                                mDatabase.child("User").child(user.getUid()).child("username").setValue(str_username);
+                                                mDatabase.child("User").child(user.getUid()).child("email").setValue(str_email);
+                                                buyer.UpdateDataToServer();
+                                                FirebaseAuth.getInstance().signOut();
+                                                Intent intent = new Intent(RegisterBuyerActivity.this, AfterRegisterActivity.class);
+                                                intent.putExtra("popup_text", getString(R.string.buyer_register));
+                                                startActivity(intent);
+                                            } else {
+                                                // No user is signed in
+                                                Log.w("firebase", "No user is signed in");
+                                                submit_button.setEnabled(true);
+                                            }
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            FirebaseAuthException exception = (FirebaseAuthException) task.getException();
+                                            if (exception != null) {
+                                                Log.w("firebase", exception.getErrorCode());
+                                                if (exception.getErrorCode() == "ERROR_EMAIL_ALREADY_IN_USE") {
+                                                    UI_Functions.CreatePopup(RegisterBuyerActivity.this, getString(R.string.ERROR_EMAIL_ALREADY_IN_USE));
+                                                }
+                                                else if (exception.getErrorCode() == "ERROR_INVALID_EMAIL") {
+                                                    UI_Functions.CreatePopup(RegisterBuyerActivity.this, getString(R.string.invalid_email));
+                                                }
+                                            }
+                                            submit_button.setEnabled(true);
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }
+        });
+
     }
 
     @Override

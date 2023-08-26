@@ -30,7 +30,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -88,10 +90,14 @@ public class RegisterSellerActivity extends AppCompatActivity {
         avatar = (ImageView)findViewById(R.id.avatar);
         //Add TextWatchers
         FormatTextWatcher watcher1 = new FormatTextWatcher(username);
-        watcher1.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
+        watcher1.minLength = 6;
+        watcher1.maxLength = 20;
+        watcher1.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_LENGTH, FormatTextWatcher.mode.CHECK_EMPTY);
 
         FormatTextWatcher watcher2 = new FormatTextWatcher(password);
-        watcher2.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_HAS_LOWERCASE, FormatTextWatcher.mode.CHECK_HAS_UPPERCASE, FormatTextWatcher.mode.CHECK_HAS_NUMBER, FormatTextWatcher.mode.CHECK_NO_SPECIAL_CHARACTER);
+        watcher2.minLength = 6;
+        watcher2.maxLength = 20;
+        watcher2.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_LENGTH, FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_HAS_LOWERCASE, FormatTextWatcher.mode.CHECK_HAS_UPPERCASE, FormatTextWatcher.mode.CHECK_HAS_NUMBER, FormatTextWatcher.mode.CHECK_NO_SPECIAL_CHARACTER);
 
         TextWatcher confirm_password_watcher = new TextWatcher() {
             @Override
@@ -117,16 +123,22 @@ public class RegisterSellerActivity extends AppCompatActivity {
         confirm_password.addTextChangedListener(confirm_password_watcher);
 
         FormatTextWatcher watcher3 = new FormatTextWatcher(email);
-        watcher3.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
+        watcher3.minLength = 6;
+        watcher3.maxLength = 254;
+        watcher3.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_LENGTH, FormatTextWatcher.mode.CHECK_EMPTY);
 
         FormatTextWatcher watcher4 = new FormatTextWatcher(store_name);
-        watcher4.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
+        watcher4.minLength = 6;
+        watcher4.maxLength = 30;
+        watcher4.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_LENGTH, FormatTextWatcher.mode.CHECK_EMPTY);
 
         FormatTextWatcher watcher5 = new FormatTextWatcher(address);
         watcher5.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
 
         FormatTextWatcher watcher6 = new FormatTextWatcher(phone);
-        watcher6.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_ONLY_NUMBER);
+        watcher6.minLength = 10;
+        watcher6.maxLength = 11;
+        watcher6.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_LENGTH, FormatTextWatcher.mode.CHECK_EMPTY, FormatTextWatcher.mode.CHECK_ONLY_NUMBER);
 
         FormatTextWatcher watcher7 = new FormatTextWatcher(store_description);
         watcher7.modes = EnumSet.of(FormatTextWatcher.mode.CHECK_EMPTY);
@@ -176,37 +188,69 @@ public class RegisterSellerActivity extends AppCompatActivity {
             submit_button.setEnabled(true);
             return;
         }
-        //Try to create account
-        mAuth.createUserWithEmailAndPassword(str_email, str_password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            if (user != null) {
-                                // User is signed in
-                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                                String avatarPath = User.UploadImage(imgUri, "Avatar");
-                                Seller seller = new Seller(str_username, avatarPath, str_address, str_phone, str_store_name, str_store_description, 0);
-                                mDatabase.child("User").child(user.getUid()).child("role").setValue("seller_register");
-                                seller.SendRegisterRequest();
-                                Intent intent = new Intent(RegisterSellerActivity.this, AfterRegisterActivity.class);
-                                intent.putExtra("popup_text", getString(R.string.seller_register));
-                                startActivity(intent);
-                            } else {
-                                // No user is signed in
-                                submit_button.setEnabled(true);
-                            }
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            UI_Functions.CreatePopup(RegisterSellerActivity.this, "Something went wrong, please try later.");
-                            if (task.getException() != null)
-                                Log.w("firebase", task.getException().toString());
-                            submit_button.setEnabled(true);
+        //Check duplicated data
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("User");
+        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                }
+                else {
+                    boolean hasUser = false;
+                    for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                        String username = String.valueOf(dataSnapshot.child("username").getValue());
+                        if (username.equals(str_username)) {
+                            UI_Functions.CreatePopup(RegisterSellerActivity.this, "Username already exists");
+                            hasUser = true;
+                            break;
                         }
                     }
-                });
+                    if (!hasUser) {
+                        //Try to create account
+                        mAuth.createUserWithEmailAndPassword(str_email, str_password)
+                                .addOnCompleteListener(RegisterSellerActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            if (user != null) {
+                                                // User is signed in
+                                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                                                String avatarPath = User.UploadImage(imgUri, "Avatar");
+                                                Seller seller = new Seller(str_username, avatarPath, str_address, str_phone, str_store_name, str_store_description, 0);
+                                                mDatabase.child("User").child(user.getUid()).child("role").setValue("seller_register");
+                                                mDatabase.child("User").child(user.getUid()).child("username").setValue(str_username);
+                                                mDatabase.child("User").child(user.getUid()).child("email").setValue(str_email);
+                                                seller.SendRegisterRequest();
+                                                Intent intent = new Intent(RegisterSellerActivity.this, AfterRegisterActivity.class);
+                                                intent.putExtra("popup_text", getString(R.string.seller_register));
+                                                startActivity(intent);
+                                            } else {
+                                                // No user is signed in
+                                                submit_button.setEnabled(true);
+                                            }
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            FirebaseAuthException exception = (FirebaseAuthException) task.getException();
+                                            if (exception != null) {
+                                                Log.w("firebase", exception.getErrorCode());
+                                                if (exception.getErrorCode() == "ERROR_EMAIL_ALREADY_IN_USE") {
+                                                    UI_Functions.CreatePopup(RegisterSellerActivity.this, getString(R.string.ERROR_EMAIL_ALREADY_IN_USE));
+                                                }
+                                                else if (exception.getErrorCode() == "ERROR_INVALID_EMAIL") {
+                                                    UI_Functions.CreatePopup(RegisterSellerActivity.this, getString(R.string.invalid_email));
+                                                }
+                                                submit_button.setEnabled(true);
+                                            }
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }
+        });
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
