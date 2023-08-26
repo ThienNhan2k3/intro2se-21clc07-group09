@@ -20,9 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.whatsfood.CustomAlertDialog;
 import com.example.whatsfood.Model.Buyer;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.R;
@@ -30,7 +28,6 @@ import com.example.whatsfood.UI_Functions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +39,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SellerUpdateItemActivity extends AppCompatActivity {
@@ -146,7 +142,7 @@ public class SellerUpdateItemActivity extends AppCompatActivity {
                                                 TextView popup_text = dialog.findViewById(R.id.popup_text);
                                                 popup_text.setText("Your changes have been updated");
                                                 //Set button
-                                                Button ok_button = dialog.findViewById(R.id.ok_button);
+                                                Button ok_button = dialog.findViewById(R.id.yes);
                                                 ok_button.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {

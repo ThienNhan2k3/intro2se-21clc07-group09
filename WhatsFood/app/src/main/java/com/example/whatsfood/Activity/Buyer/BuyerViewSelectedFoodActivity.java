@@ -23,6 +23,7 @@ import com.example.whatsfood.Model.Buyer;
 import com.example.whatsfood.Model.CartDetail;
 import com.example.whatsfood.Model.Comment;
 import com.example.whatsfood.Model.Food;
+import com.example.whatsfood.Model.Report;
 import com.example.whatsfood.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,7 +40,7 @@ import java.util.Map;
 
 public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
     // ListView listView;
-    ArrayList <Comment> comments=new ArrayList<>();
+    ArrayList <String> comments=new ArrayList<>();
     CommentAdapter adapterComment;
     ArrayList<CartDetail> cartDetailList=new ArrayList<>();
     Food food;
@@ -57,6 +58,8 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
 
     ImageView imageFood;
 
+    Report reportFood;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,7 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
         report=(Button) findViewById(R.id.report);
         imageFood=(ImageView) findViewById(R.id.image_food);
         back= (ImageView) findViewById(R.id.back);
+        ListView listView = (ListView) findViewById(R.id.comment_list);
 
         String key = getIntent().getStringExtra("foodId");
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -94,13 +98,15 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                     description.setText((food.getDescription()));
                     Picasso.get().load(food.getImageUrl()).into(imageFood);
                     ArrayList <String> commentArray= food.getComments();
-                    for (String commentContent : commentArray) {
-                        Comment comment = new Comment(commentContent);
+                    for (int i=0;i<commentArray.size();i++) {
+                        String comment = commentArray.get(i);
                         comments.add(comment);
                     }
-                    adapterComment=new CommentAdapter(BuyerViewSelectedFoodActivity.this,R.layout.comment_line,comments);
-
-                    // listView.setAdapter(adapterComment);
+                    ArrayList <String> tmpComment = new ArrayList<>();
+                    tmpComment.addAll(commentArray);
+                    tmpComment.remove(0);
+                    adapterComment=new CommentAdapter(BuyerViewSelectedFoodActivity.this,R.layout.comment_line,tmpComment);
+                    listView.setAdapter(adapterComment);
                 }
 
             }
@@ -141,6 +147,113 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(BuyerViewSelectedFoodActivity.this, BuyerBottomNavigationActivity.class);
                 startActivity(intent);
+            }
+        });
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {showPopupComment();}
+
+            private void showPopupComment() {
+                View popupView = LayoutInflater.from(BuyerViewSelectedFoodActivity.this).inflate(R.layout.popup_denial, null);
+
+                // Sử dụng biến dialog đã tạo ở phần khai báo trước đó
+                dialog.setContentView(popupView);
+
+                // Đặt kích thước cho Dialog
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                TextView title = (TextView) popupView.findViewById(R.id.textView);
+                Button cancel=(Button) popupView.findViewById(R.id.button5);
+                Button send=(Button) popupView.findViewById(R.id.button6);
+                TextView comment = (TextView) popupView.findViewById(R.id.feed_back);
+
+
+                title.setText("COMMENT");
+                cancel.setText("CANCEL");
+                send.setText("SEND");
+                comment.setHint("Enter your comment");
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String content = comment.getText().toString();
+                        if(content.isEmpty()) {
+                            Toast.makeText(BuyerViewSelectedFoodActivity.this, "Comment must be complete", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                        else {
+                            DatabaseReference commentRef = mDatabase.child("Food").child(food.getFoodId()).child("comments");
+                            comments.add(content);
+                            commentRef.setValue(comments);
+                            Toast.makeText(BuyerViewSelectedFoodActivity.this, "Comment Successfully", Toast.LENGTH_SHORT).show();
+                            ArrayList<String> tmpComment = new ArrayList<>(comments);
+                            tmpComment.remove(0); // Loại bỏ phần tử đầu tiên (tiêu đề)
+                            adapterComment = new CommentAdapter(BuyerViewSelectedFoodActivity.this, R.layout.comment_line, tmpComment);
+
+                            // Đặt lại adapter cho ListView
+                            listView.setAdapter(adapterComment);
+                            dialog.dismiss();
+                        }
+                    }
+
+                });
+                dialog.show();
+            }
+
+        });
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { showPopupReport();}
+            private void showPopupReport() {
+                View popupView = LayoutInflater.from(BuyerViewSelectedFoodActivity.this).inflate(R.layout.popup_denial, null);
+
+                // Sử dụng biến dialog đã tạo ở phần khai báo trước đó
+                dialog.setContentView(popupView);
+
+                // Đặt kích thước cho Dialog
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                TextView title = (TextView) popupView.findViewById(R.id.textView);
+                Button cancel=(Button) popupView.findViewById(R.id.button5);
+                Button send=(Button) popupView.findViewById(R.id.button6);
+                TextView reason = (TextView) popupView.findViewById(R.id.feed_back);
+
+
+                title.setText("REPORT REASON");
+                cancel.setText("CANCEL");
+                send.setText("SEND");
+                reason.setHint("Enter reason");
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String content = reason.getText().toString();
+                        if(content.isEmpty()) {
+                            Toast.makeText(BuyerViewSelectedFoodActivity.this, "Reason must be complete", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                        else {
+                            DatabaseReference reportRef = mDatabase.child("Report").push();
+                            String keyReport = reportRef.getKey();
+                            reportFood= new Report(buyerId,content,key,keyReport,food.getSellerId());
+                            mDatabase.child("Report").child(keyReport).setValue(reportFood);
+                            Toast.makeText(BuyerViewSelectedFoodActivity.this, "Report Successfully", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    }
+
+                });
+                dialog.show();
             }
         });
         add_to_cart.setOnClickListener(new View.OnClickListener() {

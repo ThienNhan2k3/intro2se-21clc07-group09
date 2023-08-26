@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/popup_text">
 
             <Button
-                android:id="@+id/ok_button"
+                android:id="@+id/yes"
                 style="@style/button_green"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

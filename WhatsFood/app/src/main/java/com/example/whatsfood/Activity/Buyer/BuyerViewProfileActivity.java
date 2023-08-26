@@ -7,23 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.whatsfood.Activity.Admin.RegisterDetailActivity;
-import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
 import com.example.whatsfood.Activity.ChangePasswordActivity;
-import com.example.whatsfood.Adapter.OrderAdapter;
-import com.example.whatsfood.Model.Food;
-import com.example.whatsfood.Model.Order;
 import com.example.whatsfood.Model.Buyer;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
@@ -34,11 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class BuyerViewProfileActivity extends Fragment {
 

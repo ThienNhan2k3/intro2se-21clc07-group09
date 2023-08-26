@@ -21,7 +21,7 @@ public class AfterRegisterActivity extends AppCompatActivity {
         String text = extras.getString("popup_text", " ");
         popup_text = (TextView)findViewById(R.id.popup_text);
         popup_text.setText(text);
-        ok_button = (Button)findViewById(R.id.ok_button);
+        ok_button = (Button)findViewById(R.id.yes);
         ok_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

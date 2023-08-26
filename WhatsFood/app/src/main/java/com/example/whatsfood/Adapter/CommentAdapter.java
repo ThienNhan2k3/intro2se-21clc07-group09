@@ -15,9 +15,9 @@ import java.util.List;
 public class CommentAdapter extends BaseAdapter {
     private Context context;
     private int layout;
-    private List<Comment> commentList;
+    private List<String> commentList;
 
-    public CommentAdapter(Context context, int layout, List<Comment> commentList) {
+    public CommentAdapter(Context context, int layout, List<String> commentList) {
         this.context = context;
         this.layout = layout;
         this.commentList = commentList;
@@ -45,9 +45,9 @@ public class CommentAdapter extends BaseAdapter {
         if(layout== R.layout.comment_line) {
             TextView username=(TextView) view.findViewById(R.id.username);
             TextView content=(TextView) view.findViewById(R.id.content);
-            Comment list= commentList.get(position);
+            String list= commentList.get(position);
 
-            content.setText(list.getContent());
+            content.setText(list);
         }
         return view;
     }
