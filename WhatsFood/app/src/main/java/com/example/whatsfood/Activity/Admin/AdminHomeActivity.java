@@ -55,7 +55,7 @@ public class AdminHomeActivity extends Fragment {
                 }
                 else {
                     for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                        users.add(new Pair<>(dataSnapshot.getKey(), dataSnapshot.getValue(Seller.class)));
+                        users.add(new Pair<>(dataSnapshot.getKey(), dataSnapshot.getValue(User.class)));
                         UpdateAdapter();
                     }
                 }
@@ -65,7 +65,7 @@ public class AdminHomeActivity extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(requireActivity(), RegisterDetailActivity.class);
+                Intent intent = new Intent(requireActivity(), UserDetailActivity.class);
                 intent.putExtra("UserId", users.get(i).first);
                 intent.putExtra("user", (Serializable) users.get(i).second);
                 startActivity(intent);
