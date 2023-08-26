@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.whatsfood.Adapter.OrderAdapterForBuyer;
 import com.example.whatsfood.Model.Order;
@@ -34,6 +36,9 @@ public class BuyerOrderListActivity extends Fragment {
         View v = inflater.inflate(R.layout.activity_buyer_order_list, null);
         requireActivity().setTitle("Order List");
         setHasOptionsMenu(true);
+
+        ((TextView) v.findViewById(R.id.order_list_header)).setText("Order List");
+
         listView=(ListView) v.findViewById(R.id.order_list);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Order");
