@@ -37,8 +37,8 @@ public class AdminReportsListActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_admin_seller_register_requests, null);
-        ((TextView)view.findViewById(R.id.header)).setText("Report");
+        View view = inflater.inflate(R.layout.activity_admin_reports_list, null);
+        ((TextView)view.findViewById(R.id.include6)).setText("Report");
         listView = (ListView)view.findViewById(R.id.listView);
         setHasOptionsMenu(true);
         reports = new ArrayList<>();
@@ -70,7 +70,7 @@ public class AdminReportsListActivity extends Fragment {
     }
 
     private void UpdateAdapter() {
-        adapter = new SellerRegisterRequestAdapter(getActivity(), R.layout.seller_register_request_holder, reports);
+        adapter = new SellerRegisterRequestAdapter(getActivity(), R.layout.report_holder, reports);
         listView.setAdapter(adapter);
     }
 }
