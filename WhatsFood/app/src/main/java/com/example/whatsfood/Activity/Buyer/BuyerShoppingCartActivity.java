@@ -42,7 +42,7 @@ public class BuyerShoppingCartActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_buyer_shopping_cart, null);
-        getActivity().setTitle("Shopping Cart");
+        requireActivity().setTitle("Shopping Cart");
         setHasOptionsMenu(true);
 
         listView= (ListView) v.findViewById(R.id.comment_list);
@@ -103,7 +103,7 @@ public class BuyerShoppingCartActivity extends Fragment {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 CartDetail cartItem = snapshot.getValue(CartDetail.class);
-                if (cartItem != null && cartDetailList.isEmpty() == false) {
+                if (cartItem != null && !cartDetailList.isEmpty()) {
                     for (int i = 0; i < cartDetailList.size(); i++) {
                         if (cartDetailList.get(i).getFoodId() == cartItem.getFoodId()) {
                             totalMoney -= cartDetailList.get(i).getNumber() * cartDetailList.get(i).getPrice();
@@ -132,18 +132,24 @@ public class BuyerShoppingCartActivity extends Fragment {
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String orderId = mDatabase.child("Order").push().getKey();
-                for (int j = 0; j < cartDetailList.size(); j++) {
-                    sellerId = cartDetailList.get(j).getSellerId();
+                for (CartDetail cartDetail : cartDetailList) {
+                    sellerId = cartDetail.getSellerId();
                     if (sellerOrder.get(sellerId) == null) {
                         sellerOrder.put(sellerId, new ArrayList<CartDetail>());
                     }
-                    sellerOrder.get(sellerId).add(cartDetailList.get(j));
+                    sellerOrder.get(sellerId).add(cartDetail);
                 }
 
                 for (String keySellerId: sellerOrder.keySet()) {
-                    Order newOrder = new Order(orderId, buyerId, buyerName, keySellerId, ship_to, totalMoney, sellerOrder.get(keySellerId));
-                    boolean createOrder = newOrder.UpdateDataToServer();
+                    if (sellerOrder.get(keySellerId) != null) {
+                        String orderId = mDatabase.child("Order").push().getKey();
+                        int total_per_shop = 0;
+                        for (CartDetail item : sellerOrder.get(keySellerId)) {
+                            total_per_shop += item.getPrice() * item.getNumber();
+                        }
+                        Order newOrder = new Order(orderId, buyerId, buyerName, keySellerId, ship_to, total_per_shop, sellerOrder.get(keySellerId));
+                        boolean createOrder = newOrder.UpdateDataToServer();
+                    }
                 }
                 mDatabase.child("Buyer").child(buyerId).child("cartDetailList").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

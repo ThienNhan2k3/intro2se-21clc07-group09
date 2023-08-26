@@ -121,15 +121,17 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                     cartDetailList.clear(); // Xóa danh sách cũ trước khi thêm dữ liệu mới
 
                     for (Map<String, Object> rawCartItem : rawCartDetailList) {
-                        String foodId = (String) rawCartItem.get("foodId");
-                        String imageUrl = (String) rawCartItem.get("imageUrl");
-                        String name = (String) rawCartItem.get("name");
-                        String sellerId = (String) rawCartItem.get("sellerId");
-                        int price = ((Long) rawCartItem.get("price")).intValue();
-                        int number = ((Long) rawCartItem.get("number")).intValue();
+                        if (rawCartItem != null) {
+                            String foodId = (String) rawCartItem.get("foodId");
+                            String imageUrl = (String) rawCartItem.get("imageUrl");
+                            String name = (String) rawCartItem.get("name");
+                            String sellerId = (String) rawCartItem.get("sellerId");
+                            int price = ((Long) rawCartItem.get("price")).intValue();
+                            int number = ((Long) rawCartItem.get("number")).intValue();
 
-                        CartDetail cartItem = new CartDetail(foodId, imageUrl, name, sellerId, price, number);
-                        cartDetailList.add(cartItem);
+                            CartDetail cartItem = new CartDetail(foodId, imageUrl, name, sellerId, price, number);
+                            cartDetailList.add(cartItem);
+                        }
                     }
 
                     // Tiếp tục xử lý dữ liệu sau khi đã tạo danh sách cartDetailList
@@ -165,7 +167,6 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                 Button cancel=(Button) popupView.findViewById(R.id.button5);
                 Button send=(Button) popupView.findViewById(R.id.button6);
                 TextView comment = (TextView) popupView.findViewById(R.id.feed_back);
-
 
                 title.setText("COMMENT");
                 cancel.setText("CANCEL");
