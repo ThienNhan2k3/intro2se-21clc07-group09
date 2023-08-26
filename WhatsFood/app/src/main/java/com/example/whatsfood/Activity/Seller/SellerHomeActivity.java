@@ -14,6 +14,7 @@ import android.widget.GridView;
 
 import com.example.whatsfood.Activity.Buyer.BuyerViewSelectedFoodActivity;
 import com.example.whatsfood.Adapter.OrderAdapterForBuyer;
+import com.example.whatsfood.Adapter.OrderAdapterForSeller;
 import com.example.whatsfood.Model.Food;
 import com.example.whatsfood.Model.Order;
 import com.example.whatsfood.R;
@@ -34,7 +35,7 @@ public class SellerHomeActivity extends Fragment {
 
     GridView gridView;
     ArrayList<Order> orderList;
-    OrderAdapterForBuyer orderAdapter;
+    OrderAdapterForSeller orderAdapter;
     ArrayList<Food> foodList;
 
     StorageReference storageRef = FirebaseStorage.getInstance().getReference();
@@ -45,23 +46,23 @@ public class SellerHomeActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_seller_home, null);
-        getActivity().setTitle("Home");
+        requireActivity().setTitle("Home");
         setHasOptionsMenu(true);
 
         gridView = (GridView) view.findViewById(R.id.order_grid_list);
 
-        // TODO: Food
-
         orderList = new ArrayList<Order>();
-        orderAdapter = new OrderAdapterForBuyer(getActivity(), R.layout.order_placeholder_seller, orderList);
+        orderAdapter = new OrderAdapterForSeller(getActivity(), R.layout.order_placeholder_seller, orderList);
         gridView.setAdapter(orderAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), SellerOrderDetailsActivity.class);
-                intent.putExtra("Order", (Serializable) orderList.get(i));
-                startActivity(intent);
+                if (orderList.get(i).getOrderId() != null) {
+                    Intent intent = new Intent(getActivity(), SellerOrderDetailsActivity.class);
+                    intent.putExtra("OrderID", orderList.get(i).getOrderId());
+                    startActivity(intent);
+                }
             }
         });
 
