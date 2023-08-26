@@ -97,7 +97,9 @@ public class Order implements Serializable {
     public String getStatus() {
         return status;
     }
+    public void setStatus(String status) { this.status = status; }
     public String getDenialReason() {return denialReason;}
+    public void setDenialReason(String denialReason) { this.denialReason = denialReason; }
 
     public boolean UpdateDataToServer() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

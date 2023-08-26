@@ -37,10 +37,12 @@ public class BuyerViewProfileActivity extends Fragment {
     Button change_password_button, edit_profile_button;
     String seller_id;
     Buyer buyer;
+    View profile_view;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_buyer_view_profile, null);
+        profile_view = view;
         setHasOptionsMenu(true);
         ((TextView)view.findViewById(R.id.header)).setText("Buyer Detail");
         ((ImageButton)view.findViewById(R.id.back_button)).setVisibility(View.GONE);
@@ -59,6 +61,7 @@ public class BuyerViewProfileActivity extends Fragment {
                 Intent intent = new Intent(requireActivity(), BuyerEditProfileActivity.class);
                 intent.putExtra("buyer", (Serializable) buyer);
                 startActivity(intent);
+                UpdateInformation(profile_view);
             }
         });
         UpdateInformation(view);
