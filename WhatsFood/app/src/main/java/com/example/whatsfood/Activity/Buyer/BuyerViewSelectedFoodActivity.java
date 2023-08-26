@@ -310,7 +310,7 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                                 buyerRef.child("cartDetailList").setValue(cartDetailList);
 
 
-                                Toast.makeText(BuyerViewSelectedFoodActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BuyerViewSelectedFoodActivity.this, "Add to cart successfully", Toast.LENGTH_SHORT).show();
 
                                 // Đóng Popup Dialog sau khi xử lý
                                 dialog.dismiss();
@@ -318,13 +318,13 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                                 // Số lượng không hợp lệ (phải là số tự nhiên dương)
                                 // Hiển thị thông báo hoặc cảnh báo cho người dùng
                                 // Ví dụ:
-                                Toast.makeText(BuyerViewSelectedFoodActivity.this, "Số lượng không hợp lệ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BuyerViewSelectedFoodActivity.this, "Invalid amount", Toast.LENGTH_SHORT).show();
                             }
                         } catch (NumberFormatException e) {
                             // Không thể chuyển đổi thành số, số lượng không hợp lệ
                             // Hiển thị thông báo hoặc cảnh báo cho người dùng
                             // Ví dụ:
-                            Toast.makeText(BuyerViewSelectedFoodActivity.this, "Số lượng không hợp lệ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BuyerViewSelectedFoodActivity.this, "Invalid amount", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
