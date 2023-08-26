@@ -115,7 +115,6 @@ public class SellerHomeActivity extends Fragment {
             }
         });
 
-
         return view;
     }
 }

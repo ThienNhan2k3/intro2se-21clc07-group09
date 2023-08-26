@@ -21,50 +21,24 @@
         android:textSize="40sp"
         android:textStyle="bold" />
 
-    <RelativeLayout
-        android:id="@+id/search_bar_buyer_home"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_below="@id/order_list_logo"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/seach_edit_text_buyer_home"
-            android:layout_width="300dp"
-            android:layout_height="44dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:background="#fff"
-            android:ems="10"
-            android:hint="Enter name"
-            android:inputType="text" />
-
-        <ImageButton
-            android:id="@+id/search_image_button_buyer_home"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:layout_toRightOf="@id/seach_edit_text_buyer_home"
-            android:background="#00FFFFFF"
-            android:contentDescription="back button"
+    <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="410dp"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="84dp"
+            android:background="#FFFFFF"
             android:padding="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_search"
-            android:tint="#FFFFFF"
-            tools:ignore="UseAppTint" />
-    </RelativeLayout>
-
+            android:queryHint="Search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/list_view_buyer_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_bar_buyer_home"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="150dp"
         android:clickable="true"
         android:cacheColorHint="#00000000"
         android:divider="@android:color/transparent"
@@ -77,4 +51,21 @@
         android:paddingHorizontal="20dp"
         />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="581dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="0dp"
+        android:cacheColorHint="#00000000"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:paddingHorizontal="20dp"
+        android:scrollbars="none"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true" />
 </RelativeLayout>

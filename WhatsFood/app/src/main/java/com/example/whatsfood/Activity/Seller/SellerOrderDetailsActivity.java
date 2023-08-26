@@ -52,7 +52,6 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.food_list_seller_order_details);
         approve_button = (Button) findViewById(R.id.approve_button);
         deny_button = (Button) findViewById(R.id.deny_button);
-        back_button = findViewById(R.id.image_button_seller_view_seleted_food);
         view_orderID = findViewById(R.id.order_id_text_view_seller_order_details);
         view_address = findViewById(R.id.address_text_view_seller_order_details);
         foodAdapter = new FoodAdapter(this, R.layout.item_suborder, foodList);
@@ -92,10 +91,17 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
 //                    "100000",
 //                    imageUrl,
 //                    "1",
-//                    "sellerId",
+//                    "sell erId",
 //                    "Shoppe",
 //                    comments));
 //        }
+        ((TextView) findViewById(R.id.header)).setText("Order Detail");
+        ((ImageButton) findViewById(R.id.back_button)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         approve_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,47 +118,20 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     private void update_order() {
         view_orderID.setText(order.getOrderId());
         view_address.setText(order.getShip_to());
+        ArrayList<Food> foods = new ArrayList<Food>();
         for (CartDetail food : order.getFoodList()) {
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Food");
-            mDatabase.child(food.getFoodId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        order.foodList.remove(food);
-                        order.totalMoney -= food.getPrice() * food.getNumber();
-                        order.UpdateDataToServer();
-                    }
-                    else {
-                        Food origin_food = task.getResult().getValue(Food.class);
-                        if (origin_food != null) {
-                            if (food.getNumber() > origin_food.getQuantity()) {
-                                order.foodList.remove(food);
-                                order.totalMoney -= food.getPrice() * food.getNumber();
-                                order.UpdateDataToServer();
-                            } else {
-                                foodList.add(origin_food);
-                                foodAdapter.foodList.add(origin_food);
-                                foodAdapter.notifyDataSetChanged();
-                            }
-                        }
-                    }
-                }
-            });
+            Food temp = new Food(food.getFoodId(), food.getName(), "",
+                    food.getPrice(), food.getImageUrl(),
+                    food.getNumber(), food.getSellerId(),
+                    "", new ArrayList<String>());
+            foods.add(temp);
         }
-        if (!order.getFoodList().isEmpty()) {
-            return;
-        }
+        foodAdapter.foodList = foods;
+        foodAdapter.notifyDataSetChanged();
     }
 }
