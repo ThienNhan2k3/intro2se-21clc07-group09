@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.whatsfood.Activity.AfterRegisterActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerViewSelectedFoodActivity;
 import com.example.whatsfood.Adapter.OrderAdapterForBuyer;
 import com.example.whatsfood.Model.Food;

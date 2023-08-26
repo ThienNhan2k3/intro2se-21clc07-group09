@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.whatsfood.Activity.AfterRegisterActivity;
 import com.example.whatsfood.Activity.LoginActivity;
@@ -31,6 +33,7 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
     ArrayList<Food> foodList;
     FoodAdapter foodAdapter;
     Button approve_button, deny_button;
+    ImageButton back_button;
     Order order;
 
     @Override
@@ -38,9 +41,12 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_order_details);
 
+        ((TextView)findViewById(R.id.header)).setText("Order Detail");
+        back_button = (ImageButton)findViewById(R.id.back_button);
         listView = (ListView) findViewById(R.id.food_list_seller_order_details);
         approve_button = (Button) findViewById(R.id.approve_button);
         deny_button = (Button) findViewById(R.id.deny_button);
+        foodList = new ArrayList<Food>();
         foodAdapter = new FoodAdapter(this, R.layout.item_suborder, foodList);
         listView.setAdapter(foodAdapter);
 
@@ -76,6 +82,12 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         update_order();
     }
@@ -93,7 +105,7 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
                     }
                     else {
                         Food origin_food = task.getResult().getValue(Food.class);
-                        if (food.getNumber() > origin_food.getQuantity()) {
+                        if (origin_food == null || food.getNumber() > origin_food.getQuantity()) {
                             order.foodList.remove(food);
                             order.totalMoney -= food.getPrice() * food.getNumber();
                             order.UpdateDataToServer();
@@ -101,7 +113,7 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
                         else {
                             foodList.add(origin_food);
                             foodAdapter.foodList.add(origin_food);
-                            foodAdapter.notify();
+                            foodAdapter.notifyDataSetChanged();
                         }
                     }
                 }
