@@ -28,10 +28,8 @@ import java.util.regex.Pattern;
 public class User implements Serializable {
     public String username;
     public String avatarUrl;
-    public  User() {
-
-    }
-    public User(String username, String avatarUrl) {
+    public  User() { super();  }
+    public User(String username, String avatarUrl ) {
         this.username = username;
         this.avatarUrl = avatarUrl;
     }
