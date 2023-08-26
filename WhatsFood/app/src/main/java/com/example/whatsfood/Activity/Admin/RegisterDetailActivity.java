@@ -18,6 +18,7 @@ import com.example.whatsfood.UI_Functions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -77,6 +78,7 @@ public class RegisterDetailActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.description)).setText("Description: " + seller.storeDescription);
         ((TextView)findViewById(R.id.address)).setText("Address: " + seller.address);
         ((TextView)findViewById(R.id.phone)).setText("Phone: " + seller.phone);
-        ((TextView)findViewById(R.id.email)).setText("Email: ");
+        FirebaseUser fb_user = FirebaseAuth.getInstance().getCurrentUser();
+        ((TextView)findViewById(R.id.email)).setText("Email: "+ fb_user.getEmail());
     }
 }

@@ -55,7 +55,7 @@ public class RegisterSellerActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.header)).setText("Seller Register");
         mAuth = FirebaseAuth.getInstance();
         //EditTexts
-        username = (EditText)findViewById(R.id.store_name);
+        username = (EditText)findViewById(R.id.username);
         avatar_button = (ImageButton)findViewById(R.id.avatar_button);
         password = (EditText)findViewById(R.id.password);
         confirm_password = (EditText)findViewById(R.id.confirm_password);
