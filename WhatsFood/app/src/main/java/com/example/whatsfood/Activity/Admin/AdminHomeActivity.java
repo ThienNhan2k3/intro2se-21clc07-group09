@@ -35,13 +35,14 @@ public class AdminHomeActivity extends Fragment {
     private ArrayList<Pair<String, User >> users;
     private ViewUserAdminAdapter adapter;
     private ListView listView;
+    private TextView header;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_admin_home, null);
-        requireActivity().setTitle("Home");
-        ((TextView)view.findViewById(R.id.Header)).setText("User accounts");
+        header = (TextView) view.findViewById(R.id.header);
+        header.setText("User accounts");
         listView = (ListView)view.findViewById(R.id.users);
         setHasOptionsMenu(true);
         users = new ArrayList<>();
@@ -74,7 +75,7 @@ public class AdminHomeActivity extends Fragment {
     }
 
     private void UpdateAdapter() {
-        adapter = new ViewUserAdminAdapter(getActivity(), R.layout.activity_admin_home, users);
+        adapter = new ViewUserAdminAdapter(getActivity(), R.layout.user_holder, users);
         listView.setAdapter(adapter);
     }
 }
