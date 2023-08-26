@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Telephony;
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,14 +17,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.whatsfood.Activity.Admin.AdminBottomNavigationActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerBottomNavigationActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerViewSelectedFoodActivity;
+import com.example.whatsfood.Activity.Buyer.RegisterBuyerActivity;
 import com.example.whatsfood.Activity.Seller.SellerBottomNavigationActivity;
 import com.example.whatsfood.FormatTextWatcher;
+import com.example.whatsfood.Model.Seller;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -83,8 +88,40 @@ public class LoginActivity extends AppCompatActivity {
             login_button.setEnabled(true);
             return;
         }
+        if (username_email.contains("@")) {
+            firebase_login(username_email, password);
+        }
+        else {
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("User");
+            mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                    }
+                    else {
+                        boolean hasUser = false;
+                        for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                            String username = String.valueOf(dataSnapshot.child("username").getValue());
+                            if (username.equals(username_email)) {
+                                String email = String.valueOf(dataSnapshot.child("email").getValue());
+                                firebase_login(email, password);
+                                hasUser = true;
+                                break;
+                            }
+                        }
+                        if (!hasUser) {
+                            UI_Functions.CreatePopup(LoginActivity.this, "Account not exists");
+                        }
+                    }
+                }
+            });
+        }
         //Call sign in method from mAuth
-        mAuth.signInWithEmailAndPassword(username_email, password)
+
+    }
+
+    private void firebase_login(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -136,7 +173,16 @@ public class LoginActivity extends AppCompatActivity {
                             });
                         } else {
                             // If sign in fails, display a message to the user.
-                            UI_Functions.CreatePopup(LoginActivity.this, "Incorrect Password");
+                            FirebaseAuthException exception = (FirebaseAuthException) task.getException();
+                            if (exception != null) {
+                                Log.w("firebase", exception.getErrorCode());
+                                if (exception.getErrorCode() == "ERROR_USER_NOT_FOUND") {
+                                    UI_Functions.CreatePopup(LoginActivity.this, "Account not exists");
+                                }
+                                else if (exception.getErrorCode() == "ERROR_WRONG_PASSWORD") {
+                                    UI_Functions.CreatePopup(LoginActivity.this, "Wrong password");
+                                }
+                            }
                             login_button.setEnabled(true);
                         }
                     }
