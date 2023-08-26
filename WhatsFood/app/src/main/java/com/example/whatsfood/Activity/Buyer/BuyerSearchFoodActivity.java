@@ -40,7 +40,7 @@ public class BuyerSearchFoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buyer_search_food);
+        setContentView(R.layout.activity_buyer_home);
         ref = FirebaseDatabase.getInstance().getReference().child("https://whatsfood-13e7e-default-rtdb.asia-southeast1.firebasedatabase.app/").child("Food");
         recyclerView = findViewById(R.id.rv);
         searchView = findViewById(R.id.searchView);
