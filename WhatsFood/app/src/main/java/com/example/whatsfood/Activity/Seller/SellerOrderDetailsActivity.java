@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SellerOrderDetailsActivity extends AppCompatActivity {
     ListView listView;
@@ -65,6 +66,10 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
                 order = snapshot.getValue(Order.class);
                 if (order != null) {
                     update_order();
+                    if (!Objects.equals(order.status, "waiting")) {
+                        approve_button.setVisibility(View.GONE);
+                        deny_button.setVisibility(View.GONE);
+                    }
                 }
                 else {
                     UI_Functions.CreatePopup(SellerOrderDetailsActivity.this, "Order has been cancelled");
@@ -106,7 +111,7 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 order.setStatus("shipping");
-                update_order();
+                order.UpdateDataToServer();
                 finish();
             }
         });
