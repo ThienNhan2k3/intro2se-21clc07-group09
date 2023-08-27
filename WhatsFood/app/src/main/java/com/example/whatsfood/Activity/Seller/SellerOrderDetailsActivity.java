@@ -66,7 +66,7 @@ public class SellerOrderDetailsActivity extends AppCompatActivity {
                 order = snapshot.getValue(Order.class);
                 if (order != null) {
                     update_order();
-                    if (!Objects.equals(order.status, "waiting")) {
+                    if (!Objects.equals(order.status, "Waiting")) {
                         approve_button.setVisibility(View.GONE);
                         deny_button.setVisibility(View.GONE);
                     }
