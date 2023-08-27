@@ -2,6 +2,7 @@ package com.example.whatsfood.Activity.Seller;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.whatsfood.Activity.ChangePasswordActivity;
+import com.example.whatsfood.Activity.LoginActivity;
 import com.example.whatsfood.Model.Seller;
 import com.example.whatsfood.R;
 import com.example.whatsfood.UI_Functions;
@@ -36,6 +38,8 @@ public class SellerViewProfileActivity extends Fragment {
     Button change_password_button, edit_profile_button;
     String seller_id;
     Seller seller;
+    AppCompatButton logout_button;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,6 +49,17 @@ public class SellerViewProfileActivity extends Fragment {
         ((ImageButton)view.findViewById(R.id.back_button)).setVisibility(View.GONE);
         change_password_button = (Button)view.findViewById(R.id.change_password_button);
         edit_profile_button = (Button)view.findViewById(R.id.edit_profile_button);
+        logout_button = (AppCompatButton) view.findViewById(R.id.logout_button_seller_view_profile);
+
+        logout_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
+            }
+        });
+
         change_password_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
