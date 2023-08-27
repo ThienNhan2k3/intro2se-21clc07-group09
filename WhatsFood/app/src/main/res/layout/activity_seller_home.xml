@@ -21,17 +21,21 @@
         android:textStyle="bold"
         android:id="@+id/order_list_logo"/>
 
-    <GridView
-        android:id="@+id/order_grid_list"
+    <ListView
+        android:id="@+id/order_list_view_seller_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/order_list_logo"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:horizontalSpacing="19dp"
-        android:numColumns="2"
+        android:clickable="true"
+        android:cacheColorHint="#00000000"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:scrollbars="none"
         android:paddingHorizontal="20dp"
-        android:verticalSpacing="23dp" />
-
-
+        />
 </RelativeLayout>

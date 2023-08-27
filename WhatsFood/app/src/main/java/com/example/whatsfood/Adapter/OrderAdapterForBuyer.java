@@ -98,7 +98,9 @@ public class OrderAdapterForBuyer extends BaseAdapter {
             for (int j = 0; j < foodList.size() - 1; j++) {
                 foodNameList += foodList.get(j).getName() + ", ";
             }
-            foodNameList += foodList.get(foodList.size() - 1).getName() + ". ";
+            if (foodList.size() >= 1) {
+                foodNameList += foodList.get(foodList.size() - 1).getName() + ". ";
+            }
             viewHolder.foodNameList.setText(foodNameList);
         }
         if (layout == R.layout.order_placeholder_seller) {
