@@ -283,11 +283,10 @@ public class BuyerViewSelectedFoodActivity extends AppCompatActivity {
                         String numberOfFoodStr = numberOfFoodEditText.getText().toString();
 
                         boolean foodExists = false;
-
                         // Kiểm tra xem numberOfFoodStr có phải là số tự nhiên hay không
                         try {
                             int numberOfFood = Integer.parseInt(numberOfFoodStr);
-                            if (numberOfFood > 0) {
+                            if (numberOfFood > 0 & numberOfFood < food.getQuantity()) {
                                 if(cartDetailList!=null) {
                                     // Kiểm tra xem foodId đã tồn tại trong giỏ hàng hay chưa
                                     for (CartDetail cartItem : cartDetailList) {
