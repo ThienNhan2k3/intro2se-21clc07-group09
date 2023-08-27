@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
 
 import com.example.whatsfood.Activity.AfterRegisterActivity;
 import com.example.whatsfood.Activity.Buyer.BuyerViewSelectedFoodActivity;
@@ -30,13 +31,14 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SellerHomeActivity extends Fragment {
 
-    GridView gridView;
+    ListView listView;
     ArrayList<Order> orderList;
-    OrderAdapterForSeller orderAdapter;
+    OrderAdapterForBuyer orderAdapter;
     ArrayList<Food> foodList;
 
     StorageReference storageRef = FirebaseStorage.getInstance().getReference();
@@ -50,13 +52,13 @@ public class SellerHomeActivity extends Fragment {
         requireActivity().setTitle("Home");
         setHasOptionsMenu(true);
 
-        gridView = (GridView) view.findViewById(R.id.order_grid_list);
+        listView = (ListView) view.findViewById(R.id.order_list_view_seller_home);
 
         orderList = new ArrayList<Order>();
-        orderAdapter = new OrderAdapterForSeller(getActivity(), R.layout.order_placeholder_seller, orderList);
-        gridView.setAdapter(orderAdapter);
+        orderAdapter = new OrderAdapterForBuyer(getActivity(), R.layout.order_placeholder_buyer, orderList);
+        listView.setAdapter(orderAdapter);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (orderList.get(i).getOrderId() != null) {
